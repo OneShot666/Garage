@@ -1,5 +1,5 @@
 <?php
-    include("php/fonction.php");
+    include("php/function.php");
     Connexion();
     session_start();
     global $nom_du_site;
@@ -58,38 +58,38 @@
             <div id="#tab">
                 <table>
                     <thead>
-                    <?php
-                    $resultat = Database();
-                    $database = $resultat[0];
+                        <?php
+                            $resultat = Database();
+                            $database = $resultat[0];
 
-                    $titre = $database[0];
-                    foreach ($titre as $name=>$value) {
-                        echo "<th>" . $name . "</th>";
-                    }
-                    ?>
+                            $titre = $database[0];
+                            foreach ($titre as $name=>$value) {
+                                echo "<th>" . $name . "</th>";
+                        }
+                        ?>
                     </thead>
 
                     <tbody>
-                    <?php
-                    foreach ($resultat as $database) {
-                        foreach ($database as $colonne) {
-                            echo "<tr>";
-                            foreach ($colonne as $annexe=>$ligne) {
-                                echo "<td>".$ligne;
-                                if ($annexe == "prix") {
-                                    echo " &#8364;</td>";
-                                }
-                                else if ($annexe == "nb chevaux") {
-                                    echo " CH</td>";
-                                }
-                                else {
-                                    echo "</td>";
+                        <?php
+                            foreach ($resultat as $database) {
+                                foreach ($database as $colonne) {
+                                    echo "<tr>";
+                                    foreach ($colonne as $annexe=>$ligne) {
+                                        echo "<td>".$ligne;
+                                        if ($annexe == "prix") {
+                                            echo " &#8364;</td>";
+                                        }
+                                        else if ($annexe == "nb chevaux") {
+                                            echo " CH</td>";
+                                        }
+                                        else {
+                                            echo "</td>";
+                                        }
+                                    }
+                                    echo "</tr>";
                                 }
                             }
-                            echo "</tr>";
-                        }
-                    }
-                    ?>
+                        ?>
                     </tbody>
                 </table>
             </div>

@@ -1,5 +1,5 @@
 <?php
-    include("php/fonction.php");
+    include("php/function.php");
     Connexion();
     session_start();
     global $nom_du_site;

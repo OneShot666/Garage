@@ -1,5 +1,5 @@
 <?php
-    include("php/fonction.php");
+    include("php/function.php");
     Connexion();
     session_start();
     global $nom_du_site;
@@ -15,14 +15,15 @@
             <?php echo $page_name; ?>
         </title>
         <meta charset="utf-8">
+          <link rel="icon" type="image/png" href="https://ionic.io/ionicons">
+          <ion-icon name="car-sport-outline"></ion-icon>
+          <link rel="stylesheet" type="text/css" href="css/style.css">
+          <link rel="stylesheet" type="text/css" href="css/design.css">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link rel="stylesheet" type="text/css" href="css/design.css">
     </head>
 
     <body class="design">
         <?php require_once "include/header.php" ?>
-
         <br>
 
         <h1>
@@ -204,6 +205,27 @@
                 <div class="fingerprint"></div>
                 <h3>Scanning...</h3>
             </div>
+        </div>
+
+        <br>
+
+        <h1>
+            <span class="radio_button_title">Radio button</span>
+        </h1>
+
+        <div class="radio_button_main">
+            <label><input type="radio" name="bouton" checked></label>
+            <label><input type="radio" name="bouton"></label>
+        </div>
+
+        <br>
+
+        <h1>
+            <span class="checkbox_button_title">Checkbox button</span>
+        </h1>
+
+        <div class="checkbox_button_main">
+            <label><input type="checkbox" name="bouton"></label>
         </div>
 
         <br>

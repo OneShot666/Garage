@@ -1,5 +1,5 @@
 <?php
-    include("php/fonction.php");
+    include("php/function.php");
     Connexion();
     session_start();
     global $nom_du_site;
@@ -30,22 +30,23 @@
 
         <br>
 
-        <p>
+        <h3>
             N'oubliez pas l'abonnement premium.
-        </p>
+        </h3>
 
         <br>
 
         <div class="login">
-            <nav content="Inscription" class="formulaire">
-                <form action="php/check_connect.php" method="post">
+            <nav content="Inscription" class="formulaire" align="center">
+                <form action="connect_page.php" method="post">
                     <label for="speudo">Pseudonyme :
-                        <input type="text" name="speudo" placeholder="ex: Tintin" required>
+                        <input type="text" name="username" placeholder="ex: Tintin"
+                               autocomplete="off" required>
                     </label>
                     <br><br>
                     <label for="password">Mot de passe :
-                        <input type="text" name="password"
-                               placeholder="Au moins 8 caractères, avec des chiffres et des lettres" required>
+                        <input type="password" name="password" placeholder="8 caractères minimum"
+                               autocomplete="off" required>
                     </label>
                     <br><br>
 

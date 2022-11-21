@@ -1,5 +1,6 @@
 <?php
-    include("php/fonction.php");
+    if (!$_SESSION['username']) { header("Location: ../index.php"); }
+    include("../php/fonction.php");
     Connexion();
     session_start();
     global $nom_du_site;
@@ -20,7 +21,7 @@
     </head>
 
     <body style="text-align: center">
-        <?php require_once "include/header.php" ?>
+        <?php require_once "../include/header.php" ?>
 
         <br>
 
@@ -34,12 +35,14 @@
 
         <br>
 
-        <button style="text-align: center;">
-            <a href="../accueil.php">Accueil</a>
-        </button>
+        <div style="display: flex; justify-content: center; text-align: center;">
+            <button>
+                <a href="../accueil.php">Accueil</a>
+            </button>
+        </div>
 
         <br>
 
-        <?php require_once "include/footer.php" ?>
+        <?php require_once "../include/footer.php" ?>
     </body>
 </html>

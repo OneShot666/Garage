@@ -1,5 +1,5 @@
 <?php
-    include("php/fonction.php");
+    include("php/function.php");
     Connexion();
     session_start();
     global $nom_du_site;
@@ -40,9 +40,9 @@
 
         <div>
             <nav content="Inscription" class="formulaire">
-                <form action="include/connected.php" method="post">
+                <form action="login_page.php" method="post">
                     <label for="name">Nom :
-                        <input type="text" name="name" placeholder="John" required>
+                        <input type="varchar" name="name" placeholder="John" required>
                     </label>
                     <br><br>
                     <label for="nickname">Prénom :
@@ -50,7 +50,7 @@
                     </label>
                     <br><br>
                     <label for="age">Age :
-                        <input type="text" name="age" placeholder="18 ans et plus" required>
+                        <input type="int" name="age" placeholder="18 ans et plus" required>
                     </label>
                     <br><br>
                     <label for="phone">Téléphone :
@@ -61,16 +61,16 @@
                         <input type="text" name="mail" placeholder="adresse@mail.com">
                     </label>
                     <br><br>
-                    <label for="speudo">Pseudonyme :
-                        <input type="text" name="speudo" placeholder="ex: Tintin" required>
+                    <label for="username">Pseudonyme :
+                        <input type="text" name="username" placeholder="ex: Tintin" required>
                     </label>
                     <br><br>
                     <label for="password">Mot de passe :
-                        <input type="password" name="password"
-                               placeholder="Au moins 8 caractères, avec des chiffres et des lettres" required>
+                        <input type="password" name="password" placeholder="8 caractères minimum"
+                               autocomplete="off" required>
                     </label>
                     <br><br>
-                    <input type="submit" value="Envoyer">
+                    <input type="submit" name="envoyer" value="Envoyer">
                 </form>
             </nav>
         </div>

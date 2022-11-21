@@ -1,4 +1,5 @@
 <?php
+    if (!$_SESSION['username']) { header("Location: index.php"); }
     $resultat = Database();
     $database = $resultat[0];
 

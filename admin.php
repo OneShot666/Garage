@@ -1,11 +1,13 @@
   <?php
-    include("php/fonction.php");
+    include("php/function.php");
     Connexion();
     session_start();
     global $nom_du_site;
     $page_name = $nom_du_site . " - Administrateur";
     $nav = "admin";
 ?>
+
+<!-- Ajouter une vérification pour voir si un compte est connecté -->
 
 <!DOCTYPE html>
 

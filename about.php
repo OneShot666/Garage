@@ -1,5 +1,5 @@
 <?php
-    include("php/fonction.php");
+    include("php/function.php");
     Connexion();
     session_start();
     global $nom_du_site;
@@ -34,8 +34,8 @@
             </h3>
 
             <p>
-                Nous sommes une équipe de garagistes, certains experts, certains débutants.<br>
-                Tous passionés, nous entretenons des relations aussi bien professionnelles qu'amicales.<br>
+                Nous sommes une équipe de garagistes, certains experts, d'autres débutants.<br>
+                Tous passionnés, nous entretenons des relations aussi bien professionnelles qu'amicales.<br>
             </p>
         </span>
 
@@ -60,7 +60,7 @@
 
             <p>
                 Pour plus d'informations, vous pouvez visiter nos réseaux sociaux<br>
-                ou contacter un de nos employés via son compte Facebook.<br>
+                ou contacter un de nos employés via son compte Facebook ou LinkedIn.<br>
             </p>
         </span>
 

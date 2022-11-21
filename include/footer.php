@@ -1,3 +1,7 @@
+<?php
+    if (!$_SESSION['username']) { header("Location: ../index.php"); }
+?>
+
 <div>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 
