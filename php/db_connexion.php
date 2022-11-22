@@ -1,5 +1,6 @@
 <?php
-    if (!$_SESSION['username']) { header("Location: index.php"); }
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION;
+    // if (!$_SESSION['username']) { header("Location: index.php"); }
     $resultat = Database();
     $database = $resultat[0];
 

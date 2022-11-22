@@ -1,8 +1,7 @@
 <?php
     include("php/function.php");
     Connexion();
-    session_start();
-    global $nom_du_site;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION;
     $page_name = $nom_du_site . " - Design";
     $nav = "design";
 ?>
@@ -15,10 +14,10 @@
             <?php echo $page_name; ?>
         </title>
         <meta charset="utf-8">
-          <link rel="icon" type="image/png" href="https://ionic.io/ionicons">
-          <ion-icon name="car-sport-outline"></ion-icon>
-          <link rel="stylesheet" type="text/css" href="css/style.css">
-          <link rel="stylesheet" type="text/css" href="css/design.css">
+            <link rel="icon" type="image/png" href="images/icon.svg"><!--https://ionic.io/ionicons"-->
+            <!--ion-icon name="car-sport-outline"></ion-icon-->
+            <link rel="stylesheet" type="text/css" href="css/style.css">
+            <link rel="stylesheet" type="text/css" href="css/design.css">
         <meta name="viewport" content="width=device-width">
     </head>
 
@@ -90,12 +89,12 @@
                     m = (m < 10) ? "0" + m : m;
                     s = (s < 10) ? "0" + s : s;
 
-                    hours.innerHTML = h + "<br><span>Hours</span>";             // Affecte la valeur (h, m, s, a)
-                    minutes.innerHTML = m + "<br><span>Minutes</span>";         // aux éléments (hours, minutes, seconds, ampm)
-                    seconds.innerHTML = s + "<br><span>Seconds</span>";         // sur la page web du site
+                    hours.innerHTML = h + "<br><span>Hours</span>";       // Affecte la valeur (h, m, s, a)
+                    minutes.innerHTML = m + "<br><span>Minutes</span>";   // aux éléments (hours, minutes, seconds, ampm)
+                    seconds.innerHTML = s + "<br><span>Seconds</span>";   // sur la page web du site
                     ampm.innerHTML = a;
 
-                    hh.style.strokeDashoffset = 440 - (440 * h) / 12;           // Calcule la longueur actuelle (cercle coloré)
+                    hh.style.strokeDashoffset = 440 - (440 * h) / 12;     // Calcule la longueur actuelle (cercle coloré)
                     mm.style.strokeDashoffset = 440 - (440 * m) / 60;
                     ss.style.strokeDashoffset = 440 - (440 * s) / 60;
 

@@ -1,5 +1,6 @@
 <?php
-    if (!$_SESSION['username']) { header("Location: ../index.php"); }
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION;
+    // if (!$_SESSION['username']) { header("Location: ../index.php"); }
     try {
         $database = new PDO("mysql:host=localhost; dbname=garage", "root", "");
         $database -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -1,8 +1,7 @@
 <?php
     include("php/function.php");
     Connexion();
-    session_start();
-    global $nom_du_site;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION;
     $page_name = $nom_du_site . " - Connection";
     $nav = "connection";
 ?>
@@ -15,9 +14,9 @@
             <?php echo $page_name; ?>
         </title>
         <meta charset="utf-8">
-          <link rel="icon" type="image/png" href="https://ionic.io/ionicons">
-          <ion-icon name="car-sport-outline"></ion-icon>
-          <link rel="stylesheet" type="text/css" href="style.css">
+            <link rel="icon" type="image/png" href="images/icon.svg"><!--https://ionic.io/ionicons"-->
+            <!--ion-icon name="car-sport-outline"></ion-icon-->
+            <link rel="stylesheet" type="text/css" href="style.css">
         <meta name="viewport" content="width=device-width">
     </head>
 

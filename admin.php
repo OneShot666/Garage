@@ -1,13 +1,12 @@
-  <?php
+<?php
     include("php/function.php");
-    Connexion();
-    session_start();
-    global $nom_du_site;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION;
+    if (!$_SESSION['username']) { header("Location: index.php"); }
     $page_name = $nom_du_site . " - Administrateur";
     $nav = "admin";
 ?>
 
-<!-- Ajouter une vérification pour voir si un compte est connecté -->
+<!-- Ajouter une vérification/redirection pour voir si un compte est connecté -->
 
 <!DOCTYPE html>
 
@@ -17,52 +16,22 @@
             <?php echo $page_name; ?>
         </title>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
+            <link rel="icon" type="image/png" href="images/icon.svg"><!--https://ionic.io/ionicons"-->
+            <!--ion-icon name="car-sport-outline"></ion-icon-->
+            <link rel="stylesheet" type="text/css" href="css/style.css">
         <meta name="viewport" content="width=device-width">
     </head>
 
     <body>
         <?php require_once "include/header.php" ?>
-
-        <br><br><br>
-
-        <div class="formulaire" style="float: left; margin: 0 3%; width: 35%;">
-            <h1>
-                <span>Ajouter une voiture</span>
-            </h1>
-
-            <br>
-
-            <?php require "include/car_part.php" ?>
-        </div>
-
         <br>
 
-        <div class="formulaire" style="float: left; margin: 0 3%; width: 35%;">
-            <h1>
-                Modifier une voiture
-            </h1>
+        <?php require "php/car_add.php" ?>
 
-            <br>
+        <?php require "php/car_mod.php" ?>
 
-            <?php require "include/car_part.php" ?>
-        </div>
-
+        <?php require "php/car_del.php" ?>
         <br>
-
-        <div class="formulaire" style="float: left; margin: 0 3%; width: 35%;">
-            <h1>
-                Supprimer une voiture
-            </h1>
-
-            <br>
-
-            <?php require "include/car_part.php" ?>
-        </div>
-
-        <br>
-
-        <div></div>
 
         <?php require_once "include/footer.php" ?>
     </body>

@@ -1,8 +1,7 @@
 <?php
     include("php/function.php");
     Connexion();
-    session_start();
-    global $nom_du_site;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION;
     $page_name = $nom_du_site . " - A propos";
     $nav = "about";
 ?>
@@ -10,25 +9,27 @@
 <!DOCTYPE html>
 
 <html lang="fr">
-	<head>
-		<title>
+    <head>
+        <title>
             <?php echo $page_name; ?>
-		</title>
-		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+        </title>
+        <meta charset="utf-8">
+            <link rel="icon" type="image/png" href="images/icon.svg"><!--https://ionic.io/ionicons"-->
+            <!--ion-icon name="car-sport-outline"></ion-icon-->
+            <link rel="stylesheet" type="text/css" href="css/style.css">
         <meta name="viewport" content="width=device-width">
-	</head>
+    </head>
 
-	<body class="about">
+    <body class="about">
         <?php require_once "include/header.php" ?>
 
         <br>
 
-		<h1>
-			A propos de nous :
-		</h1>
+      	<h1>
+      		A propos de nous :
+      	</h1>
 
-        <span style="float: left;">
+        <span style="float: left; height: auto;">
             <h3>
                 Qui sommes-nous ?
             </h3>
@@ -39,7 +40,7 @@
             </p>
         </span>
 
-        <span style="float: right;">
+        <span style="float: right; height: auto;">
             <h3>
                 Quels services offrons-nous ?
             </h3>
@@ -53,7 +54,7 @@
             </p>
         </span>
 
-        <span style="float: left;">
+        <span style="float: left; height: auto;">
             <h3>
                 En savoir plus
             </h3>
@@ -67,5 +68,5 @@
         <br>
 
         <?php require_once "include/footer.php" ?>
-	</body>
+    </body>
 </html>

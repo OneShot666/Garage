@@ -1,10 +1,9 @@
 <?php
     include("php/function.php");
     Connexion();
-    session_start();
-    global $nom_du_site;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION;
     $page_name = $nom_du_site . " - Se connecter";
-    $nav = "connect";
+    $nav = "connect";   // login
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +14,9 @@
             <?php echo $page_name; ?>
         </title>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
+            <link rel="icon" type="image/png" href="images/icon.svg"><!--https://ionic.io/ionicons"-->
+            <!--ion-icon name="car-sport-outline"></ion-icon-->
+            <link rel="stylesheet" type="text/css" href="css/style.css">
         <meta name="viewport" content="width=device-width">
     </head>
 

@@ -1,7 +1,7 @@
 <?php
-    session_start();
     include("php/function.php");
     Connexion();
+    global $nom_du_site;
     $page_name = $nom_du_site . " - Accueil";
     $nav = "accueil";
 ?>
@@ -10,6 +10,7 @@
 <!-- Empêcher de mettre n'importe quoi dans l'url : limiter accès -->
 <!-- Créer document src ? -> mettre tous .php pages dedans -->
 <!-- Faire des banderoles (use all width of pages) pour meilleure présentation -->
+<!-- Remettre la redirection pour les fichiers dans include/ & php/ -->
 
 <!DOCTYPE html>
 
@@ -19,8 +20,8 @@
 		       <?php echo $page_name; ?>
         </title>
 	      <meta charset="utf-8">
-            <link rel="icon" type="image/png" href="https://ionic.io/ionicons">
-            <ion-icon name="car-sport-outline"></ion-icon>
+            <link rel="icon" type="image/png" href="images/icon.svg"><!--https://ionic.io/ionicons"-->
+            <!--ion-icon name="car-sport-outline"></ion-icon-->
             <link rel="stylesheet" type="text/css" href="css/style.css">
         <meta name="viewport" content="width=device-width">
     </head>
@@ -29,29 +30,28 @@
         <?php require_once "include/header.php" ?>
         <br>
 
-        <h2>
-            Bienvenue dans votre garage préféré !
-        </h2>
+        <main>
+            <h2>
+                Bienvenue dans votre garage préféré !
+            </h2>
 
-        <p>
-			     Choisissez la voiture de vos rêves !
-           <br>
-           Nous vous présentons nos meilleurs modèles.
-    		</p>
+            <p>
+    			     Choisissez la voiture de vos rêves !
+               <br>
+               Nous vous présentons nos meilleurs modèles.
+        		</p>
+        		<br>
 
-    		<hr>
-    		<br>
+            <?php require_once "include/search.php" ?>
 
-        <?php require_once "php/search.php" ?>
+            <h1>
+                Nos modèles
+            </h1>
 
-        <h3>
-            Nos modèles
-        </h3>
-        <br>
-
-        <div class="all_products">
-            <?php require_once "php/product.php" ?>
-    		</div>
+            <div class="all_products">
+                <?php require_once "include/product.php" ?>
+        		</div>
+        </main>
     		<br>
 
         <?php require_once "include/footer.php" ?>
