@@ -1,5 +1,0 @@
-Le chemin du site :
-
-
-C:\xampp\htdocs\Garage
-
