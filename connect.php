@@ -14,7 +14,7 @@
             <?php echo $page_name; ?>
         </title>
         <meta charset="utf-8">
-            <link rel="icon" type="image/png" href="images/icon.svg"><!--https://ionic.io/ionicons"-->
+            <link rel="icon" type="image/png" href="images/car/icon.svg"><!--https://ionic.io/ionicons"-->
             <!--ion-icon name="car-sport-outline"></ion-icon-->
             <link rel="stylesheet" type="text/css" href="css/style.css">
         <meta name="viewport" content="width=device-width">
@@ -41,13 +41,13 @@
             <nav content="Inscription" class="formulaire" align="center">
                 <form action="connect_page.php" method="post">
                     <label for="speudo">Pseudonyme :
-                        <input type="text" name="username" placeholder="ex: Tintin"
-                               autocomplete="off" required>
+                        <input type="varchar" name="username" placeholder="Pseudonyme"
+                               required>                                        <!-- autocomplete="off" -->
                     </label>
                     <br><br>
                     <label for="password">Mot de passe :
-                        <input type="password" name="password" placeholder="8 caractères minimum"
-                               autocomplete="off" required>
+                        <input type="password" name="password" placeholder="Mot de passe"
+                               required>                                        <!-- autocomplete="off" -->
                     </label>
                     <br><br>
 

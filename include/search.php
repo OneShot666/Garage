@@ -1,6 +1,11 @@
 <?php /** @noinspection PhpUndefinedVariableInspection */
     global $nom_du_site, $is_connected, $is_admin, $_SESSION;
-    // if (!$_SESSION['username']) { header("Location: ../index.php"); }
+    if (!isset($_SESSION['rights'])) {
+        if (strpos($_SERVER['PHP_SELF'], '/include') or strpos($_SERVER['PHP_SELF'], '/php')) {
+            header("Location: ../index.php");
+        }
+    }
+    
     @$recherche = $_GET["recherche"];
     @$envoyer = $_GET["envoyer"];
     @$afficher = False;

@@ -1,6 +1,12 @@
 <?php
-    // if (!$_SESSION['username']) { header("Location: ../index.php"); }
     global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars;
+    if (!isset($_SESSION['rights'])) {
+        if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
+        strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
+        strpos($_SERVER['PHP_SELF'], '/php')) {
+            header("Location: ../index.php");
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +54,7 @@
                 <br><br>
                 Modèle :
                 <select type="text" name="model" placeholder="Modèle" required>
-                    <?php                                                       // ! Ajouter afficher en fonction de 'brand'
+                    <?php
                         foreach ($array_cars as $key => $brand) {
                             foreach ($brand as $key2 => $model) {
                               echo ($model=="C4") ? "<option value='$model' selected>$model</option>" :
@@ -58,11 +64,11 @@
                 </select>
                 <br><br>
                 Prix (en euro) :
-                <input type="int" name="price" placeholder="Prix" required>
+                <input type="int" name="price" placeholder="Prix" pattern="[0-9]{3,8}" required>
                 &#8364;
                 <br><br>
                 Couleur :
-                <input type="text" name="color" placeholder="Couleur">
+                <input type="varchar" name="color" placeholder="Couleur" pattern="[a-zA-Z]">
                 <br><br>
                 Chevaux moteur :
                 <select type="int" name="horsepower" required>
@@ -73,8 +79,10 @@
                 </select>
                 ch
                 <br><br>
-                Numéro d'immatriculation : fr
-                <input type="int" name="numberplate" placeholder="Numéro d'immatriculation" required>
+                Numéro d'immatriculation :
+                <input type="int" name="numberplate" placeholder="ex : 1234"
+                 pattern="[0-9]{4}" required>
+                fr
                 <br><br>
                 Age (en année) :
                 <select type="int" name="age" required>
@@ -92,7 +100,8 @@
                        placeholder="Date d'entrée au garage">
                 <br><br>
                 Description :
-                <input type="text" name="description" placeholder="Description de la voiture">
+                <input type="text" name="description" placeholder="Description de la voiture"
+                 pattern="[a-zA-Z0-9_-]{20,999}">
                 <br><br>
             </label>
 

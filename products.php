@@ -1,7 +1,7 @@
 <?php
     include("php/function.php");
-    Connexion();
     global $nom_du_site, $is_connected, $is_admin, $_SESSION;
+    if (!$_SESSION['username'] or !$is_admin) { header("Location: error.php"); }
     $page_name = $nom_du_site . " - Produits";
     $nav = "products";
     $tab = 0;
@@ -15,7 +15,7 @@
             <?php echo $page_name; ?>
 		</title>
 		<meta charset="utf-8">
-        <link rel="icon" type="image/png" href="images/icon.svg"><!--https://ionic.io/ionicons"-->
+        <link rel="icon" type="image/png" href="images/car/icon.svg"><!--https://ionic.io/ionicons"-->
         <!--ion-icon name="car-sport-outline"></ion-icon-->
 		    <link rel="stylesheet" type="text/css" href="css/style.css">
     <meta name="viewport" content="width=device-width">
@@ -53,9 +53,9 @@
             </form>
         </div>
 
-        <?php if ($tab) { ?>
-            <br>
+        <br><br><br>
 
+        <?php if ($tab) { ?>
             <div id="#tab">
                 <table>
                     <thead>

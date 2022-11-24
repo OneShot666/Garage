@@ -7,6 +7,7 @@
     if (isset($_GET["logout"]) AND $_GET["logout"] == "Se déconnecter") {
         $_SESSION = array();
         $is_connected = False;
+        $is_admin = False;
         // /* session_destroy(); */                                             // !!! Empêche la réutilisation du code ?!
         header("Location: index.php");
     }
@@ -20,7 +21,7 @@
             <?php echo $page_name; ?>
         </title>
         <meta charset="utf-8">
-            <link rel="icon" type="image/png" href="images/icon.svg"><!--https://ionic.io/ionicons"-->
+            <link rel="icon" type="image/png" href="images/car/icon.svg"><!--https://ionic.io/ionicons"-->
             <!--ion-icon name="car-sport-outline"></ion-icon-->
             <link rel="stylesheet" type="text/css" href="css/style.css">
         <meta name="viewport" content="width=device-width">

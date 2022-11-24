@@ -1,6 +1,12 @@
 <?php
-    // if (!$_SESSION['username']) { header("Location: ../index.php"); }
     global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars;
+    if (!isset($_SESSION['rights'])) {
+        if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
+        strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
+        strpos($_SERVER['PHP_SELF'], '/php')) {
+            header("Location: ../index.php");
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -53,14 +59,15 @@
                 </select>
                 <br><br>
                 Prix (en euro) :
-                <input type="int" name="price" placeholder="Prix" required>
+                <input type="int" name="price" placeholder="Prix" pattern="[0-9]{3,8}" required>
                 &#8364;
                 <br><br>
                 Couleur :
-                <input type="text" name="color" placeholder="couleur" required>
+                <input type="varchar" name="color" placeholder="Couleur" pattern="[a-zA-Z]" required>
                 <br><br>
                 Numéro d'immatriculation : fr
-                <input type="int" name="numberplate" placeholder="Numéro d'immatriculation" required>
+                <input type="int" name="numberplate" placeholder="ex : 1234"
+                 pattern="[0-9]{4}" required>
                 <br><br>
             </label>
 

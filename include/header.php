@@ -1,7 +1,12 @@
 <?php
     global $nom_du_site, $is_connected, $is_admin, $_SESSION;
-    // echo ($is_connected) ? "<h2>Connecté(e) !</h2>" : "<h2>Non connecté(e) !</h2>";
-    // if (!$_SESSION['username']) { header("Location: ../index.php"); }
+    if (!isset($_SESSION['rights'])) {
+        if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
+        strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
+        strpos($_SERVER['PHP_SELF'], '/php')) {
+            header("Location: ../index.php");
+        }
+    }
 
     function Nav_item(string $lien, string $titre, string $style = "") {
         $classe = 'nav-item';
@@ -16,9 +21,11 @@
 
 <header class="menu">
     <div class="title">
-        <h1>
-            <?php echo $nom_du_site; ?>
-        </h1>
+        <a href="index.php" style="color:orangered; filter: brightness(1.2);">
+            <h1>
+                <?php echo $nom_du_site; ?>
+            </h1>
+        </a>
     </div>
 
     <div class="collapse navbar-collapse">

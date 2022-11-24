@@ -1,5 +1,9 @@
 <?php
-    // if (!$_SESSION['username']) { header("Location: ../index.php"); }
+if (!isset($_SESSION['rights'])) {
+    if (strpos($_SERVER['PHP_SELF'], '/include') or strpos($_SERVER['PHP_SELF'], '/php')) {
+        header("Location: ../index.php");
+    }
+}
 ?>
 
 <div>
@@ -7,14 +11,14 @@
 
     <footer class="credits">
         <div class="contacts">
-            Nos contacts
+            Nous contacter
 
             <ul>
                 <li>
-                Téléphone : 555-1669
+                    Téléphone : +687 16 42 69
                 </li>
                 <li>
-                    Mail : <a href="#">contact@expresscar.com</a>
+                    Mail : <a href="mailto: contact@expresscar.com">contact@expresscar.com</a>
                 </li>
                 <li>
                     Adresse : 3 rue de Potier, Normandie
@@ -23,17 +27,32 @@
         </div>
 
         <div class="medias">
-            Nous suivre sur les réseaux
+            Nous suivre sur les réseaux sociaux
 
-            <ul>
+            <ul style="display: flex;">
                 <li>
-                    <a href="https://www.facebook.com" target="_blank">Facebook</a>
+                    <a href="https://www.facebook.com" target="_blank">
+                        <img class="logo" style="background-color: lightblue;"
+                        alt="Facebook" src="images/footer/facebook_logo.png">
+                    </a>
                 </li>
                 <li>
-                    <a href="https://www.twitter.com" target="_blank">Twitter</a>
+                    <a href="https://www.instagram.com" target="_blank">
+                        <img class="logo" style="background-color: lightpink;"
+                        alt="Instagram" src="images/footer/instagram_logo.png">
+                    </a>
                 </li>
                 <li>
-                    <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+                    <a href="https://www.twitter.com" target="_blank">
+                        <img class="logo" style="background-color: powderblue;"
+                        alt="Twitter" src="images/footer/twitter_logo.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com" target="_blank">
+                        <img class="logo" style="background-color: lightskyblue;"
+                        alt="LinkedIn" src="images/footer/linkedin_logo.png">
+                    </a>
                 </li>
             </ul>
         </div>

@@ -1,10 +1,10 @@
 <?php
     session_start();
     global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars;
-    // $_SESSION = array();             // Pas instancier ici sinon reboot à chaque appel
+    Redirection();
     $nom_du_site = "Express Car";
-    $is_connected = ($_SESSION != array() and $_SESSION['username']) ? True : False;
-    $is_admin = ($_SESSION != array() and $_SESSION['username'] and isset($_SESSION['rights'])) ? True : False;
+    $is_connected = (isset($_SESSION['username'])) ? True : False;
+    $is_admin = (isset($_SESSION['username']) and isset($_SESSION['rights'])) ? True : False;
     $array_cars = [
       "Alfa"=>[],
       "Audi"=>[],
@@ -25,53 +25,73 @@
       "Toyota"=>[],
       "Volkswagen"=>[],
     ];
-    header("refresh: 60");                                                      // Rafraîchis la page toutes les minutes
+    header("refresh: 60");                                                      // Rafraîchis le site toutes les minutes
+
+    function Redirection() {                                                    // Renvoie user si modifie url
+        if (!isset($_SESSION['rights'])) {
+            if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
+            strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
+            strpos($_SERVER['PHP_SELF'], '/php')) {
+                header("Location: ../index.php");
+            }
+        }
+    }
 
     function Connexion(): PDO|string {
-        $server = "garagemir.btsinfo.nc";         // "localhost";
+        $server = "localhost";
         $dbname = "garage";
         $user = "root";
         $password = "";
+        // $port = 80;
+        // $command = \PDO::MYSQL_ATTR_INIT_COMMAND;                               // 1002;
 
         try { return new PDO("mysql:host=$server; dbname=$dbname; charset=utf8;", $user, $password); }
         catch (Exception $e) { return "Erreur de connexion à la base de données :\n" . $e->getMessage(); }
+        // try { return new PDO("mysql:host=".$server."; dbname=".$dbname."; port=".$port,
+        //      $user, $password, array(\PDO::MYSQL_ATTR_INIT_COMMAND=> "SET NAMES 'utf8'", 65536)); }
+        //catch (Exception $e) { return "Erreur de connexion à la base de données :\n" . $e->getMessage(); }
     }
 
-    function Database($dataname="car", $arg="*"): array {
+    function ExecuteSqlFile() {
+        $req = file_get_contents("data/garage.sql");
+        Sql($req);                                                              // Execute fichier entier
+    }
+
+    function Database($dataname='car', $column='*', $condition='1'): array {
         $connexion = Connexion();
-        $requete = $connexion->prepare("SELECT $arg FROM garage.$dataname");
+        $requete = $connexion->prepare("SELECT $column FROM garage.$dataname WHERE $condition");
         try { $requete->execute(); }
-        catch (Exception $e) { return array("Erreur de connexion à la table $dataname :\n$e"); }
+        catch (Exception $e) { return array("Erreur de connexion à la table '$dataname' :\n$e"); }
         return array($requete->fetchAll(PDO::FETCH_ASSOC));
     }
 
     // ! Si 'add', vérifier que la voiture n'existe pas déjà
     // ! Si 'delete', vérifier que l'on ne supprime qu'une voiture
     function CarPart($request="", $column="*", $condition="1") {
-      $connexion = Connexion();
-      $column = ($request=="delete" AND $column=="*") ? "description" : $column;// Evite de tous supprimer
-      $condition = ($column=="*" AND $condition="1") ? "0" : $condition;        // Evite de tous modifier
-      if ($request =="add") {                                                   // Ajoute une voiture
-          $sql="INSERT INTO garage.car(brand, model, numberplate, inscription_date,
-          age, color, horsepower, price, description) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-          $requete = $connexion->prepare($sql);
-          $requete->execute($column);
-      } else if ($request =="modify") {                                         // Modifie une voiture
-          $sql="UPDATE garage.car SET brand=?, model=?, numberplate=?, inscription_date=?,
-          age=?, color=?, horsepower=?, price=?, description=? WHERE $condition";
-          $requete = $connexion->prepare($sql);
-          $requete->execute($column);
-      } else if ($request =="delete") {                                         // Supprime une voiture
-          $sql="DELETE FROM garage.car WHERE $condition";
-          $requete = $connexion->prepare($sql);
-          $requete->execute();
-      } else {                                                                  // Retourne une voiture
-          $sql="SELECT $column FROM garage.car WHERE $condition";
-          $requete = $connexion->prepare($sql);
-          $requete->execute();
-      }
-      echo "Fin de la fonction CarPart() !";
-      // return array($requete->fetchAll(PDO::FETCH_ASSOC));
+        $connexion = Connexion();
+        $column = ($request=="delete" AND $column=="*") ? "description" : $column;// Evite de tous supprimer
+        $condition = ($column=="*" AND $condition=="1" AND $condition!="select") ?
+                     "0" : $condition;                                          // Evite de tous modifier
+        if ($request =="add") {                                                 // Ajoute une voiture
+            $sql="INSERT INTO garage.car(brand, model, numberplate, inscription_date,
+            age, color, horsepower, price, description) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $requete = $connexion->prepare($sql);
+            $requete->execute($column);
+        } else if ($request =="modify") {                                       // Modifie une voiture
+            $sql="UPDATE garage.car SET brand=?, model=?, numberplate=?, inscription_date=?,
+            age=?, color=?, horsepower=?, price=?, description=? WHERE $condition";
+            $requete = $connexion->prepare($sql);
+            $requete->execute($column);
+        } else if ($request =="delete") {                                       // Supprime une voiture
+            $sql="DELETE FROM garage.car WHERE $condition";
+            $requete = $connexion->prepare($sql);
+            $requete->execute();
+        } else {                                                                // Retourne une voiture
+            $sql="SELECT $column FROM garage.car WHERE $condition";
+            $requete = $connexion->prepare($sql);
+            $requete->execute();
+            return array($requete->fetchAll(PDO::FETCH_ASSOC));
+        }
     }
 
     function Add_id_column($dataname): string {
@@ -79,26 +99,29 @@
         if ($connexion->prepare("COL_LENGTH('garage', 'id') IS NOT NULL")) {    /* Si id existe */
             $supp = $connexion->prepare("ALTER TABLE garage.$dataname DROP COLUMN id;");  /* La supprime */
             try { $supp->execute(); }
-            catch (Exception) {
+            catch (Exception) {                                                 // js ?
                 return '<script type="text/javascript">
-                            alert("Échec :\n" +
-                                  "Un problème est survenu lors de la suppression de la colonne id déjà existante !\n" +
-                                  "Vérifier que la colonne id ne contienne pas de contraintes.")
+                            alert("Échec :\n" + "Un problème est survenu lors de
+                            la suppression de la colonne id déjà existante !\n" +
+                            "Vérifier que la colonne id ne contienne pas de contraintes.")
                         </script>';
             }
         }
 
-        $requete = $connexion->prepare("ALTER TABLE garage.$dataname ADD id INT PRIMARY KEY NOT NULL AUTO_INCREMENT FIRST;");
+        $requete = $connexion->prepare("ALTER TABLE garage.$dataname
+                   ADD id INT PRIMARY KEY NOT NULL AUTO_INCREMENT FIRST;");
         try {                                                                   /* Essaie d'ajouter id */
             $requete->execute();
             return '<script type="text/javascript">
                         alert("Succès :\n" +
-                              "Ajout d\'une colonne id automatique dans la table '.$dataname.' réussi.")
+                              "Ajout d\'une colonne id automatique dans la table '
+                               .$dataname.' réussi.")
                     </script>';
         } catch (Exception) {
             return '<script type="text/javascript">
                         alert("Échec :\n" +
-                              "Un problème est survenu lors de l\'insertion d\'une colonne id automatique !")
+                              "Un problème est survenu lors de l\'insertion
+                               d\'une colonne id automatique !")
                     </script>';
         }
     }
@@ -130,7 +153,8 @@
         if ($_SERVER["SCRIPT_NAME"] === $lien) {
             $classe .= ' active';
         }
-        return '<li class="'.$classe.'" style="'.$style.'"><a class="nav-link" href="'.$lien.'">'.$titre.'</a></li>';
+        return '<li class="'.$classe.'" style="'.$style.'"><a class="nav-link"
+                href="'.$lien.'">'.$titre.'</a></li>';
     } */
 
     function Inverse_bool($var): bool {

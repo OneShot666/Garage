@@ -14,7 +14,7 @@
           <?php echo $page_name; ?>
         </title>
         <meta charset="utf-8">
-            <link rel="icon" type="image/png" href="images/icon.svg"><!--https://ionic.io/ionicons"-->
+            <link rel="icon" type="image/png" href="images/car/icon.svg"><!--https://ionic.io/ionicons"-->
             <!--ion-icon name="car-sport-outline"></ion-icon-->
             <link rel="stylesheet" type="text/css" href="style.css">
         <meta name="viewport" content="width=device-width">
@@ -25,7 +25,7 @@
         <br>
 
         <h1>
-          Erreur !
+            Erreur !
         </h1>
 
         <p>
@@ -34,11 +34,14 @@
         <br>
 
         <p>
-          <ul>Veuillez vérifier que :
-            <li>L'url saisie est correcte</li>
-            <li>Vous êtes autorisé(e) à accèder à cette page</li>
-          </ul>
+          <ol>Veuillez vérifier que :
+            <li>L'url saisie est correcte.</li>
+            <li>Vous êtes autorisé(e) à accèder à cette page.</li>
+          </ol>
         </p>
+        <br>
+
+        <button><a href='index.php'>Retour à l'accueil</a></button>
         <br>
 
         <?php require_once "include/footer.php" ?>

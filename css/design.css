@@ -416,7 +416,7 @@
 }
 
 .scan .fingerprint {
-    background: url("../Images/fingerPrint_01.png");
+    background: url("../Images/design/fingerPrint_01.png");
     background-size: 300px;  /* Identique à width */
     height: 380px;
     position: relative;
@@ -425,7 +425,7 @@
 
 .scan .fingerprint::before {
     animation: scanning 4s ease-in-out infinite;
-    background: url("../Images/fingerPrint_02.png");
+    background: url("../Images/design/fingerPrint_02.png");
     background-size: 300px;
     content: '';
     height: 100%;

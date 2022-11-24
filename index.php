@@ -8,9 +8,19 @@
 
 <!-- Faire une fonction (arg -> $nav) pour le php en début de programme ? -->
 <!-- Empêcher de mettre n'importe quoi dans l'url : limiter accès -->
-<!-- Créer document src ? -> mettre tous .php pages dedans -->
-<!-- Faire des banderoles (use all width of pages) pour meilleure présentation -->
-<!-- Remettre la redirection pour les fichiers dans include/ & php/ -->
+<!-- Créer document src ? -> mettre tous .php pages dedans ? -->
+<!-- Faire des banderoles (use all width of pages) pour meilleure présentation ? -->
+<!-- Adapter le code à data/garage.sql -->
+<!-- Améliorer le css : footer, search, profile, about -->
+<!-- Mettre logo pour réseaux sociaux -->
+<!-- Ajouter charte + mentions -->
+<!-- Ajouter personnaliser compte (photo, modifier password, etc) -->
+<!-- Redéfinir les erreurs -->
+<!-- Ajouter champ vérif password -->
+<!-- Ajouter dans database table brand avec column model -->
+<!-- Pour form car, add jointure ? -->
+<!-- Ajouter sauvergader/restaurer versions site -->
+<!-- Mettre à jour la documentation (use export/import + command pour git bash) -->
 
 <!DOCTYPE html>
 
@@ -20,7 +30,7 @@
 		       <?php echo $page_name; ?>
         </title>
 	      <meta charset="utf-8">
-            <link rel="icon" type="image/png" href="images/icon.svg"><!--https://ionic.io/ionicons"-->
+            <link rel="icon" type="image/png" href="images/car/icon.svg"><!--https://ionic.io/ionicons"-->
             <!--ion-icon name="car-sport-outline"></ion-icon-->
             <link rel="stylesheet" type="text/css" href="css/style.css">
         <meta name="viewport" content="width=device-width">
