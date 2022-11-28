@@ -66,8 +66,8 @@
                     ?>
                     <br><br>
                     <label for="phone">Téléphone : (+687)
-                        <input type="tel" name="phone" pattern="[0-9]{2} [0-9]{2} [0-9]{2}"
-                               placeholder="12 34 56">
+                        <input type="tel" name="phone" pattern="[0-9]{6}"
+                               placeholder="123456">
                     </label>
                     <br><br>
                     <label for="mail">Adresse mail :
@@ -92,6 +92,19 @@
                             } else if (!preg_match('[a-zA-Z0-9_-]', $_POST['password'])) {
                               echo "Mot de passe non sécurisé !";
                               $formulaire_valid = False;
+                            } else { $formulaire_valid=True; }
+                        }
+                    ?>
+                    <br><br>
+                    <label for="passwordbis">Confirmer mot de passe :
+                        <input type="password" name="passwordbis" placeholder="Entrez le mot de passe à nouveau"
+                               pattern="[a-zA-Z0-9_-]{8,99}" required>          <!-- autocomplete="off" -->
+                    </label>
+                    <?php
+                        if (isset($_POST["envoyer"]) AND $_POST["envoyer"] == "Envoyer") {
+                            if ($_POST['passwordbis'] != $_POST['password']) {
+                                echo "Les mots de passe ne sont pas les mêmes !";
+                                $formulaire_valid = False;
                             } else { $formulaire_valid=True; }
                         }
                     ?>

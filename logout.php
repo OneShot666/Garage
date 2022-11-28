@@ -5,10 +5,9 @@
     $page_name = $nom_du_site . " - Se déconnecter";
     $nav = "login";
     if (isset($_GET["logout"]) AND $_GET["logout"] == "Se déconnecter") {
-        $_SESSION = array();
+        $_SESSION = array();                                                    // Never use session_destroy(); !
         $is_connected = False;
         $is_admin = False;
-        // /* session_destroy(); */                                             // !!! Empêche la réutilisation du code ?!
         header("Location: index.php");
     }
 ?>
@@ -35,25 +34,22 @@
         <h1>
             Se déconnecter
         </h1>
+        <br>
 
         <p>
             Si vous vous déconnecter, vous ne pourrez plus accèder à vos favoris, votre liste de choix et vos cookies.
             <br>
             Revenez vite !
         </p>
-
-        <br>
-        <br>
-        <br>
+        <br><br>
 
         <div>
             <nav content="Deconnexion">
                 <form action="" method="get">
-                    <input type="submit" name="logout" value="Se déconnecter">
+                    <input style="font-size: 20px; padding: 8px;" type="submit" name="logout" value="Se déconnecter">
                 </form>
             </nav>
         </div>
-
         <br>
 
         <?php require_once "include/footer.php" ?>

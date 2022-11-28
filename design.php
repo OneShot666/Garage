@@ -1,7 +1,7 @@
 <?php
     include("php/function.php");
     global $nom_du_site, $is_connected, $is_admin, $_SESSION;
-    if (!$_SESSION['username'] or !$is_admin) { header("Location: error.php"); }
+    Redirection("r");
     $page_name = $nom_du_site . " - Design";
     $nav = "design";
 ?>

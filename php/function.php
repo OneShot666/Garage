@@ -1,7 +1,6 @@
 <?php
     session_start();
     global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars;
-    Redirection();
     $nom_du_site = "Express Car";
     $is_connected = (isset($_SESSION['username'])) ? True : False;
     $is_admin = (isset($_SESSION['username']) and isset($_SESSION['rights'])) ? True : False;
@@ -27,12 +26,24 @@
     ];
     header("refresh: 60");                                                      // Rafraîchis le site toutes les minutes
 
-    function Redirection() {                                                    // Renvoie user si modifie url
-        if (!isset($_SESSION['rights'])) {
+    function Redirection($right="a") {                                          // Renvoie user si modifie url
+        global $is_admin, $_SESSION;
+        $right = ($right == "-") ? "r" : $right;                                // Empêche les magouilles
+        if (!($is_admin and isset($_SESSION['rights']) and
+        isset($_SESSION['has_rights']) and $_SESSION['has_rights'])) {
             if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
             strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
             strpos($_SERVER['PHP_SELF'], '/php')) {
-                header("Location: ../index.php");
+                if (!strpos($_SERVER['PHP_SELF'], 'error.php')) {
+                    try { header("Location: error.php"); }
+                    catch (Exception) { header("Location: ../error.php"); }
+                }
+            }
+            if (!(strpos($_SESSION['rights'], "a") or strpos($_SESSION['rights'], $right))) {    // Si pas les droits
+                if (!strpos($_SERVER['PHP_SELF'], 'error.php')) {
+                    try { header("Location: error.php"); }
+                    catch (Exception) { header("Location: ../error.php"); }
+                }
             }
         }
     }
@@ -143,11 +154,22 @@
     function Test($dataname): array {
         $connexion = Connexion();
         $requete = $connexion->prepare("SELECT * FROM $dataname WHERE 1");
-        // WHERE TABLE_NAME = 'garage.$dataname';");
         $requete->execute();
         return array($requete->fetchAll(PDO::FETCH_ASSOC));
     }
 
+    function get_form_phone($phone) {
+        $form = str_split($phone, 2);
+        return (count($form) <= 3) ? $form[0].".".$form[1].".".$form[2] : $phone;
+    }
+
+    function is_letter_in_word($word, $letter): bool {                          // Used in profile
+        $index = strpos($word, $letter);
+        return ((gettype($index) == "integer" and $index >= 0) or
+                ($index === 0 or $index === 1));                                // Si return un entier positif ou un booléen vrai
+    }
+
+    // ! Déplacé dans header.php
     /* function Nav_item(string $lien, string $titre, string $style = ""): string {
         $classe = 'nav-item';
         if ($_SERVER["SCRIPT_NAME"] === $lien) {

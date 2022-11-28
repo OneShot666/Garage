@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 24 nov. 2022 à 01:28
+-- Généré le : lun. 28 nov. 2022 à 09:53
 -- Version du serveur : 10.4.25-MariaDB
 -- Version de PHP : 8.1.10
 
@@ -43,9 +43,9 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `inscription_date`, `has_rights`, `rights`, `actions`, `comments`) VALUES
-(1, 'One Shot', '5ea02a019e424ecba1f7ce679571208228b5fdc7', '2022-11-20', 1, 'all rights', '', ''),
-(2, 'admin', '57b2ad99044d337197c0c39fd3823568ff81e48a', '2022-11-20', 1, 'all rights', '', ''),
-(3, 'admin2', '9e823816a6a507e61b90e00f5be3b695f6896a7d', '2022-11-20', 1, 'all rights', '', '');
+(1, 'One Shot', '5ea02a019e424ecba1f7ce679571208228b5fdc7', '2022-11-20', 1, 'arwx', '', ''),
+(2, 'admin', '57b2ad99044d337197c0c39fd3823568ff81e48a', '2022-11-20', 1, '-r--', '', ''),
+(3, 'admin2', '9e823816a6a507e61b90e00f5be3b695f6896a7d', '2022-11-20', 1, '-r--', '', '');
 
 -- --------------------------------------------------------
 
@@ -74,7 +74,7 @@ INSERT INTO `car` (`id`, `brand`, `model`, `numberplate`, `inscription_date`, `a
 (1, 'Citroen', 'C4', 6218, '2022-11-20', 6, 'grey', 0, 23000, 'Une belle voiture'),
 (2, 'Peugeot', '108', 2130, '2022-11-20', 3, '', 108, 12000, ''),
 (3, 'Peugeot', '208', 6069, '2022-11-20', 2, 'lightgrey', 0, 16400, ''),
-(4, 'Renault', 'Captur', 1234, '2022-11-20', 5, 'white', 0, 23400, ''),
+(4, 'Renault', 'Captur', 1234, '2022-11-20', 5, 'white', 0, 23400, 'Ne jetez pas de boule rouge et blanche dessus.'),
 (5, 'Renault', 'Megane', 5764, '2022-11-20', 1, '', 0, 32000, 'Renard non inclus'),
 (6, 'Renault', 'Twingo', 1528, '2022-11-20', 3, 'lightblue', 180, 15500, ''),
 (7, 'Suzuki', 'Across', 3493, '2022-11-20', 5, 'lightgrey', 0, 49999, ''),
@@ -91,7 +91,7 @@ CREATE TABLE `user` (
   `name` varchar(255) NOT NULL,
   `nickname` varchar(255) NOT NULL,
   `age` int(12) NOT NULL,
-  `phone` varchar(255) DEFAULT NULL,
+  `phone` varchar(100) DEFAULT NULL,
   `mail` varchar(255) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `password` text NOT NULL,
@@ -106,9 +106,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `nickname`, `age`, `phone`, `mail`, `username`, `password`, `date_inscription`, `favoris`, `panier`, `comments`) VALUES
-(1, 'John', 'Smith', 42, '123456', 'johnsmith@mail.com', 'John Smith', '0035462a111c24bb831e8b888205dd34f20cfdca', '2022-11-21', '2 4 7', '0', NULL),
+(1, 'John', 'Smith', 42, '123456', 'johnsmith@mail.com', 'John Smith', '0035462a111c24bb831e8b888205dd34f20cfdca', '2022-11-21', '2 4 7', '0 4', NULL),
 (2, 'Nathan', 'Mir', 21, '921112', 'mir.nathan42@gmail.com', 'One Shot', '5ea02a019e424ecba1f7ce679571208228b5fdc7', '2022-11-21', '1 6 8', '0', NULL),
-(11, 'Momo', 'Amed', 72, '02 33 40', 'momo@amed.nc', 'Julien', 'e6f13a9ef9e4943b41a543069a91cc43c6eb6275', '2022-11-23', '0', '0', NULL);
+(11, 'Momo', 'Amed', 72, '023340', 'momo@amed.nc', 'Julien', 'e6f13a9ef9e4943b41a543069a91cc43c6eb6275', '2022-11-23', '0', '0', NULL);
 
 --
 -- Index pour les tables déchargées

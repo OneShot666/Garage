@@ -5,7 +5,7 @@
             header("Location: ../index.php");
         }
     }
-    
+
     @$recherche = $_GET["recherche"];
     @$envoyer = $_GET["envoyer"];
     @$afficher = False;
@@ -40,7 +40,7 @@
 <div class="search_bar" style="color: lightgrey; font-size: medium;">
     <form name="search_form" action="" method="get">
         <label>
-            <input type="search" name="recherche" value="<?php echo $recherche; ?>"
+            <input type="search" name="recherche" value="<?= $recherche; ?>"
                    placeholder="Modèle(s) de voiture">
             <input type="submit" name="envoyer" value="Rechercher">
             <br>
@@ -63,8 +63,8 @@
             </ul>
         </div>
     <?php } ?>
-
-    <br>
 </div>
+
+<h1 style="opacity: 0;">.</h1>                                                  <!--  Point invisible -->
 
 <br>

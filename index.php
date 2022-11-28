@@ -1,32 +1,32 @@
 <?php
     include("php/function.php");
     Connexion();
-    global $nom_du_site;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION;
     $page_name = $nom_du_site . " - Accueil";
     $nav = "accueil";
 ?>
 
-<!-- Faire une fonction (arg -> $nav) pour le php en début de programme ? -->
-<!-- Empêcher de mettre n'importe quoi dans l'url : limiter accès -->
-<!-- Créer document src ? -> mettre tous .php pages dedans ? -->
 <!-- Faire des banderoles (use all width of pages) pour meilleure présentation ? -->
-<!-- Adapter le code à data/garage.sql -->
-<!-- Améliorer le css : footer, search, profile, about -->
-<!-- Mettre logo pour réseaux sociaux -->
-<!-- Ajouter charte + mentions -->
+<!-- Adapter le code à data/garage.sql ou à data/garage/* -->
+<!-- Améliorer le css : header, footer, search, profile, about -->
 <!-- Ajouter personnaliser compte (photo, modifier password, etc) -->
-<!-- Redéfinir les erreurs -->
-<!-- Ajouter champ vérif password -->
-<!-- Ajouter dans database table brand avec column model -->
+<!-- Redéfinir les erreurs systèmes -->
+
+<!-- Ajouter form admin modifier table brand + table user -->
+<!-- Ajouter afficher voitures en fonction recherche -->
+<!-- Ajouter boutons dans amdin pour form admin -->
+<!-- Ajouter une table comments ? -->
+
+<!-- Améliorer les droits admins (rwx), prévenir et vérifier -->
+<!-- Ajouter vérification et nettoyage de la base de données (doublons, format, etc) -->
+<!-- Quand add JS, use pour formulaire (brand) et défilmt auto -->
 <!-- Pour form car, add jointure ? -->
-<!-- Ajouter sauvergader/restaurer versions site -->
-<!-- Mettre à jour la documentation (use export/import + command pour git bash) -->
 
 <!DOCTYPE html>
 
 <html lang="fr">
     <head>
-		    <title>
+	    <title>
 		       <?php echo $page_name; ?>
         </title>
 	      <meta charset="utf-8">
@@ -36,7 +36,7 @@
         <meta name="viewport" content="width=device-width">
     </head>
 
-	 <body class="accueil">
+    <body class="accueil">
         <?php require_once "include/header.php" ?>
         <br>
 
@@ -46,24 +46,26 @@
             </h2>
 
             <p>
-    			     Choisissez la voiture de vos rêves !
-               <br>
-               Nous vous présentons nos meilleurs modèles.
-        		</p>
-        		<br>
-
-            <?php require_once "include/search.php" ?>
+	            Choisissez la voiture de vos rêves !
+                <br>
+                Nous vous présentons nos meilleurs modèles.
+    		</p>
+    		<br>
 
             <h1>
                 Nos modèles
             </h1>
+            <br>
+
+            <?php require_once "include/search.php" ?>
+            <br>
 
             <div class="all_products">
                 <?php require_once "include/product.php" ?>
-        		</div>
+    		</div>
         </main>
-    		<br>
+		<br>
 
         <?php require_once "include/footer.php" ?>
-	  </body>
+    </body>
 </html>

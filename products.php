@@ -1,7 +1,7 @@
 <?php
     include("php/function.php");
     global $nom_du_site, $is_connected, $is_admin, $_SESSION;
-    if (!$_SESSION['username'] or !$is_admin) { header("Location: error.php"); }
+    Redirection("a");
     $page_name = $nom_du_site . " - Produits";
     $nav = "products";
     $tab = 0;
@@ -95,7 +95,6 @@
                 </table>
             </div>
         <?php } ?>
-
         <br>
 
         <?php require_once "include/footer.php" ?>

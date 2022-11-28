@@ -1,9 +1,9 @@
 <?php
-if (!isset($_SESSION['rights'])) {
-    if (strpos($_SERVER['PHP_SELF'], '/include') or strpos($_SERVER['PHP_SELF'], '/php')) {
-        header("Location: ../index.php");
+    if (!isset($_SESSION['rights'])) {
+        if (strpos($_SERVER['PHP_SELF'], '/include') or strpos($_SERVER['PHP_SELF'], '/php')) {
+            header("Location: ../index.php");
+        }
     }
-}
 ?>
 
 <div>
@@ -59,6 +59,7 @@ if (!isset($_SESSION['rights'])) {
     </footer>
 
     <p class="copyright">
-        &copy; Copyright - <a href="#">Charte de confidentialité</a> - <a href="#">Mentions légales</a>
+        &copy; Copyright - <a href="notice.php#notice">Charte de confidentialité</a> -
+        <a href="notice.php#charter">Mentions légales</a>
     </p>
 </div>
