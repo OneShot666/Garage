@@ -7,20 +7,20 @@
 ?>
 
 <!-- Faire des banderoles (use all width of pages) pour meilleure présentation ? -->
+<!-- Améliorer le css : header, footer, search, profile, products (tabs), about -->
 <!-- Adapter le code à data/garage.sql ou à data/garage/* -->
-<!-- Améliorer le css : header, footer, search, profile, about -->
-<!-- Ajouter personnaliser compte (photo, modifier password, etc) -->
-<!-- Redéfinir les erreurs systèmes -->
-
-<!-- Ajouter form admin modifier table brand + table user -->
-<!-- Ajouter afficher voitures en fonction recherche -->
-<!-- Ajouter boutons dans amdin pour form admin -->
-<!-- Ajouter une table comments ? -->
-
 <!-- Améliorer les droits admins (rwx), prévenir et vérifier -->
+
+<!-- Ajouter personnaliser compte (photo, modifier password, etc) -->
+<!-- Ajouter afficher voitures en fonction recherche -->
+<!-- Ajouter boutons dans afficher un seul form x3 dans admin -->
+<!-- Ajouter commentaires derière voiture : en faire des cartes -->
+<!-- Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
+
+<!-- Redéfinir les erreurs systèmes -->
 <!-- Ajouter vérification et nettoyage de la base de données (doublons, format, etc) -->
-<!-- Quand add JS, use pour formulaire (brand) et défilmt auto -->
-<!-- Pour form car, add jointure ? -->
+<!-- Quand add JS, use pour formulaires (afficher et vérif data) et défilmt auto -->
+<!-- Pour form car, add jointure ? (lien marque-modèle) -->
 
 <!DOCTYPE html>
 

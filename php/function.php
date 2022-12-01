@@ -5,24 +5,24 @@
     $is_connected = (isset($_SESSION['username'])) ? True : False;
     $is_admin = (isset($_SESSION['username']) and isset($_SESSION['rights'])) ? True : False;
     $array_cars = [
-      "Alfa"=>[],
-      "Audi"=>[],
-      "Bmw"=>[],
-      "Citroen"=>["Berlingo", "C3", "C4", "C5"],
-      "Dacia"=>[],
-      "Fiat"=>[],
-      "Ford"=>[],
-      "Mercedes"=>[],
-      "Nissan"=>[],
-      "Opel"=>[],
-      "Peugeot"=>["108", "208", "308", "408", "508"],
-      "Renault"=>["Captur", "Clio", "Espace", "Kangoo", "Twingo"],
-      "Romeo"=>[],
-      "Seat"=>[],
-      "Suzuki"=>["Across", "Ignis", "Swift", "Vitara"],
-      "Tesla"=>[],
-      "Toyota"=>[],
-      "Volkswagen"=>[],
+        "Alfa"=>[],
+        "Audi"=>[],
+        "Bmw"=>[],
+        "Citroen"=>["Berlingo", "C3", "C4", "C5"],
+        "Dacia"=>[],
+        "Fiat"=>[],
+        "Ford"=>[],
+        "Mercedes"=>[],
+        "Nissan"=>[],
+        "Opel"=>[],
+        "Peugeot"=>["108", "208", "308", "408", "508"],
+        "Renault"=>["Captur", "Clio", "Espace", "Kangoo", "Twingo"],
+        "Romeo"=>[],
+        "Seat"=>[],
+        "Suzuki"=>["Across", "Ignis", "Swift", "Vitara"],
+        "Tesla"=>[],
+        "Toyota"=>[],
+        "Volkswagen"=>[],
     ];
     header("refresh: 60");                                                      // Rafraîchis le site toutes les minutes
 
@@ -30,7 +30,7 @@
         global $is_admin, $_SESSION;
         $right = ($right == "-") ? "r" : $right;                                // Empêche les magouilles
         if (!($is_admin and isset($_SESSION['rights']) and
-        isset($_SESSION['has_rights']) and $_SESSION['has_rights'])) {
+        isset($_SESSION['has_rights']) and $_SESSION['has_rights'])) {          // Si n'a pas les droits
             if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
             strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
             strpos($_SERVER['PHP_SELF'], '/php')) {
@@ -76,27 +76,38 @@
         return array($requete->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    // ! Si 'add', vérifier que la voiture n'existe pas déjà
-    // ! Si 'delete', vérifier que l'on ne supprime qu'une voiture
     function CarPart($request="", $column="*", $condition="1") {
         $connexion = Connexion();
-        $column = ($request=="delete" AND $column=="*") ? "description" : $column;// Evite de tous supprimer
-        $condition = ($column=="*" AND $condition=="1" AND $condition!="select") ?
+        $condition = ($request=="delete" AND $condition=="1") ? "description" : $condition;// Evite de tous supprimer
+        $condition = ($column=="*" AND $condition=="1" AND $request!="select") ?
                      "0" : $condition;                                          // Evite de tous modifier
         if ($request =="add") {                                                 // Ajoute une voiture
-            $sql="INSERT INTO garage.car(brand, model, numberplate, inscription_date,
-            age, color, horsepower, price, description) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $requete = $connexion->prepare($sql);
-            $requete->execute($column);
+            $results = Database("car", "numberplate", "numberplate=".$column[2]);
+            $check = $results[0];
+            if (count($check) > 0) {                                            // Si existe déjà
+                echo "Une voiture avec le même numéro d'immatriculation (".$column[2].") existe déjà !";
+                echo "Veuillez utiliser le formulaire de modification pour ce produit.";
+            } else {
+                $sql="INSERT INTO garage.car(brand, model, numberplate, inscription_date,
+                    age, color, horsepower, price, description) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $requete = $connexion->prepare($sql);
+                $requete->execute($column);
+            }
         } else if ($request =="modify") {                                       // Modifie une voiture
             $sql="UPDATE garage.car SET brand=?, model=?, numberplate=?, inscription_date=?,
-            age=?, color=?, horsepower=?, price=?, description=? WHERE $condition";
+                age=?, color=?, horsepower=?, price=?, description=? WHERE $condition";
             $requete = $connexion->prepare($sql);
             $requete->execute($column);
         } else if ($request =="delete") {                                       // Supprime une voiture
-            $sql="DELETE FROM garage.car WHERE $condition";
-            $requete = $connexion->prepare($sql);
-            $requete->execute();
+            $results = CarPart("select", "numberplate", $condition);
+            $check = $results[0];
+            if (count($check) > 1) {                                            // Si plus d'une voiture
+                echo "Veuillez donner plus de renseignement pour ne sélectionner qu'un produit.";
+            } else {
+                $sql="DELETE FROM garage.car WHERE $condition";
+                $requete = $connexion->prepare($sql);
+                $requete->execute();
+            }
         } else {                                                                // Retourne une voiture
             $sql="SELECT $column FROM garage.car WHERE $condition";
             $requete = $connexion->prepare($sql);
@@ -105,10 +116,105 @@
         }
     }
 
+    function BrandPart($request="", $column="*", $condition="1") {
+        $connexion = Connexion();
+        $condition = ($request=="delete" AND $condition=="1") ? "length" : $condition;// Evite de tous supprimer
+        $condition = ($column=="*" AND $condition=="1" AND $request!="select") ?
+                     "0" : $condition;                                          // Evite de tous modifier
+        if ($request =="add") {                                                 // Ajoute une marque
+            $results = Database("brand", "brand", "brand=".$column[0]);
+            $check = $results[0];
+            if (count($check) > 0) {                                            // Si existe déjà
+                echo "Une marque avec le même nom (".$column[0].") existe déjà !";
+                echo "Veuillez utiliser le formulaire de modification pour cette marque.";
+            } else {
+                $sql="INSERT INTO garage.brand(brand, model, length, active, ajout_date)
+                    VALUES(?, ?, ?, ?, ?)";
+                $requete = $connexion->prepare($sql);
+                $requete->execute($column);
+            }
+        } else if ($request =="modify") {                                       // Modifie une marque
+            $sql="UPDATE garage.brand SET brand=?, model=?, length=?, active=?, ajout_date=?
+                WHERE $condition";
+            $requete = $connexion->prepare($sql);
+            $requete->execute($column);
+        } else if ($request =="delete") {                                       // Supprime une marque
+            $results = BrandPart("select", "brand", $condition);
+            $check = $results[0];
+            if (count($check) > 1) {                                            // Si plus d'une marque
+                echo "Veuillez donner plus de renseignement pour ne sélectionner qu'une marque.";
+            } else {
+                $sql="DELETE FROM garage.brand WHERE $condition";
+                $requete = $connexion->prepare($sql);
+                $requete->execute();
+            }
+        } else {                                                                // Retourne une marque
+            $sql="SELECT $column FROM garage.brand WHERE $condition";
+            $requete = $connexion->prepare($sql);
+            $requete->execute();
+            return array($requete->fetchAll(PDO::FETCH_ASSOC));
+        }
+    }
+
+    function UserPart($request="", $column="*", $condition="1") {
+        $connexion = Connexion();
+        $condition = ($request=="delete" AND $condition=="1") ? "panier" : $condition;// Evite de tous supprimer
+        $condition = ($column=="*" AND $condition=="1" AND $request!="select") ?
+                     "0" : $condition;                                          // Evite de tous modifier
+        if ($request =="add") {                                                 // Ajoute un utilisateur
+            $results = Database("user", "username", "username=".$column[5]);
+            $check = $results[0];
+            if (count($check) > 0) {                                            // Si existe déjà
+                echo "Une voiture avec le même numéro d'immatriculation (".$column[5].") existe déjà !";
+                echo "Veuillez utiliser le formulaire de modification pour ce produit.";
+            } else {
+                $sql="INSERT INTO garage.user(name, nickname, age, phone, mail,
+                    username, password, inscription_date, favoris, panier, comments)
+                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $requete = $connexion->prepare($sql);
+                $requete->execute($column);
+            }
+        } else if ($request =="modify") {                                       // Modifie un utilisateur
+            $sql="UPDATE garage.user SET name=?, nickname=?, age=?, phone=?, mail=?,
+                username=?, password=?, inscription_date=?, favoris=?, panier=?, comments=?
+                WHERE $condition";
+            $requete = $connexion->prepare($sql);
+            $requete->execute($column);
+        } else if ($request =="delete") {                                       // Supprime un utilisateur
+            $results = UserPart("select", "username", $condition);
+            $check = $results[0];
+            if (count($check) > 1) {                                            // Si plus d'un utilisateur
+                echo "Veuillez donner plus de renseignement pour ne sélectionner qu'un utilisateur.";
+            } else {
+                $sql="DELETE FROM garage.user WHERE $condition";
+                $requete = $connexion->prepare($sql);
+                $requete->execute();
+            }
+        } else {                                                                // Retourne une voiture
+            $sql="SELECT $column FROM garage.user WHERE $condition";
+            $requete = $connexion->prepare($sql);
+            $requete->execute();
+            return array($requete->fetchAll(PDO::FETCH_ASSOC));
+        }
+    }
+
+    function get_database_options($dataname, $column) {
+        $options = array();
+        $results = Database($dataname, $column);
+        $data = $results[0];
+        foreach ($data as $key => $value) {
+            if (!in_array($value[$column], $options) and $value[$column] != "") {   // Si pas dedans, ajoute
+                array_push($options, $value[$column]);
+            }
+        }
+        sort($options);
+        return $options;
+    }
+
     function Add_id_column($dataname): string {
         $connexion = Connexion();
-        if ($connexion->prepare("COL_LENGTH('garage', 'id') IS NOT NULL")) {    /* Si id existe */
-            $supp = $connexion->prepare("ALTER TABLE garage.$dataname DROP COLUMN id;");  /* La supprime */
+        if ($connexion->prepare("COL_LENGTH('garage', 'id') IS NOT NULL")) {    // Si id existe
+            $supp = $connexion->prepare("ALTER TABLE garage.$dataname DROP COLUMN id;");  // La supprime
             try { $supp->execute(); }
             catch (Exception) {                                                 // js ?
                 return '<script type="text/javascript">
@@ -121,7 +227,7 @@
 
         $requete = $connexion->prepare("ALTER TABLE garage.$dataname
                    ADD id INT PRIMARY KEY NOT NULL AUTO_INCREMENT FIRST;");
-        try {                                                                   /* Essaie d'ajouter id */
+        try {                                                                   // Essaie d'ajouter id
             $requete->execute();
             return '<script type="text/javascript">
                         alert("Succès :\n" +
@@ -158,7 +264,7 @@
         return array($requete->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    function get_form_phone($phone) {
+    function get_form_phone($phone) {                                           // Return a phone number with format 00.00.00
         $form = str_split($phone, 2);
         return (count($form) <= 3) ? $form[0].".".$form[1].".".$form[2] : $phone;
     }

@@ -24,11 +24,34 @@
         <?php require_once "include/header.php" ?>
         <br>
 
+        <h1>Voitures</h1>
+        <br>
+
         <?php require "php/car_add.php" ?>
 
         <?php require "php/car_mod.php" ?>
 
         <?php require "php/car_del.php" ?>
+        <br>
+
+        <h1>Marques</h1>
+        <br>
+
+        <?php require "php/brand_add.php" ?>
+
+        <?php require "php/brand_mod.php" ?>
+
+        <?php require "php/brand_del.php" ?>
+        <br>
+
+        <h1>Utilisateurs</h1>
+        <br>
+
+        <?php require "php/user_add.php" ?>
+
+        <?php require "php/user_mod.php" ?>
+
+        <?php require "php/user_del.php" ?>
         <br>
 
         <?php require_once "include/footer.php" ?>

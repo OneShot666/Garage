@@ -60,6 +60,7 @@
                 $_SESSION['username'] = $dataAdmin['username'];
                 $_SESSION['password'] = $dataAdmin['password'];
                 $_SESSION['rights'] = $dataAdmin['rights'];
+                $_SESSION['has_rights'] = $dataAdmin['has_rights'];
                 $is_connected = True;
                 $is_admin = True;                                               // A les droits admin
 

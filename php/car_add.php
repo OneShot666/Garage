@@ -18,17 +18,14 @@
     <br>
 
     <?php
-        // ! Vérifier type donnée entrée
-        // ! Ajouter vérifier taille prix (4-6) & numberplate (4) & créer description auto
-        // Vérifie données entrées
-        if (isset($_POST['add']) AND $_POST['add'] == "Ajouter") {
+        if (isset($_POST['add_car']) AND $_POST['add_car'] == "Ajouter") {
             echo "<strong>Formulaire envoyé !<br><p style='color:red;'>";
             if (isset($_POST['price']) AND $_POST['price'] < 0) {
                 echo "Veuillez donner un prix positif !";
             } else if (isset($_POST['horsepower']) AND $_POST['horsepower'] < 0) {
                 echo "Veuillez donner une puissance en chevaux positive !";
             } else if (isset($_POST['numberplate']) AND $_POST['numberplate'] < 0) {
-                echo "Veuillez donner un numéro d'immatriculation positif !";
+                echo "Veuillez donner un numéro d'immatriculation correct !";
             } else if (isset($_POST['age']) AND $_POST['age'] < 0) {
                 echo "Veuillez donner un age positif !";
             } else {
@@ -44,7 +41,7 @@
         <form action="" method="post">
             <label>
                 Marque :
-                <select type="text" name="brand" placeholder="Marque" required>
+                <select type="text" name="brand" required>
                     <?php
                         foreach ($array_cars as $key => $brand) {
                             echo ($key=="Citroen") ? "<option value='$key' selected>$key</option>" :
@@ -53,7 +50,7 @@
                 </select>
                 <br><br>
                 Modèle :
-                <select type="text" name="model" placeholder="Modèle" required>
+                <select type="text" name="model" required>
                     <?php
                         foreach ($array_cars as $key => $brand) {
                             foreach ($brand as $key2 => $model) {
@@ -64,7 +61,7 @@
                 </select>
                 <br><br>
                 Prix (en euro) :
-                <input type="int" name="price" placeholder="Prix" pattern="[0-9]{3,8}" required>
+                <input type="int" name="price" placeholder="Prix" pattern="[0-9]{3, 8}" required>
                 &#8364;
                 <br><br>
                 Couleur :
@@ -81,7 +78,7 @@
                 <br><br>
                 Numéro d'immatriculation :
                 <input type="int" name="numberplate" placeholder="ex : 1234"
-                 pattern="[0-9]{4}" required>
+                    pattern="[0-9]{4}" required>
                 fr
                 <br><br>
                 Age (en année) :
@@ -97,15 +94,15 @@
                 <br><br>
                 Date d'arrivée dans notre garage :
                 <input type="date" name="inscription_date" value="<?php echo date('Y-m-d'); ?>"
-                       placeholder="Date d'entrée au garage">
+                    placeholder="Date d'entrée au garage">
                 <br><br>
                 Description :
                 <input type="text" name="description" placeholder="Description de la voiture"
-                 pattern="[a-zA-Z0-9_-]{20,999}">
+                 pattern="[a-zA-Z0-9_-]{20, 999}">
                 <br><br>
             </label>
 
-            <input type="submit" name="add" value="Ajouter">
+            <input type="submit" name="add_car" value="Ajouter">
         </form>
     </div>
 </div>

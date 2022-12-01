@@ -18,15 +18,14 @@
     <br>
 
     <?php
-        // Vérifie données entrées
-        if (isset($_POST['modify']) AND $_POST['modify'] == "Modifier") {
+        if (isset($_POST['modify_car']) AND $_POST['modify_car'] == "Modifier") {
             echo "<strong>Formulaire envoyé !<br><p style='color:red;'>";
             if (isset($_POST['price']) AND $_POST['price'] < 0) {
                 echo "Veuillez donner un prix positif !";
             } else if (isset($_POST['horsepower']) AND $_POST['horsepower'] < 0) {
                 echo "Veuillez donner une puissance en chevaux positive !";
             } else if (isset($_POST['numberplate']) AND $_POST['numberplate'] < 0) {
-                echo "Veuillez donner un numéro d'immatriculation positif !";
+                echo "Veuillez donner un numéro d'immatriculation correct !";
             } else if (isset($_POST['age']) AND $_POST['age'] < 0) {
                 echo "Veuillez donner un age positif !";
             } else {
@@ -44,27 +43,27 @@
         <form action="" method="post">
             <label>
                 Marque :
-                <select type="varchar" name="brand" placeholder="Marque" required>
+                <select type="varchar" name="brand" required>
                     <?php
-                        foreach ($array_cars as $key => $brand) {
-                            echo ($key=="Citroen") ? "<option value='$key' selected>$key</option>" :
-                            "<option value='$key' >$key</option>";
-                        } ?>
-                </select>
-                <br><br>
-                Modèle :
-                <select type="varchar" name="model" placeholder="Modèle" required>
-                    <?php                                                   // ! Ajouter afficher en fonction de 'brand'
-                        foreach ($array_cars as $key => $brand) {
-                            foreach ($brand as $key2 => $model) {
-                              echo ($model=="C4") ? "<option value='$model' selected>$model</option>" :
-                              "<option value='$model' >$model</option>";
-                            }
-                        } ?>
+                    foreach ($array_cars as $key => $brand) {
+                        echo ($key=="Citroen") ? "<option value='$key' selected>$key</option>" :
+                        "<option value='$key' >$key</option>";
+                    } ?>
+            </select>
+            <br><br>
+            Modèle :
+            <select type="text" name="model" required>
+                <?php
+                    foreach ($array_cars as $key => $brand) {
+                        foreach ($brand as $key2 => $model) {
+                            echo ($model=="C4") ? "<option value='$model' selected>$model</option>" :
+                            "<option value='$model' >$model</option>";
+                        }
+                    } ?>
                 </select>
                 <br><br>
                 Prix (en euro) :
-                <input type="int" name="price" placeholder="Prix" pattern="[0-9]{3,8}" required>
+                <input type="int" name="price" placeholder="Prix" pattern="[0-9]{3, 8}" required>
                 &#8364;
                 <br><br>
                 Couleur :
@@ -80,8 +79,13 @@
                 ch
                 <br><br>
                 Numéro d'immatriculation :
-                <input type="int" name="numberplate" placeholder="ex : 1234"
-                 pattern="[0-9]{4}" required>
+                <select type="int" name="numberplate" pattern="[0-9]{4}" required>
+                    <?php
+                        $numberplates = get_database_options("car", "numberplate");
+                        foreach ($numberplates as $key => $numberplate) {
+                            echo "<option value='$numberplate' >$numberplate</option>";
+                        } ?>
+                </select>
                 fr
                 <br><br>
                 Age (en année) :
@@ -92,20 +96,21 @@
                         } ?>
                 </select>
                 ans
-                <!--Date de mise en circulation :                               // Remplace age
-                <input type="date" name="age" placeholder="Date de mise en circulation" required-->
                 <br><br>
+                <!--Date de mise en circulation :                               // Remplace age
+                <input type="date" name="age" placeholder="Date de mise en circulation" required>
+                <br><br-->
                 Date d'arrivée dans notre garage :
                 <input type="date" name="inscription_date" value="<?php echo date('Y-m-d'); ?>"
-                       placeholder="Date d'entrée au garage">
+                    placeholder="Date d'entrée au garage">
                 <br><br>
                 Description :
                 <input type="text" name="description" placeholder="Description de la voiture"
-                 pattern="[a-zA-Z0-9_-]{20,999}">
+                    pattern="[a-zA-Z0-9_-]{20, 999}">
                 <br><br>
             </label>
 
-            <input type="submit" name="modify" value="Modifier">
+            <input type="submit" name="modify_car" value="Modifier">
         </form>
     </div>
 </div>

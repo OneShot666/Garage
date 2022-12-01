@@ -10,7 +10,7 @@
     $database = $resultat[0];
 
     for ($i=0; $i<count($database); $i++) {
-        echo "<div class='product'>";
+        echo "<div class='product' id='".$database[$i]['id']."'>";
         echo "<h3>".$database[$i]['brand']." ".$database[$i]['model']."</h3>";
         $nom_image = "car-".strtolower($database[$i]['brand'])."-".
                             strtolower($database[$i]['model'])."-fr ".

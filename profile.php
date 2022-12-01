@@ -25,7 +25,7 @@
 
         <br>
 
-        <div class="formulaire" style="color: rgb(22, 22, 22); text-align: left; width: 80%;">
+        <div class="formulaire" style="color: rgb(22, 22, 22); text-align: left; width: 80%;" id="profile">
             <h1>
                 Votre profil :
             </h1>
@@ -69,7 +69,7 @@
         <br>
 
         <?php if (isset($_SESSION['favoris'])) {    // Si user a des produits favoris ?>
-            <div class="formulaire" style="color: rgb(22, 22, 22); width: 80%;">
+            <div class="formulaire" style="color: rgb(22, 22, 22); width: 80%;" id="favoris">
                 <h1>
                     Vos favoris :
                 </h1>
@@ -88,30 +88,30 @@
 
                     if (count($fav) > 0 and $fav[0] != "0") {                   // Si au moins un favoris
                         foreach ($fav as $key => $value) {
-                        $resultat = CarPart("select", "*", "id='".$value."'");  // Cherche par id
-                        $database = $resultat[0];
-                        echo "<div class='product'>";
-                        echo "<h3>".$database[0]['brand']." ".$database[0]['model']."</h3>";
-                        $nom_image = "car-".strtolower($database[0]['brand'])."-".
-                                            strtolower($database[0]['model'])."-fr ".
-                                            strtolower($database[0]["numberplate"]).".jpg";
-                        if (! file_exists("images/car/".$nom_image)) {          // Si ne trouve pas l'image
+                            $resultat = CarPart("select", "*", "id='".$value."'");// Cherche par id
+                            $database = $resultat[0];
+                            echo "<div class='product'>";
+                            echo "<h3>".$database[0]['brand']." ".$database[0]['model']."</h3>";
                             $nom_image = "car-".strtolower($database[0]['brand'])."-".
-                                                strtolower($database[0]['model'])."-fr 0000.jpg";
-                        }
-                        if (! file_exists("images/car/".$nom_image)) {          // Si ne trouve toujours pas l'image
-                            $nom_image = "icon.svg";
-                        }
-                        $nom_image = "images/car/".$nom_image;
-                        echo "<img alt='".$database[0]['description']."' src='$nom_image'
-                              style='height=150px'>";
-                        echo "<h3>".$database[0]['price']." &#8364;</h3>";
-                        echo "<h4>Numéro d'immatriculation : ".$database[0]['numberplate']."fr<br>";
-                        if ($database[0]['horsepower'] > 0) {
-                            echo "Puissance : ".$database[0]['horsepower']." ch<br>";
-                        }
-                        if ($database[0]['color'] != "") {
-                            echo "Couleur : ".$database[0]['color']."<br>";
+                                                strtolower($database[0]['model'])."-fr ".
+                                                strtolower($database[0]["numberplate"]).".jpg";
+                            if (! file_exists("images/car/".$nom_image)) {      // Si ne trouve pas l'image
+                                $nom_image = "car-".strtolower($database[0]['brand'])."-".
+                                                    strtolower($database[0]['model'])."-fr 0000.jpg";
+                            }
+                            if (! file_exists("images/car/".$nom_image)) {      // Si ne trouve toujours pas l'image
+                                $nom_image = "icon.svg";
+                            }
+                            $nom_image = "images/car/".$nom_image;
+                            echo "<img alt='".$database[0]['description']."' src='$nom_image'
+                                  style='height=150px'>";
+                            echo "<h3>".$database[0]['price']." &#8364;</h3>";
+                            echo "<h4>Numéro d'immatriculation : ".$database[0]['numberplate']."fr<br>";
+                            if ($database[0]['horsepower'] > 0) {
+                                echo "Puissance : ".$database[0]['horsepower']." ch<br>";
+                            }
+                            if ($database[0]['color'] != "") {
+                                echo "Couleur : ".$database[0]['color']."<br>";
                             }
                             echo "Age : ".$database[0]['age']." ans<br>";
                             echo "Arrivé au garage : ".$database[0]['inscription_date']."</h4>";
@@ -120,8 +120,8 @@
                             echo "</div>";
                         }
                     } else {
-                    echo "<p>Vous n'avez aucun favoris pour le moment.<br>
-                    Accèdez à notre panoplie de modèle <a href='index.php'>ici</a> !</p>";
+                        echo "<p>Vous n'avez aucun favoris pour le moment.<br>
+                        Accèdez à notre panoplie de modèle <a href='index.php'>ici</a> !</p>";
                     } ?>
                 </div>
             </div>
@@ -129,7 +129,7 @@
         <?php } ?>
 
         <?php if (isset($_SESSION['panier'])) {     // Si user a des produits au panier ?>
-            <div class="formulaire" style="color: rgb(22, 22, 22); width: 80%;">
+            <div class="formulaire" style="color: rgb(22, 22, 22); width: 80%;" id="panier">
                 <h1>
                     Votre panier :
                 </h1>
@@ -148,30 +148,30 @@
 
                     if (count($pan) > 0 and $pan[0] != "0") {                   // Si au moins un élément
                         foreach ($pan as $key => $value) {
-                        $resultat = CarPart("select", "*", "id='".$value."'");  // Cherche par id
-                        $database = $resultat[0];
-                        echo "<div class='product'>";
-                        echo "<h3>".$database[0]['brand']." ".$database[0]['model']."</h3>";
-                        $nom_image = "car-".strtolower($database[0]['brand'])."-".
-                                            strtolower($database[0]['model'])."-fr ".
-                                            strtolower($database[0]["numberplate"]).".jpg";
-                        if (! file_exists("images/car/".$nom_image)) {          // Si ne trouve pas l'image
+                            $resultat = CarPart("select", "*", "id='".$value."'");// Cherche par id
+                            $database = $resultat[0];
+                            echo "<div class='product'>";
+                            echo "<h3>".$database[0]['brand']." ".$database[0]['model']."</h3>";
                             $nom_image = "car-".strtolower($database[0]['brand'])."-".
-                                                strtolower($database[0]['model'])."-fr 0000.jpg";
-                        }
-                        if (! file_exists("images/car/".$nom_image)) {          // Si ne trouve toujours pas l'image
-                            $nom_image = "icon.svg";
-                        }
-                        $nom_image = "images/car/".$nom_image;
-                        echo "<img alt='".$database[0]['description']."' src='$nom_image'
-                              style='height=150px'>";
-                        echo "<h3>".$database[0]['price']." &#8364;</h3>";
-                        echo "<h4>Numéro d'immatriculation : ".$database[0]['numberplate']."fr<br>";
-                        if ($database[0]['horsepower'] > 0) {
-                            echo "Puissance : ".$database[0]['horsepower']." ch<br>";
-                        }
-                        if ($database[0]['color'] != "") {
-                            echo "Couleur : ".$database[0]['color']."<br>";
+                                                strtolower($database[0]['model'])."-fr ".
+                                                strtolower($database[0]["numberplate"]).".jpg";
+                            if (! file_exists("images/car/".$nom_image)) {      // Si ne trouve pas l'image
+                                $nom_image = "car-".strtolower($database[0]['brand'])."-".
+                                                    strtolower($database[0]['model'])."-fr 0000.jpg";
+                            }
+                            if (! file_exists("images/car/".$nom_image)) {      // Si ne trouve toujours pas l'image
+                                $nom_image = "icon.svg";
+                            }
+                            $nom_image = "images/car/".$nom_image;
+                            echo "<img alt='".$database[0]['description']."' src='$nom_image'
+                                  style='height=150px'>";
+                            echo "<h3>".$database[0]['price']." &#8364;</h3>";
+                            echo "<h4>Numéro d'immatriculation : ".$database[0]['numberplate']."fr<br>";
+                            if ($database[0]['horsepower'] > 0) {
+                                echo "Puissance : ".$database[0]['horsepower']." ch<br>";
+                            }
+                            if ($database[0]['color'] != "") {
+                                echo "Couleur : ".$database[0]['color']."<br>";
                             }
                             echo "Age : ".$database[0]['age']." ans<br>";
                             echo "Arrivé au garage : ".$database[0]['inscription_date']."</h4>";
@@ -180,8 +180,8 @@
                             echo "</div>";
                         }
                     } else {
-                    echo "<p>Vous n'avez aucun produit dans votre panier pour le moment.<br>
-                    Accèdez à notre panoplie de modèle <strong><a href='index.php'>ici</a></strong> !</p>";
+                        echo "<p>Vous n'avez aucun produit dans votre panier pour le moment.<br>
+                        Accèdez à notre panoplie de modèle <strong><a href='index.php'>ici</a></strong> !</p>";
                     } ?>
                 </div>
             </div>
@@ -189,13 +189,42 @@
         <?php } ?>
 
         <?php if (isset($_SESSION['comments'])) {   // Si user a fait des commentaires ?>
+            <div class="formulaire" style="color: rgb(22, 22, 22); width: 80%;" id="comments">
+                <h1>
+                    Vos commentaires :
+                </h1>
+                <br>
+
+                <div class="all_comments">
+                <?php
+                    $results = Database("comment", "*", "1");
+                    $com = $results[0];
+                    sort($com);                                                 // Tri tableau
+
+                    if (count($com) > 0) {                                      // Si au moins un élément
+                        foreach ($com as $key => $value) {
+                            $resultat = Database("user", "username", "id='".$value."'");// Cherche par id
+                            $user = $resultat[0];
+                            echo "<div class='comment'>";
+                            echo "<h3>".$user[0]['username']."</h3>";
+                            echo "<h5>".$com[0]['writing_date']."</h5>";
+                            echo "<h4>Message :</h4>";
+                            echo "<p>".$com[0]['content']."</p>";
+                            echo "</div><br>";
+                        }
+                    } else {
+                        echo "<p>Vous n'avez fait aucun commentaire pour le moment.<br>
+                        Accèdez à votre commentaire <strong><a href='index.php#".$com[0]['car_id']."'>ici</a></strong> !</p>";
+                    } ?>
+                </div>
+            </div>
             <br>
         <?php } ?>
 
         <?php if ($is_admin and isset($_SESSION['rights'])) { ?>
             <div style="margin-right: 6%;">
-                <button><a href="admin.php">Modifier les voitures</a></button>
-                <button><a href="admin.php">Modifier les marques</a></button>  <!-- ! Ajouter form pour garage.brand -->
+                <button><a href="admin.php#car">Modifier les voitures</a></button>
+                <button><a href="admin.php#brand">Modifier les marques</a></button>  <!-- ! Ajouter form pour garage.brand -->
             </div>
             <br>
         <?php } ?>
