@@ -48,6 +48,7 @@
                             echo "<option value='$i' >$i</option>";
                         } ?>
                 </select>
+                ans
                 <br><br>
                 Téléphone : +687
                 <input type="tel" name="phone" placeholder="Numéro de téléphone" pattern="[0-9]{6}">

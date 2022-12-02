@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 28 nov. 2022 à 09:53
+-- Généré le : ven. 02 déc. 2022 à 02:42
 -- Version du serveur : 10.4.25-MariaDB
 -- Version de PHP : 8.1.10
 
@@ -95,7 +95,7 @@ CREATE TABLE `user` (
   `mail` varchar(255) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `password` text NOT NULL,
-  `date_inscription` date NOT NULL DEFAULT current_timestamp(),
+  `inscription_date` datetime NOT NULL DEFAULT current_timestamp(),
   `favoris` varchar(2000) DEFAULT '0',
   `panier` varchar(2000) DEFAULT '0',
   `comments` text DEFAULT NULL
@@ -105,10 +105,10 @@ CREATE TABLE `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `nickname`, `age`, `phone`, `mail`, `username`, `password`, `date_inscription`, `favoris`, `panier`, `comments`) VALUES
-(1, 'John', 'Smith', 42, '123456', 'johnsmith@mail.com', 'John Smith', '0035462a111c24bb831e8b888205dd34f20cfdca', '2022-11-21', '2 4 7', '0 4', NULL),
-(2, 'Nathan', 'Mir', 21, '921112', 'mir.nathan42@gmail.com', 'One Shot', '5ea02a019e424ecba1f7ce679571208228b5fdc7', '2022-11-21', '1 6 8', '0', NULL),
-(11, 'Momo', 'Amed', 72, '023340', 'momo@amed.nc', 'Julien', 'e6f13a9ef9e4943b41a543069a91cc43c6eb6275', '2022-11-23', '0', '0', NULL);
+INSERT INTO `user` (`id`, `name`, `nickname`, `age`, `phone`, `mail`, `username`, `password`, `inscription_date`, `favoris`, `panier`, `comments`) VALUES
+(1, 'John', 'Smith', 42, '123456', 'johnsmith@mail.com', 'John Smith', '0035462a111c24bb831e8b888205dd34f20cfdca', '2022-11-21 00:00:00', '2 4 7', '0 4', NULL),
+(2, 'Nathan', 'Mir', 21, '921112', 'mir.nathan42@gmail.com', 'One Shot', '5ea02a019e424ecba1f7ce679571208228b5fdc7', '2022-11-21 00:00:00', '1 6 8', '0', NULL),
+(11, 'Momo', 'Amed', 72, '023340', 'momo@amed.nc', 'Julien', 'e6f13a9ef9e4943b41a543069a91cc43c6eb6275', '2022-11-23 00:00:00', '0', '0', NULL);
 
 --
 -- Index pour les tables déchargées

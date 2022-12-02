@@ -4,25 +4,17 @@
     $nom_du_site = "Express Car";
     $is_connected = (isset($_SESSION['username'])) ? True : False;
     $is_admin = (isset($_SESSION['username']) and isset($_SESSION['rights'])) ? True : False;
-    $array_cars = [
-        "Alfa"=>[],
-        "Audi"=>[],
-        "Bmw"=>[],
-        "Citroen"=>["Berlingo", "C3", "C4", "C5"],
-        "Dacia"=>[],
-        "Fiat"=>[],
-        "Ford"=>[],
-        "Mercedes"=>[],
-        "Nissan"=>[],
-        "Opel"=>[],
-        "Peugeot"=>["108", "208", "308", "408", "508"],
-        "Renault"=>["Captur", "Clio", "Espace", "Kangoo", "Twingo"],
-        "Romeo"=>[],
-        "Seat"=>[],
-        "Suzuki"=>["Across", "Ignis", "Swift", "Vitara"],
-        "Tesla"=>[],
-        "Toyota"=>[],
-        "Volkswagen"=>[],
+    $array_cars = ["Alfa Romeo"=>"Stelvio Tonale", "Audi"=>"A4 A5 A8 Q3 Q5 Q7",
+        "BMW"=>"X1 X2 X3 X4 X5 X6 X7", "Citroen"=>"Berlingo C3 C4 C5",
+        "Dacia"=>"Duster Sandero Spring Jogger", "Fiat"=>"500C 500X 500L Tipo Panda",
+        "Ford"=>"Focus Fiesta Mustang Explorer Kuga Mondeo Puma Ecosport",
+        "Mercedes-Benz"=>"GLC GLA GLE AMG SL", "Peugeot"=>"108 208 308 408 508",
+        "Nissan"=>"X-Trail Micra Qashqai Leaf Juke Ariya Combi",
+        "Opel"=>"Astra Corsa Mokka Crossland Grandland Insignia Zafira",
+        "Renault"=>"Captur Clio Espace Kangoo Twingo", "Seat"=>"Leon Ibiza Arona Ateca Tarraco",
+        "Suzuki"=>"Across Ignis Swift Vitara", "Tesla"=>"Model3 ModelY ModelX ModelS",
+        "Toyota"=>"Landcruiser Yaris Corolla Prius Camry CHR SUPRA",
+        "Volkswagen"=>"Golf Polo Tiguan Touran T-roc T-cross Caddy",
     ];
     header("refresh: 60");                                                      // Rafraîchis le site toutes les minutes
 
@@ -122,20 +114,21 @@
         $condition = ($column=="*" AND $condition=="1" AND $request!="select") ?
                      "0" : $condition;                                          // Evite de tous modifier
         if ($request =="add") {                                                 // Ajoute une marque
-            $results = Database("brand", "brand", "brand=".$column[0]);
-            $check = $results[0];
-            if (count($check) > 0) {                                            // Si existe déjà
+            try { $results = Database("brand", "brand", "brand='".$column[0]."'"); }
+            catch (Exception $e) { echo $e->getMessage(), "<br>"; }
+            $check = (isset($results)) ? $results[0] : NULL;
+            if (isset($check) and count($check) > 0) {                          // Si existe déjà
                 echo "Une marque avec le même nom (".$column[0].") existe déjà !";
                 echo "Veuillez utiliser le formulaire de modification pour cette marque.";
             } else {
-                $sql="INSERT INTO garage.brand(brand, model, length, active, ajout_date)
-                    VALUES(?, ?, ?, ?, ?)";
+                $models = explode(" ", $column[1]);
+                $column[2] = count($models);
+                $sql="INSERT INTO garage.brand(brand, model, length) VALUES(?, ?, ?)";
                 $requete = $connexion->prepare($sql);
                 $requete->execute($column);
             }
         } else if ($request =="modify") {                                       // Modifie une marque
-            $sql="UPDATE garage.brand SET brand=?, model=?, length=?, active=?, ajout_date=?
-                WHERE $condition";
+            $sql="UPDATE garage.brand SET brand=?, model=?, active=? WHERE $condition";
             $requete = $connexion->prepare($sql);
             $requete->execute($column);
         } else if ($request =="delete") {                                       // Supprime une marque
@@ -198,13 +191,28 @@
         }
     }
 
-    function get_database_options($dataname, $column) {
+    function get_database_options($dataname, $column): array {
         $options = array();
         $results = Database($dataname, $column);
         $data = $results[0];
         foreach ($data as $key => $value) {
-            if (!in_array($value[$column], $options) and $value[$column] != "") {   // Si pas dedans, ajoute
+            if (!in_array($value[$column], $options) and $value[$column] != "") {   // Si pas dans options, l'ajoute
                 array_push($options, $value[$column]);
+            }
+        }
+        sort($options);
+        return $options;
+    }
+
+    function get_dictionnary_options($dict): array {
+        $options = array();
+        foreach ($dict as $key => $value) {
+            $choices = explode(" ", $value);                                    // Get string en array
+            sort($choices);
+            foreach ($choices as $key2 => $choice) {
+                if (!in_array($choice, $options) and $choice != "") {           // Si pas dans options, l'ajoute
+                    array_push($options, $choice);
+                }
             }
         }
         sort($options);
@@ -257,7 +265,8 @@
         return array($requete->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    function Test($dataname): array {
+    // ! Voir utilisations pour suppression
+    function Test($dataname): array {                                           // Retourne toute une base de données (inutile désormais)
         $connexion = Connexion();
         $requete = $connexion->prepare("SELECT * FROM $dataname WHERE 1");
         $requete->execute();

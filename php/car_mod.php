@@ -54,11 +54,10 @@
             Modèle :
             <select type="text" name="model" required>
                 <?php
-                    foreach ($array_cars as $key => $brand) {
-                        foreach ($brand as $key2 => $model) {
-                            echo ($model=="C4") ? "<option value='$model' selected>$model</option>" :
-                            "<option value='$model' >$model</option>";
-                        }
+                    $models = get_dictionnary_options($array_cars);
+                    foreach ($models as $key => $model) {
+                        echo ($model=="C4") ? "<option value='$model' selected>$model</option>" :
+                        "<option value='$model' >$model</option>";
                     } ?>
                 </select>
                 <br><br>

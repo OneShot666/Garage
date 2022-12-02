@@ -6,21 +6,20 @@
     $nav = "accueil";
 ?>
 
-<!-- Faire des banderoles (use all width of pages) pour meilleure présentation ? -->
-<!-- Améliorer le css : header, footer, search, profile, products (tabs), about -->
-<!-- Adapter le code à data/garage.sql ou à data/garage/* -->
-<!-- Améliorer les droits admins (rwx), prévenir et vérifier -->
+<!-- (css) Faire des banderoles (use all width of pages) pour meilleure présentation ? -->
+<!-- (css) Améliorer le css : header, footer, search, profile, products (tabs), about -->
+<!-- (sql) Adapter le code à data/garage.sql ou à data/garage/* -->
 
-<!-- Ajouter personnaliser compte (photo, modifier password, etc) -->
-<!-- Ajouter afficher voitures en fonction recherche -->
-<!-- Ajouter boutons dans afficher un seul form x3 dans admin -->
-<!-- Ajouter commentaires derière voiture : en faire des cartes -->
-<!-- Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
+<!-- (php) Ajouter personnaliser compte user (photo, modifier password, etc) -->
+<!-- (php) Ajouter afficher cars selon recherche (fusionner search & product ?) -->
+<!-- (css) Ajouter boutons dans afficher un seul form x3 dans admin -->
+<!-- (css) Ajouter commentaires derière voiture : en faire des cartes -->
+<!-- (php) Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
 
 <!-- Redéfinir les erreurs systèmes -->
-<!-- Ajouter vérification et nettoyage de la base de données (doublons, format, etc) -->
-<!-- Quand add JS, use pour formulaires (afficher et vérif data) et défilmt auto -->
-<!-- Pour form car, add jointure ? (lien marque-modèle) -->
+<!-- (php) Ajouter vérification et nettoyage de la base de données (doublons, format, etc) -->
+<!-- (js) Use pour formulaires (afficher et vérif data) et défilmt auto -->
+<!-- (js) Pour form car, add jointure ? (lien marque-modèle) -->
 
 <!DOCTYPE html>
 

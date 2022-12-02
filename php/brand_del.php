@@ -20,7 +20,7 @@
     <?php
         if (isset($_POST['delete_brand']) AND $_POST['delete_brand'] == "Supprimer") {
             echo "<strong>Formulaire envoyé !<br><p style='color:red;'>";
-            if (isset($_POST['brand'])) { echo "Veuillez donner une marque à supprimer !"; }
+            if (!isset($_POST['brand'])) { echo "Veuillez donner une marque à supprimer !"; }
             else { BrandPart("delete", "0", "brand='".$_POST['brand']."'"); }
             echo "</strong></p>";
         }

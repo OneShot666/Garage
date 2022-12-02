@@ -20,9 +20,9 @@
     <?php
         if (isset($_POST['add_brand']) AND $_POST['add_brand'] == "Ajouter") {
             echo "<strong>Formulaire envoyé !<br><p style='color:red;'>";
-            if (isset($_POST['brand'])) {
+            if (!isset($_POST['brand'])) {
                 echo "Veuillez donner une marque !";
-            } else if (isset($_POST['model'])) {
+            } else if (!isset($_POST['model'])) {
                 echo "Veuillez donner au moins un modèle de voiture de cette marque !";
             } else {
                 BrandPart("add", array($_POST['brand'], $_POST['model']));
@@ -35,10 +35,10 @@
         <form action="" method="post">
             <label>
                 Marque :
-                <input type="varchar" name="brand" placeholder="Marque" pattern="{1, 255}" required>
+                <input type="varchar" name="brand" placeholder="Marque" pattern="[a-zA-Z0-9_-]{1, 255}" required>
                 <br><br>
                 Modèles :
-                <input type="varchar" name="model" placeholder="Modèles" pattern="{1, 2000}" required>
+                <input type="varchar" name="model" placeholder="Modèle1 Modèle2" pattern="[a-zA-Z0-9_- ]{1, 2000}" required>
                 <br><br>
             </label>
 

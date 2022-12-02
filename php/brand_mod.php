@@ -20,9 +20,9 @@
     <?php
         if (isset($_POST['modify_brand']) AND $_POST['modify_brand'] == "Modifier") {
             echo "<strong>Formulaire envoyé !<br><p style='color:red;'>";
-            if (isset($_POST['brand'])) {
+            if (!isset($_POST['brand'])) {
                 echo "Veuillez donner une marque à modifier !";
-            } else if (isset($_POST['model'])) {
+            } else if (!isset($_POST['model'])) {
                 echo "Veuillez donner au moins un nouveau modèle de voiture pour cette marque !";
             } else {
                 BrandPart("modify", array($_POST['brand'], $_POST['model'], $_POST['active']));
@@ -46,7 +46,15 @@
                 Modèles :
                 <select type="varchar" name="model" placeholder="Modèles" pattern="{1, 2000}" required>
                     <?php
-                        $models = get_database_options("brand", "model");
+                        $models_list = get_database_options("brand", "model");
+                        $models = array();
+                        foreach ($models_list as $key => $list) {               // Get string en array
+                            $tab = explode(" ", $list);
+                            foreach ($tab as $key => $value) {
+                                array_push($models, $value);
+                            }
+                        }
+                        sort($models);
                         foreach ($models as $key => $model) {
                             echo "<option value='$model' >$model</option>";
                         } ?>
