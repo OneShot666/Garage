@@ -8,16 +8,19 @@
 
 <!-- (css) Faire des banderoles (use all width of pages) pour meilleure présentation ? -->
 <!-- (css) Améliorer le css : header, footer, search, profile, products (tabs), about -->
-<!-- (sql) Adapter le code à data/garage.sql ou à data/garage/* -->
-
-<!-- (php) Ajouter personnaliser compte user (photo, modifier password, etc) -->
-<!-- (php) Ajouter afficher cars selon recherche (fusionner search & product ?) -->
-<!-- (css) Ajouter boutons dans afficher un seul form x3 dans admin -->
 <!-- (css) Ajouter commentaires derière voiture : en faire des cartes -->
-<!-- (php) Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
+<!-- (css) Ajouter boutons dans afficher un seul form x3 dans admin -->
 
-<!-- Redéfinir les erreurs systèmes -->
-<!-- (php) Ajouter vérification et nettoyage de la base de données (doublons, format, etc) -->
+<!-- (php) Afficher texte dans admin form après envoi pour confirmer modifs --> 
+<!-- (php) Ne pas afficher boutons dans check_ si echec connection user/admin -->
+<!-- (php) Faire fonction pour car cards (index & profile) avec condition de search -->
+<!-- (php) Ajouter afficher cars selon recherche (fusionner search & product ?) -->
+<!-- (php) Ajouter personnaliser compte user (photo, modifier password, etc) -->
+<!-- (php) Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
+<!-- (php) Ajouter vérification et nettoyage de la base de données (doublons, format, ids panier, etc) -->
+<!-- (php) Qd finitions site, nettoyer code (répétitions, mess en EN, guillemets, etc) -->
+
+<!-- (sql) Adapter le code à data/garage.sql ou à data/garage/* -->
 <!-- (js) Use pour formulaires (afficher et vérif data) et défilmt auto -->
 <!-- (js) Pour form car, add jointure ? (lien marque-modèle) -->
 

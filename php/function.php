@@ -8,16 +8,68 @@
         "BMW"=>"X1 X2 X3 X4 X5 X6 X7", "Citroen"=>"Berlingo C3 C4 C5",
         "Dacia"=>"Duster Sandero Spring Jogger", "Fiat"=>"500C 500X 500L Tipo Panda",
         "Ford"=>"Focus Fiesta Mustang Explorer Kuga Mondeo Puma Ecosport",
-        "Mercedes-Benz"=>"GLC GLA GLE AMG SL", "Peugeot"=>"108 208 308 408 508",
+        "Mercedes-Benz"=>"GLC GLA GLE AMG SL",
         "Nissan"=>"X-Trail Micra Qashqai Leaf Juke Ariya Combi",
         "Opel"=>"Astra Corsa Mokka Crossland Grandland Insignia Zafira",
+        "Peugeot"=>"108 208 308 408 508",
         "Renault"=>"Captur Clio Espace Kangoo Twingo", "Seat"=>"Leon Ibiza Arona Ateca Tarraco",
         "Suzuki"=>"Across Ignis Swift Vitara", "Tesla"=>"Model3 ModelY ModelX ModelS",
         "Toyota"=>"Landcruiser Yaris Corolla Prius Camry CHR SUPRA",
-        "Volkswagen"=>"Golf Polo Tiguan Touran T-roc T-cross Caddy",
+        "Volkswagen"=>"Golf Polo Tiguan Touran T-Roc T-Cross Caddy",
     ];
-    header("refresh: 60");                                                      // Rafraîchis le site toutes les minutes
+    // ! Faire "nom"=>"couleur" pour fond coloré ?
+    $colors = ["autre", "bordeaux", "pourpre", "rouge", "rouge orangée", "orange",
+        "jaune", "poussin", "kaki", "verte claire", "verte", "verte foncée", "cyan",
+        "turquoise", "bleue ciel", "bleue", "marine", "mauve", "violette", "marron",
+        "saumon", "rose", "blanche", "grise claire", "grise", "grise foncée", "noire"];
+    $nb_min = 5;
+    header("refresh: ".$nb_min * 60);                                           // Rafraîchis le site toutes les X minutes
+    /* Type d'erreurs :
+    1 – E_ERROR : Erreur critique entraînant une interruption du script;
+    2 – E_WARNING : Message d’avertissmt (ex: échec open file) mais continue exécut°;
+    4 – E_PARSE : Erreur de syntaxe dans le fichier;
+    8 – E_NOTICE : Message faible imptt, exécut° pas perturbée (ex: lire var non déclarée);
+    256 – E_USER_ERROR : Message d’erreur généré par user. Générée par use° de f° trigger_error();
+    512 – E_USER_WARNING : //;
+    1024 – E_USER_NOTICE : //;
+    2048 – E_STRICT : Erreur d’avertissmt pour use° ancienne syntaxe déconseillée.
+    */
 
+    /* Arguments :
+    $errno – niveau d’erreur (obligatoire);
+    $errstr – message (obligatoire);
+    $errfile – nom du fichier (optionnel);
+    $errline – numéro de ligne (optionnel);
+    $errcontext – tab avec all vars qd erreur a été déclenchée (optionnel).
+    */
+    function ErrorPerso($errno, $errstr, $errfile, $errline){
+        echo "Erreur n°$errno, ligne n°$errline, du fichier '$errfile' :  $errstr";
+    }
+
+    function ErrorUser($errno, $errstr){
+        echo "Erreur n°$errno :  $errstr";
+    }
+
+    set_error_handler('ErrorPerso');                                            // Set les erreurs système
+    set_error_handler('ErrorUser', E_USER_ERROR);                               // Set celle pour 256
+    set_error_handler('ErrorUser', E_USER_WARNING);                             // Set celle pour 512
+    set_error_handler('ErrorUser', E_USER_NOTICE);                              // Set celle pour 1024
+    // Se déclenche avec : trigger_error("Le prix ne peux pas être nul",E_USER_WARNING );
+
+    /* Arguments :
+    $script - Adresse du fichier
+    $ligne - Numéro de ligne
+    $message - Message
+    */
+    function AssertPerso($script, $ligne, $message){
+        echo "Assertion fausse dans le fichier : <br> $script <br> à la ligne n°$ligne : <br>$message";
+    }
+
+    assert_options(ASSERT_ACTIVE, 1);                                           // Active éval° de f° assert()
+    assert_options(ASSERT_WARNING, 0);                                          // Génère alerte pour chaque assert° fausse
+    assert_options(ASSERT_CALLBACK,'AssertPerso');                              // Personnalise les erreurs assertion
+
+    /* ---------------------------- Autres fonctions -------------------------- */
     function Redirection($right="a") {                                          // Renvoie user si modifie url
         global $is_admin, $_SESSION;
         $right = ($right == "-") ? "r" : $right;                                // Empêche les magouilles
@@ -49,10 +101,9 @@
         // $command = \PDO::MYSQL_ATTR_INIT_COMMAND;                               // 1002;
 
         try { return new PDO("mysql:host=$server; dbname=$dbname; charset=utf8;", $user, $password); }
-        catch (Exception $e) { return "Erreur de connexion à la base de données :\n" . $e->getMessage(); }
-        // try { return new PDO("mysql:host=".$server."; dbname=".$dbname."; port=".$port,
+        // try { return new PDO("mysql:host=".$server."; dbname=".$dbname."; port=".$port,          // Autre type connexion
         //      $user, $password, array(\PDO::MYSQL_ATTR_INIT_COMMAND=> "SET NAMES 'utf8'", 65536)); }
-        //catch (Exception $e) { return "Erreur de connexion à la base de données :\n" . $e->getMessage(); }
+        catch (Exception $e) { return "Erreur de connexion à la base de données :\n" . $e->getMessage(); }
     }
 
     function ExecuteSqlFile() {
@@ -70,7 +121,7 @@
 
     function CarPart($request="", $column="*", $condition="1") {
         $connexion = Connexion();
-        $condition = ($request=="delete" AND $condition=="1") ? "description" : $condition;// Evite de tous supprimer
+        $condition = ($request=="delete" AND $condition=="1") ? "0" : $condition;// Evite de tous supprimer
         $condition = ($column=="*" AND $condition=="1" AND $request!="select") ?
                      "0" : $condition;                                          // Evite de tous modifier
         if ($request =="add") {                                                 // Ajoute une voiture
@@ -110,7 +161,7 @@
 
     function BrandPart($request="", $column="*", $condition="1") {
         $connexion = Connexion();
-        $condition = ($request=="delete" AND $condition=="1") ? "length" : $condition;// Evite de tous supprimer
+        $condition = ($request=="delete" AND $condition=="1") ? "0" : $condition; // Evite de tous supprimer
         $condition = ($column=="*" AND $condition=="1" AND $request!="select") ?
                      "0" : $condition;                                          // Evite de tous modifier
         if ($request =="add") {                                                 // Ajoute une marque
@@ -151,7 +202,7 @@
 
     function UserPart($request="", $column="*", $condition="1") {
         $connexion = Connexion();
-        $condition = ($request=="delete" AND $condition=="1") ? "panier" : $condition;// Evite de tous supprimer
+        $condition = ($request=="delete" AND $condition=="1") ? "0" : $condition;// Evite de tous supprimer
         $condition = ($column=="*" AND $condition=="1" AND $request!="select") ?
                      "0" : $condition;                                          // Evite de tous modifier
         if ($request =="add") {                                                 // Ajoute un utilisateur
@@ -266,7 +317,7 @@
     }
 
     // ! Voir utilisations pour suppression
-    function Test($dataname): array {                                           // Retourne toute une base de données (inutile désormais)
+    function Test($dataname): array {                                           // Retourne database (inutile désormais)
         $connexion = Connexion();
         $requete = $connexion->prepare("SELECT * FROM $dataname WHERE 1");
         $requete->execute();

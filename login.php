@@ -80,16 +80,18 @@
                                pattern="[a-zA-Z0-9_-]{3,99}" required>
                     </label>
                     <br><br>
+                    <?php $pattern = "(?=^.{8,255}$)((?=.*d)|(?=.*W+))(?![.n])(?=.*[A-Z])(?=.*[a-z]).*"; ?>
+                    <!--              Au moins 8 caractères, 1 chiffre, 1 majuscule et 1 minuscule      -->
                     <label for="password">Mot de passe :
                         <input type="password" name="password" placeholder="8 caractères minimum"
-                               pattern="[a-zA-Z0-9_-]{8,99}" required>          <!-- autocomplete="off" -->
+                                pattern="<?= $pattern ?>" required>             <!-- autocomplete="off" -->
                     </label>
                     <?php
                         if (isset($_POST["envoyer"]) AND $_POST["envoyer"] == "Envoyer") {
                             if (count($_POST['password'] < 8)) {
                                 echo "Mot de passe trop court !";
                                 $formulaire_valid = False;
-                            } else if (!preg_match('[a-zA-Z0-9_-]', $_POST['password'])) {
+                            } else if (!preg_match($pattern, $_POST['password'])) {
                               echo "Mot de passe non sécurisé !";
                               $formulaire_valid = False;
                             } else { $formulaire_valid=True; }
@@ -98,7 +100,7 @@
                     <br><br>
                     <label for="passwordbis">Confirmer mot de passe :
                         <input type="password" name="passwordbis" placeholder="Entrez le mot de passe à nouveau"
-                               pattern="[a-zA-Z0-9_-]{8,99}" required>          <!-- autocomplete="off" -->
+                               pattern="<?= $pattern ?>" required>              <!-- autocomplete="off" -->
                     </label>
                     <?php
                         if (isset($_POST["envoyer"]) AND $_POST["envoyer"] == "Envoyer") {

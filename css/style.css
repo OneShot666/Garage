@@ -115,8 +115,8 @@ input[type='text'] {
 	min-width: 100px;
 }
 
-input[type='text'], input[type='varchar'], input[type='int'], input[type="date"],
-select, input[type='password'] {
+input[type='text'], input[type='varchar'], input[type='int'], input[type='tel'],
+input[type='mail'], input[type="date"], select, input[type='password'] {
 	box-shadow: 1px 2px 0 0 rgba(200, 200, 200, 0.5);
 	border-radius: 5px;
 	padding-left: 15px;
@@ -317,6 +317,21 @@ th {
 .product > form {
 	float: right;
 	margin-left: 15px;
+}
+
+.all_comments > p {
+	background: rgba(255, 255, 255, 0.3);
+	font-size: 20px;
+	padding: 10px;
+}
+
+.comment > p {
+	background: rgba(255, 255, 255, 0.3);
+	font-size: 16px;
+	margin-left: 10%;
+	max-height: 80px;
+	max-width: 80%;
+	overflow-y: auto;
 }
 
 .search_bar {

@@ -9,13 +9,11 @@
     }
 
     try {
-        $database = new PDO("mysql:host=localhost; dbname=garage; charset=utf8;",
-        "root", "");
+        $database = new PDO("mysql:host=localhost; dbname=garage; charset=utf8;", "root", "");
         // $database -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // $database -> query("SELECT * FROM user");
     } catch (Exception $e) { die("Erreur : " . $e -> getMessage()); }
 
-    // ! Ajouter une fonction unique pour sécuriser les entrées de textes
     if (isset($_POST["envoyer"]) AND $_POST["envoyer"] == "Envoyer") {
         if (!empty($_POST['name']) and !empty($_POST['nickname']) and
           !empty($_POST['age']) and !empty($_POST['username']) and
@@ -26,7 +24,6 @@
             $nickname = strip_tags($nickname);
             $age = htmlspecialchars($_POST["age"]);
             $age = strip_tags($age);
-            // ! Vérifier validité téléphone
             if (empty($_POST['phone'])) {
                 $phone = "";
                 echo "Champ 'phone' vide.<br>";
@@ -34,7 +31,6 @@
                 $phone = htmlspecialchars($_POST["phone"]);
                 $phone = strip_tags($phone);
             }
-            // ! Vérifier validité adresse
             if (empty($_POST['mail'])) {
                 $mail = "";
                 echo "Champ 'mail' vide.<br>";
@@ -49,17 +45,15 @@
             $password = htmlspecialchars($_POST["password"]);                   // htmlspecialchars : Contre failles
             $password = strip_tags($password);
             $password = sha1($_POST['password']);                               // sha1 : Pas très sécurisé today
-            // echo "Champs sécurisés.<br>";
 
             $checkUserAlreadyExist = $database->prepare("SELECT * FROM garage.user
                                      WHERE username = ? AND password = ?");
             $checkUserAlreadyExist->execute(array($username, $password));
             if ($checkUserAlreadyExist->rowCount() > 0) {                       // Si user existe déjà
-                $update_user = $database->prepare("UPDATE garage.user
-                               SET name=?, nickname=?, age=?, phone=?, mail=?
-                               WHERE username=? AND password=?");
-                $update_user->execute(array($name, $nickname, $age, $phone, $mail, $username, $password));
-            } else {                              // '?' : arg rempli en dessous
+                echo "<h2>Cet utilisateur existe déjà !</h2><br>";
+                echo "<h3>Veuillez-vous connecter avec le <a href='connect.php'>
+                    formulaire de connection</a> ou entrez un autre speudo</h3>";
+            } else {                                                            // '?' : arg rempli avec VALUES
                 $insert_user = $database->prepare("INSERT INTO garage.user
                                (name, nickname, age, phone, mail, username, password)
                                VALUES(?, ?, ?, ?, ?, ?, ?)");
@@ -75,6 +69,9 @@
             $_SESSION['mail'] = $mail;
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
+            $_SESSION['favoris'] = array();
+            $_SESSION['panier'] = array();
+            $_SESSION['comments'] = array();
 
             echo "Bienvenue <strong>" . $_SESSION['username'] . "</strong> !<br>";
         } else {
@@ -82,5 +79,5 @@
             remplies avant d'envoyer le formulaire d'inscription.<br>";
         }
     }
-    echo "<br><button><a href='index.php'>Retour à l'accueil</a></button>";
-    echo "<button><a href='profile.php'>Votre profil</a></button>";
+    echo "<br><button style='float: right;'><a href='index.php'>Retour à l'accueil</a></button>";
+    echo "<button style='float: right;'><a href='profile.php'>Votre profil</a></button>";

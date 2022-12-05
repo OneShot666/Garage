@@ -35,11 +35,10 @@
 
         <?php
             if (isset($_POST['message']) and isset($_POST['envoyer'])) {
-              $subject = ($is_connected) ? "Avis de ".$_SESSION['username'] : "Avis d'un utilisateur";
-              $reply = "From: mir.nathan42@gmail.com"."\r\n"."Reply-to: ".$_POST['mail'];
-              $back = mail('p0ub3ll3m4n@gmail.com', $subject, $_POST['message'],
-                            $reply);
-              if ($back) { echo "<h3>Votre avis a bien été envoyé.</h3>"; }
+                $subject = ($is_connected) ? "Avis de ".$_SESSION['username'] : "Avis d'un utilisateur";
+                $reply = "From: mir.nathan42@gmail.com"."\r\n"."Reply-to: ".$_POST['mail'];
+                $back = mail('p0ub3ll3m4n@gmail.com', $subject, $_POST['message'], $reply);// Vérifier comment ça marche
+                if ($back) { echo "<h3>Votre avis a bien été envoyé.</h3>"; }
             }
         ?>
 
@@ -47,21 +46,21 @@
             <nav content="Message" class="formulaire">
                 <form action="" method="post">
                     <label for="speudo">Pseudonyme :
-                        <?php $pseudo = ($is_connected) ? $_SESSION['username'] : "min 3 caractères"; ?>
+                        <?php $pseudo = ($is_connected) ? $_SESSION['username'] : "Votre pseudonyme"; ?>
                         <input type="varchar" name="speudo" placeholder="<?php echo $pseudo; ?>"
-                         pattern="[a-zA-Z]{3,99}" required>
+                         pattern="[a-zA-Z0-9_- ]{3,99}" required>
                     </label>
                     <br><br>
                     <label for="mail">Adresse mail :
                         <?php $mail = ($is_connected and isset($_SESSION['mail'])) ?
                                       $_SESSION['mail'] : "adresse@mail.com"; ?>
-                        <input type="varchar" name="mail" placeholder="<?php echo $mail; ?>"
-                         pattern="[a-z]{3,99}@[a-zA-Z].[a-zA-Z]" required>
+                        <input type="mail" name="mail" placeholder="<?php echo $mail; ?>"
+                            pattern="[a-zA-Z0-9_-.]{3,99}@[a-zA-Z].[a-zA-Z]" required>
                     </label>
                     <br><br>
                     <label for="message">Message :
-                        <input type="text" name="message" placeholder=""
-                         pattern="[a-zA-Z0-9_-]{20,999}" required>
+                        <input type="text" name="message" placeholder="Au moins 20 caractères"
+                            pattern="[a-zA-Z0-9_-.!?+-/ ]{20,999}" required>
                     </label>
                     <br><br>
                     <input type="submit" name="envoyer" value="Envoyer">

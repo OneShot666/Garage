@@ -64,12 +64,18 @@
                 &#8364;
                 <br><br>
                 Couleur :
-                <input type="varchar" name="color" placeholder="Couleur" pattern="[a-zA-Z]">
+                <select type="varchar" name="color" pattern="[a-zA-Z ]">
+                <?php
+                    sort($colors);
+                    foreach ($colors as $key => $value) {
+                        echo "<option value='$value' >".ucfirst($value)."</option>";
+                    } ?>
+                </select>
                 <br><br>
                 Chevaux moteur :
                 <select type="int" name="horsepower" required>
                     <?php
-                        for ($i=10; $i <= 2000; $i+=10) {
+                        for ($i=0; $i <= 2000; $i+=10) {
                             echo "<option value='$i' >$i</option>";
                         } ?>
                 </select>
