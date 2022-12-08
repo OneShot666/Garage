@@ -23,6 +23,10 @@
 
     <body>
         <?php require_once "include/header.php" ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
         <br>
 
         <div class="formulaire" style="color: rgb(22, 22, 22); text-align: left; width: 80%;" id="profile">
@@ -32,6 +36,7 @@
             <br>
 
             <h3>
+<<<<<<< HEAD
             <?php if ($is_admin) {                                              // Si admin
                     echo "Pseudo : ".$_SESSION['username']."<br><br>";
                     echo "Droits : <br>";
@@ -62,6 +67,40 @@
                     echo "<br>";
                     echo ($_SESSION['banned']) ? "<br><span style='color:red;'>Votre compte est suspendu !</span><br>" : "";
                 } ?>
+=======
+                <?php if ($is_admin) {                      //Si admin ?>
+                    Pseudo : <?= $_SESSION['username']; ?>
+                    <br><br>
+                    Droits :
+                    <br>
+                    <?php
+                        $testa = is_letter_in_word($_SESSION['rights'], "a");
+                        $testtiret = is_letter_in_word($_SESSION['rights'], "-");
+                        $testr = is_letter_in_word($_SESSION['rights'], "r");
+                        $testw = is_letter_in_word($_SESSION['rights'], "w");
+                        $testx = is_letter_in_word($_SESSION['rights'], "x");
+                        if ($testa and !$testtiret) { echo "Vous avez tous les droits adminisateurs.<br>"; }
+                        else if ($testr or $testw or $testx) {
+                            if ($testr) { echo "Vous avez le droit de visiter des pages spéciales.<br>"; }
+                            if ($testw) { echo "Vous avez le droit d'utiliser les formulaires des pages spéciales.<br>"; }
+                            if ($testx) { echo "Vous avez le droit d'envoyer les formulaires des pages spéciales.<br>"; }
+                        } else { echo "Vous n'avez aucun droit adminisateur.<br>"; }
+                    ?>
+                <?php } else {                              // Si user ?>
+                    Nom : <?= $_SESSION['name']; ?>
+                    <br><br>
+                    Prénom : <?= $_SESSION['nickname']; ?>
+                    <br><br>
+                    Pseudo : <?= $_SESSION['username']; ?>
+                    <br><br>
+                    Age : <?= $_SESSION['age']; ?> ans
+                    <br><br>
+                    Téléphone : +687 <?= get_form_phone($_SESSION['phone']); ?>
+                    <br><br>
+                    Email : <?= $_SESSION['mail']; ?>
+                    <br>
+                <?php } ?>
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
             </h3>
         </div>
         <br>
@@ -84,6 +123,7 @@
                     if (in_array("0", $fav)) { unset($fav[array_search("0", $fav)]); }  // Si zéro, le retire
                     sort($fav);                                                 // Tri tableau
 
+<<<<<<< HEAD
                     if (count($fav) > 0 and ($fav[0] != "0" or $fav[0] != " 0")) { // Si au moins un favoris
                         foreach ($fav as $key => $value) {
                             $connexion = Connexion();
@@ -119,6 +159,25 @@
                                 $nom_image = "icon.svg";
                             }
                             $nom_image = $path.$nom_image;
+=======
+                    if (count($fav) > 0 and $fav[0] != "0") {                   // Si au moins un favoris
+                        foreach ($fav as $key => $value) {
+                            $resultat = CarPart("select", "*", "id='".$value."'");// Cherche par id
+                            $database = $resultat[0];
+                            echo "<div class='product'>";
+                            echo "<h3>".$database[0]['brand']." ".$database[0]['model']."</h3>";
+                            $nom_image = "car-".strtolower($database[0]['brand'])."-".
+                                                strtolower($database[0]['model'])."-fr ".
+                                                strtolower($database[0]["numberplate"]).".jpg";
+                            if (! file_exists("images/car/".$nom_image)) {      // Si ne trouve pas l'image
+                                $nom_image = "car-".strtolower($database[0]['brand'])."-".
+                                                    strtolower($database[0]['model'])."-fr 0000.jpg";
+                            }
+                            if (! file_exists("images/car/".$nom_image)) {      // Si ne trouve toujours pas l'image
+                                $nom_image = "icon.svg";
+                            }
+                            $nom_image = "images/car/".$nom_image;
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
                             echo "<img alt='".$database[0]['description']."' src='$nom_image'
                                   style='height=150px'>";
                             echo "<h3>".$database[0]['price']." &#8364;</h3>";
@@ -132,12 +191,20 @@
                             echo "Age : ".$database[0]['age']." ans<br>";
                             echo "Arrivé au garage : ".$database[0]['inscription_date']."</h4>";
                             echo "<p>".$database[0]['description']."</p>";
+<<<<<<< HEAD
                             echo "<form action='' method='post'>☆<input type='submit' name='envoyer".$database[0]["id"]."'
                                 value='Retirer des favoris'></input></form>";
                             echo "</div>";
                         }
                     } else {
                         echo "<p>Vous n'avez aucun favoris pour le moment...<br>
+=======
+                            echo "<form><input type='submit' value='Retirer des favoris'></input></form>";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "<p>Vous n'avez aucun favoris pour le moment.<br>
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
                         Accèdez à notre panoplie de modèle <a href='index.php'>ici</a> !</p>";
                     } ?>
                 </div>
@@ -165,6 +232,7 @@
 
                     if (count($pan) > 0 and $pan[0] != "0") {                   // Si au moins un élément
                         foreach ($pan as $key => $value) {
+<<<<<<< HEAD
                             $connexion = Connexion();
                             $resultat = CarPart("select", "*", "id='".$value."'");// Cherche par id
                             $database = $resultat[0];
@@ -198,6 +266,23 @@
                                 $nom_image = "icon.svg";
                             }
                             $nom_image = $path.$nom_image;
+=======
+                            $resultat = CarPart("select", "*", "id='".$value."'");// Cherche par id
+                            $database = $resultat[0];
+                            echo "<div class='product'>";
+                            echo "<h3>".$database[0]['brand']." ".$database[0]['model']."</h3>";
+                            $nom_image = "car-".strtolower($database[0]['brand'])."-".
+                                                strtolower($database[0]['model'])."-fr ".
+                                                strtolower($database[0]["numberplate"]).".jpg";
+                            if (! file_exists("images/car/".$nom_image)) {      // Si ne trouve pas l'image
+                                $nom_image = "car-".strtolower($database[0]['brand'])."-".
+                                                    strtolower($database[0]['model'])."-fr 0000.jpg";
+                            }
+                            if (! file_exists("images/car/".$nom_image)) {      // Si ne trouve toujours pas l'image
+                                $nom_image = "icon.svg";
+                            }
+                            $nom_image = "images/car/".$nom_image;
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
                             echo "<img alt='".$database[0]['description']."' src='$nom_image'
                                   style='height=150px'>";
                             echo "<h3>".$database[0]['price']." &#8364;</h3>";
@@ -211,12 +296,20 @@
                             echo "Age : ".$database[0]['age']." ans<br>";
                             echo "Arrivé au garage : ".$database[0]['inscription_date']."</h4>";
                             echo "<p>".$database[0]['description']."</p>";
+<<<<<<< HEAD
                             echo "<form action='' method='post'><input type='submit' name='envoyer".$database[0]["id"]."'
                                 value='Retirer du panier'></input></form>";
                             echo "</div>";
                         }
                     } else {
                         echo "<p>Vous n'avez aucun produit dans votre panier pour le moment...<br>
+=======
+                            echo "<form><input type='submit' value='Retirer du panier'></input></form>";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "<p>Vous n'avez aucun produit dans votre panier pour le moment.<br>
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
                         Accèdez à notre panoplie de modèle <strong><a href='index.php'>ici</a></strong> !</p>";
                     } ?>
                 </div>
@@ -224,7 +317,11 @@
             <br>
         <?php } ?>
 
+<<<<<<< HEAD
         <?php if (isset($_SESSION['nickname']) or isset($_SESSION['comments'])) {   // Si user a fait des commentaires ?>
+=======
+        <?php if (isset($_SESSION['comments'])) {   // Si user a fait des commentaires ?>
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
             <div class="formulaire" style="color: rgb(22, 22, 22); width: 80%;" id="comments">
                 <h1>
                     Vos commentaires :
@@ -246,12 +343,20 @@
                             echo "<h5>".$com[0]['writing_date']."</h5>";
                             echo "<h4>Message :</h4>";
                             echo "<p>".$com[0]['content']."</p>";
+<<<<<<< HEAD
                             echo "<button><a href='index.php#".$com[0]['car_id']."'>
                                 Accèdez au commentaire</a></button>";
                             echo "</div><br>";
                         }
                     } else {
                         echo "<p>Vous n'avez fait aucun commentaire pour le moment...</p>";
+=======
+                            echo "</div><br>";
+                        }
+                    } else {
+                        echo "<p>Vous n'avez fait aucun commentaire pour le moment.<br>
+                        Accèdez à votre commentaire <strong><a href='index.php#".$com[0]['car_id']."'>ici</a></strong> !</p>";
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
                     } ?>
                 </div>
             </div>
@@ -260,9 +365,14 @@
 
         <?php if ($is_admin and isset($_SESSION['rights'])) { ?>
             <div style="margin-right: 6%;">
+<<<<<<< HEAD
                 <button><a href="admin.php#user">Modifier les utilisateurs</a></button>
                 <button><a href="admin.php#brand">Modifier les marques</a></button>
                 <button><a href="admin.php#car">Modifier les voitures</a></button>
+=======
+                <button><a href="admin.php#car">Modifier les voitures</a></button>
+                <button><a href="admin.php#brand">Modifier les marques</a></button>  <!-- ! Ajouter form pour garage.brand -->
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
             </div>
             <br>
         <?php } ?>

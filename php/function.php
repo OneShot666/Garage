@@ -9,6 +9,7 @@
         "BMW"=>"X1 X2 X3 X4 X5 X6 X7", "Citroen"=>"Berlingo C3 C4 C5",
         "Dacia"=>"Duster Sandero Spring Jogger", "Fiat"=>"500C 500X 500L Tipo Panda",
         "Ford"=>"Focus Fiesta Mustang Explorer Kuga Mondeo Puma Ecosport",
+<<<<<<< HEAD
         "Mercedes-Benz"=>"GLC GLA GLE AMG SL",
         "Nissan"=>"X-Trail Micra Qashqai Leaf Juke Ariya Combi",
         "Opel"=>"Astra Corsa Mokka Crossland Grandland Insignia Zafira",
@@ -71,6 +72,18 @@
     assert_options(ASSERT_CALLBACK,'AssertPerso');                              // Personnalise les erreurs assertion
 
     /* ---------------------------- Autres fonctions -------------------------- */
+=======
+        "Mercedes-Benz"=>"GLC GLA GLE AMG SL", "Peugeot"=>"108 208 308 408 508",
+        "Nissan"=>"X-Trail Micra Qashqai Leaf Juke Ariya Combi",
+        "Opel"=>"Astra Corsa Mokka Crossland Grandland Insignia Zafira",
+        "Renault"=>"Captur Clio Espace Kangoo Twingo", "Seat"=>"Leon Ibiza Arona Ateca Tarraco",
+        "Suzuki"=>"Across Ignis Swift Vitara", "Tesla"=>"Model3 ModelY ModelX ModelS",
+        "Toyota"=>"Landcruiser Yaris Corolla Prius Camry CHR SUPRA",
+        "Volkswagen"=>"Golf Polo Tiguan Touran T-roc T-cross Caddy",
+    ];
+    header("refresh: 60");                                                      // Rafraîchis le site toutes les minutes
+
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
     function Redirection($right="a") {                                          // Renvoie user si modifie url
         global $is_admin, $_SESSION;
         $right = ($right == "-") ? "r" : $right;                                // Empêche les magouilles
@@ -102,9 +115,16 @@
         // $command = \PDO::MYSQL_ATTR_INIT_COMMAND;                               // 1002;
 
         try { return new PDO("mysql:host=$server; dbname=$dbname; charset=utf8;", $user, $password); }
+<<<<<<< HEAD
         // try { return new PDO("mysql:host=".$server."; dbname=".$dbname."; port=".$port,          // Autre type connexion
         //      $user, $password, array(\PDO::MYSQL_ATTR_INIT_COMMAND=> "SET NAMES 'utf8'", 65536)); }
         catch (Exception $e) { return "Erreur de connexion à la base de données :\n" . $e->getMessage(); }
+=======
+        catch (Exception $e) { return "Erreur de connexion à la base de données :\n" . $e->getMessage(); }
+        // try { return new PDO("mysql:host=".$server."; dbname=".$dbname."; port=".$port,
+        //      $user, $password, array(\PDO::MYSQL_ATTR_INIT_COMMAND=> "SET NAMES 'utf8'", 65536)); }
+        //catch (Exception $e) { return "Erreur de connexion à la base de données :\n" . $e->getMessage(); }
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
     }
 
     function ExecuteSqlFile() {
@@ -123,7 +143,11 @@
     /* query() = prepare() + execute() (+/-) */
     function CarPart($request="", $column="*", $condition="1") {
         $connexion = Connexion();
+<<<<<<< HEAD
         $condition = ($request=="delete" AND $condition=="1") ? "0" : $condition;// Evite de tous supprimer
+=======
+        $condition = ($request=="delete" AND $condition=="1") ? "description" : $condition;// Evite de tous supprimer
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
         $condition = ($column=="*" AND $condition=="1" AND $request!="select") ?
                      "0" : $condition;                                          // Evite de tous modifier
         if (gettype($column) == "array") {
@@ -180,7 +204,11 @@
 
     function BrandPart($request="", $column="*", $condition="1") {
         $connexion = Connexion();
+<<<<<<< HEAD
         $condition = ($request=="delete" AND $condition=="1") ? "0" : $condition; // Evite de tous supprimer
+=======
+        $condition = ($request=="delete" AND $condition=="1") ? "length" : $condition;// Evite de tous supprimer
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
         $condition = ($column=="*" AND $condition=="1" AND $request!="select") ?
                      "0" : $condition;                                          // Evite de tous modifier
         $message = "";
@@ -232,7 +260,11 @@
 
     function UserPart($request="", $column="*", $condition="1") {
         $connexion = Connexion();
+<<<<<<< HEAD
         $condition = ($request=="delete" AND $condition=="1") ? "0" : $condition;// Evite de tous supprimer
+=======
+        $condition = ($request=="delete" AND $condition=="1") ? "panier" : $condition;// Evite de tous supprimer
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
         $condition = ($column=="*" AND $condition=="1" AND $request!="select") ?
                      "0" : $condition;                                          // Evite de tous modifier
         if (gettype($column) == "array") {
@@ -365,7 +397,11 @@
     }
 
     // ! Voir utilisations pour suppression
+<<<<<<< HEAD
     function Test($dataname): array {                                           // Retourne database (inutile désormais)
+=======
+    function Test($dataname): array {                                           // Retourne toute une base de données (inutile désormais)
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
         $connexion = Connexion();
         $requete = $connexion->prepare("SELECT * FROM $dataname WHERE 1");
         $requete->execute();

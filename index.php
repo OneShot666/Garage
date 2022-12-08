@@ -8,6 +8,7 @@
 
 <!-- (css) Faire des banderoles (use all width of pages) pour meilleure présentation ? -->
 <!-- (css) Améliorer le css : header, footer, search, profile, products (tabs), about -->
+<<<<<<< HEAD
 <!-- (css) Ajouter commentaires derière voiture : en faire des cartes -->
 <!-- (css) Ajouter boutons dans afficher un seul form x3 dans admin -->
 <!-- (css) Mettre les produits affichés (ds index) sous barre de recherche -->
@@ -20,7 +21,23 @@
            supprimer code/fichiers inutiles, etc) -->
 
 <!-- (sql) Adapter le code à data/garage.sql ou à data/garage/* -->
+<<<<<<< HEAD
 <!-- (js) Use js pour formulaires (afficher et vérif data) et défilmt auto -->
+=======
+=======
+<!-- (sql) Adapter le code à data/garage.sql ou à data/garage/* -->
+
+<!-- (php) Ajouter personnaliser compte user (photo, modifier password, etc) -->
+<!-- (php) Ajouter afficher cars selon recherche (fusionner search & product ?) -->
+<!-- (css) Ajouter boutons dans afficher un seul form x3 dans admin -->
+<!-- (css) Ajouter commentaires derière voiture : en faire des cartes -->
+<!-- (php) Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
+
+<!-- Redéfinir les erreurs systèmes -->
+<!-- (php) Ajouter vérification et nettoyage de la base de données (doublons, format, etc) -->
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
+<!-- (js) Use pour formulaires (afficher et vérif data) et défilmt auto -->
+>>>>>>> 73efe1e518605350820b74d46952fcad8e7eb7e9
 <!-- (js) Pour form car, add jointure ? (lien marque-modèle) -->
 
 <!DOCTYPE html>
