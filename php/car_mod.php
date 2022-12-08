@@ -39,7 +39,7 @@
         }
     ?>
 
-    <div class="search_bar">
+    <div>
         <form action="" method="post">
             <label>
                 Marque :
@@ -109,9 +109,9 @@
                 <input type="date" name="inscription_date" value="<?php echo date('Y-m-d'); ?>"
                     placeholder="Date d'entrée au garage">
                 <br><br>
-                Description :
-                <input type="text" name="description" placeholder="Description de la voiture"
-                    pattern="[a-zA-Z0-9_-]{20, 999}">
+                Description : <br>
+                <textarea name="description" placeholder="Description de la voiture"
+                    pattern="[a-zA-Z0-9_-]{20, 999}"></textarea>
                 <br><br>
             </label>
 

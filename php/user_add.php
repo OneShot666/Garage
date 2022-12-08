@@ -26,13 +26,13 @@
                 UserPart("add", array($_POST['name'], $_POST['nickname'], $_POST['age'],
                 $_POST['phone'], $_POST['mail'], $_POST['username'], $_POST['password'],
                 $_POST['inscription_date'], $_POST['favoris'], $_POST['panier'], $_POST['comments']),
-                "username=".$_POST['username']." and password=".$_POST['password']);
+                "username='".$_POST['username']."' and password='".$_POST['password']."'");
             }
             echo "</strong></p>";
         }
     ?>
 
-    <div class="search_bar">
+    <div>
         <form action="" method="post">
             <label>
                 Nom :
@@ -71,8 +71,8 @@
                 Son panier :
                 <input type="varchar" name="panier" placeholder="Index des produits seulement">
                 <br><br>
-                Ses commentaires :
-                <input type="text" name="comments" placeholder="Super site !">
+                Ses commentaires : <br>
+                <textarea name="comments" placeholder="Super site !"></textarea>
                 <br><br>
             </label>
 

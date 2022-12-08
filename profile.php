@@ -4,6 +4,7 @@
     global $nom_du_site, $is_connected, $is_admin, $_SESSION;
     $page_name = $nom_du_site . " - Profil";
     $nav = "profile";
+    if (!$is_connected) { header("Location: index.php"); }
 ?>
 
 <!DOCTYPE html>
@@ -51,8 +52,15 @@
                     echo "Pseudo : ".$_SESSION['username']."<br><br>";
                     $year = ($_SESSION['age'] <= 1) ? "an" : "ans";
                     echo "Age : ".$_SESSION['age']." $year<br><br>";
-                    echo "Téléphone : +687 ".get_form_phone($_SESSION['phone'])."<br><br>";
-                    echo "Email : ".$_SESSION['mail']."<br>";
+                    echo "Téléphone : ";
+                    echo (isset($_SESSION['phone']) and !empty($_SESSION['phone'])) ?
+                        "+687 ".get_form_phone($_SESSION['phone']) : "Vous n'avez pas de numéro de téléphone";
+                    echo "<br><br>";
+                    echo "Email : ";
+                    echo (isset($_SESSION['mail']) and !empty($_SESSION['mail'])) ?
+                        $_SESSION['mail'] : "Vous n'avez pas d'adresse mail";
+                    echo "<br>";
+                    echo ($_SESSION['banned']) ? "<br><span style='color:red;'>Votre compte est suspendu !</span><br>" : "";
                 } ?>
             </h3>
         </div>
@@ -175,18 +183,18 @@
                                     echo $database[0]['brand']." ".$database[0]['model']." retiré de votre panier !";
                                 }
                                 echo "</strong></span>";
-                                unset($_POST["envoyer".$database[0]["id"]]);   // Empêche l'envoie pour ts autres produits
+                                unset($_POST["envoyer".$database[0]["id"]]);    // Empêche l'envoie pour ts autres produits
                             }
 
                             $path = "images/car/";
                             $nom_image = "car-".strtolower($database[0]['brand'])."-".
                                                 strtolower($database[0]['model'])."-fr ".
                                                 strtolower($database[0]["numberplate"]).".jpg";
-                            if (! file_exists($path.$nom_image)) {      // Si ne trouve pas l'image
+                            if (! file_exists($path.$nom_image)) {              // Si ne trouve pas l'image
                                 $nom_image = "car-".strtolower($database[0]['brand'])."-".
                                                     strtolower($database[0]['model'])."-fr 0000.jpg";
                             }
-                            if (! file_exists($path.$nom_image)) {      // Si ne trouve toujours pas l'image
+                            if (! file_exists($path.$nom_image)) {              // Si ne trouve toujours pas l'image
                                 $nom_image = "icon.svg";
                             }
                             $nom_image = $path.$nom_image;
