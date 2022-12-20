@@ -9,19 +9,18 @@
 <!-- (css) Faire des banderoles (use all width of pages) pour meilleure présentation ? -->
 <!-- (css) Améliorer le css : header, footer, search, profile, products (tabs), about -->
 <!-- (css) Ajouter commentaires derière voiture : en faire des cartes -->
-<!-- (css) Ajouter boutons dans afficher un seul form x3 dans admin -->
+<!-- (css) Ajouter boutons pour afficher un seul form x3 dans admin -->
+<!-- (css) Mettre les produits affichés (ds index) sous barre de recherche -->
 
-<!-- (php) Afficher texte dans admin form après envoi pour confirmer modifs --> 
-<!-- (php) Ne pas afficher boutons dans check_ si echec connection user/admin -->
-<!-- (php) Faire fonction pour car cards (index & profile) avec condition de search -->
-<!-- (php) Ajouter afficher cars selon recherche (fusionner search & product ?) -->
-<!-- (php) Ajouter personnaliser compte user (photo, modifier password, etc) -->
 <!-- (php) Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
 <!-- (php) Ajouter vérification et nettoyage de la base de données (doublons, format, ids panier, etc) -->
-<!-- (php) Qd finitions site, nettoyer code (répétitions, mess en EN, guillemets, etc) -->
+<!-- (php) Qd finitions site, nettoyer code (répétitions, mess en EN, guillemets,
+           supprimer code/fichiers inutiles, etc) -->
 
 <!-- (sql) Adapter le code à data/garage.sql ou à data/garage/* -->
-<!-- (js) Use pour formulaires (afficher et vérif data) et défilmt auto -->
+<!-- (js) Ajouter photo pour compte (onclick) -->
+<!-- (js) Ajouter oeil pour voir password dans forms -->
+<!-- (js) Use js pour formulaires (afficher et vérif data) et défilmt auto -->
 <!-- (js) Pour form car, add jointure ? (lien marque-modèle) -->
 
 <!DOCTYPE html>
@@ -43,15 +42,14 @@
         <br>
 
         <main>
-            <h2>
+            <h1>
                 Bienvenue dans votre garage préféré !
-            </h2>
+            </h1>
 
-            <p>
-	            Choisissez la voiture de vos rêves !
-                <br>
+            <h3>
+	            Choisissez la voiture de vos rêves !<br>
                 Nous vous présentons nos meilleurs modèles.
-    		</p>
+    		</h3>
     		<br>
 
             <h1>
@@ -59,12 +57,9 @@
             </h1>
             <br>
 
-            <?php require_once "include/search.php" ?>
-            <br>
-
             <div class="all_products">
-                <?php require_once "include/product.php" ?>
-    		</div>
+                <?php require_once "include/search.php" ?>
+            </div>
         </main>
 		<br>
 

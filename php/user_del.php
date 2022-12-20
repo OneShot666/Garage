@@ -25,11 +25,11 @@
         }
     ?>
 
-    <div class="search_bar">
+    <div>
         <form action="" method="post">
             <label>
                 Speudonyme :
-                <select type="varchar" name="username" pattern="{3, 255}" required>
+                <select type="varchar" name="username" required>
                     <?php
                         $usernames = get_database_options("user", "username");
                         foreach ($usernames as $key => $username) {

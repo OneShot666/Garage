@@ -4,6 +4,7 @@
     global $nom_du_site, $is_connected, $is_admin, $_SESSION;
     $page_name = $nom_du_site . " - Profil";
     $nav = "profile";
+    if (!$is_connected) header("Location: index.php");
 ?>
 
 <!DOCTYPE html>
@@ -25,34 +26,59 @@
         <br>
 
         <div class="formulaire" style="color: rgb(22, 22, 22); text-align: left; width: 80%;" id="profile">
+            <?php
+                if ($is_admin) $image_name = (file_exists("images/admin/".$_SESSION['id'].".jpg")) ?
+                    "images/admin/".$_SESSION['id'].".jpg" : "images/admin/default.jpg";
+                else $image_name = (file_exists("images/user/".$_SESSION['id'].".jpg")) ?
+                    "images/user/".$_SESSION['id'].".jpg" : "images/user/default.jpg";
+                $profile_name = (isset($_SESSION['username'])) ? $_SESSION['username'] : "Profil";
+            ?>
+            <div class="profile_image">
+                <img src="<?= $image_name; ?>">
+                <form method="post">
+                    <input type="file" name="file" value="Choisissez une image" required/>
+                    <i class="fa fa-plus image-plus"></i>
+                    <input type="submit" name="avatar" value="Envoyer">
+                </form>
+                <?php include("php/add_image.php"); ?>                          <!-- !!! -->
+            </div>
+
             <h1>
-                Votre profil :
+                <?= $profile_name; ?>
             </h1>
             <br>
 
             <h3>
             <?php if ($is_admin) {                                              // Si admin
-                    echo "Pseudo : ".$_SESSION['username']."<br><br>";
+                    echo "<span class='oneline'>Pseudo : ".
+                        InputProfile('username')."</span><br><br>";
+                    echo "<span class='oneline'>Mot de passe : ".
+                        InputProfile('password', 'password')."</span><br><br>";
                     echo "Droits : <br>";
                     $testa = is_letter_in_word($_SESSION['rights'], "a");
                     $testtiret = is_letter_in_word($_SESSION['rights'], "-");
                     $testr = is_letter_in_word($_SESSION['rights'], "r");
                     $testw = is_letter_in_word($_SESSION['rights'], "w");
                     $testx = is_letter_in_word($_SESSION['rights'], "x");
-                    if ($testa and !$testtiret) { echo "Vous avez tous les droits adminisateurs.<br>"; }
+                    if ($testa and !$testtiret) echo "Vous avez tous les droits adminisateurs.<br>";
                     else if ($testr or $testw or $testx) {
-                        if ($testr) { echo "Vous avez le droit de visiter des pages spéciales.<br>"; }
-                        if ($testw) { echo "Vous avez le droit d'utiliser les formulaires des pages spéciales.<br>"; }
-                        if ($testx) { echo "Vous avez le droit d'envoyer les formulaires des pages spéciales.<br>"; }
-                    } else { echo "Vous n'avez aucun droit adminisateur.<br>"; }
+                        if ($testr) echo "Vous avez le droit de visiter des pages spéciales.<br>";
+                        if ($testw) echo "Vous avez le droit d'utiliser les formulaires des pages spéciales.<br>";
+                        if ($testx) echo "Vous avez le droit d'envoyer les formulaires des pages spéciales.<br>";
+                    } else echo "Vous n'avez aucun droit adminisateur.<br>";
                 } else {                                                        // Si user
-                    echo "Nom : ".$_SESSION['name']."<br><br>";
-                    echo "Prénom : ".$_SESSION['nickname']."<br><br>";
-                    echo "Pseudo : ".$_SESSION['username']."<br><br>";
+                    echo "<span class='oneline'>Nom : ".InputProfile('name')."</span><br><br>";
+                    echo "<span class='oneline'>Prénom : ".InputProfile('nickname')."</span><br><br>";
                     $year = ($_SESSION['age'] <= 1) ? "an" : "ans";
-                    echo "Age : ".$_SESSION['age']." $year<br><br>";
-                    echo "Téléphone : +687 ".get_form_phone($_SESSION['phone'])."<br><br>";
-                    echo "Email : ".$_SESSION['mail']."<br>";
+                    echo "<span class='oneline'>Age : ".InputProfile('age', 'int')." $year</span><br><br>";
+                    echo "<span class='oneline'>Téléphone : ".((isset($_SESSION['phone']) and !empty($_SESSION['phone'])) ?
+                        "+687 ".InputProfile('phone', 'tel') : "Vous n'avez pas de numéro de téléphone")."</span><br><br>";
+                    echo "<span class='oneline'>Email : ".((isset($_SESSION['mail']) and !empty($_SESSION['mail'])) ?
+                        InputProfile('mail', 'mail') : "Vous n'avez pas d'adresse mail")."</span><br>";
+                    echo "<hr><br>";
+                    echo "<span class='oneline'>Pseudo : ".InputProfile('username')."</span><br><br>";
+                    echo "<span class='oneline'>Mot de passe : ".InputProfile('password', 'password', True)."</span>";
+                    echo ($_SESSION['banned']) ? "<br><br><span style='color:red;'>Votre compte est suspendu !</span><br>" : "";
                 } ?>
             </h3>
         </div>
@@ -175,18 +201,18 @@
                                     echo $database[0]['brand']." ".$database[0]['model']." retiré de votre panier !";
                                 }
                                 echo "</strong></span>";
-                                unset($_POST["envoyer".$database[0]["id"]]);   // Empêche l'envoie pour ts autres produits
+                                unset($_POST["envoyer".$database[0]["id"]]);    // Empêche l'envoie pour ts autres produits
                             }
 
                             $path = "images/car/";
                             $nom_image = "car-".strtolower($database[0]['brand'])."-".
                                                 strtolower($database[0]['model'])."-fr ".
                                                 strtolower($database[0]["numberplate"]).".jpg";
-                            if (! file_exists($path.$nom_image)) {      // Si ne trouve pas l'image
+                            if (! file_exists($path.$nom_image)) {              // Si ne trouve pas l'image
                                 $nom_image = "car-".strtolower($database[0]['brand'])."-".
                                                     strtolower($database[0]['model'])."-fr 0000.jpg";
                             }
-                            if (! file_exists($path.$nom_image)) {      // Si ne trouve toujours pas l'image
+                            if (! file_exists($path.$nom_image)) {              // Si ne trouve toujours pas l'image
                                 $nom_image = "icon.svg";
                             }
                             $nom_image = $path.$nom_image;

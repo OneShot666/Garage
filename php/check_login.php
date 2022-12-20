@@ -50,6 +50,7 @@
                                      WHERE username = ? AND password = ?");
             $checkUserAlreadyExist->execute(array($username, $password));
             if ($checkUserAlreadyExist->rowCount() > 0) {                       // Si user existe déjà
+                $is_connected = False;
                 echo "<h2>Cet utilisateur existe déjà !</h2><br>";
                 echo "<h3>Veuillez-vous connecter avec le <a href='connect.php'>
                     formulaire de connection</a> ou entrez un autre speudo</h3>";
@@ -72,12 +73,16 @@
             $_SESSION['favoris'] = array();
             $_SESSION['panier'] = array();
             $_SESSION['comments'] = array();
-
+            $_SESSION['banned'] = 0;
+            $is_connected = True;
             echo "Bienvenue <strong>" . $_SESSION['username'] . "</strong> !<br>";
         } else {
+            $is_connected = False;
             echo "Attention ! Veuillez vérifier que tous les champs soient bien
             remplies avant d'envoyer le formulaire d'inscription.<br>";
         }
     }
     echo "<br><button style='float: right;'><a href='index.php'>Retour à l'accueil</a></button>";
-    echo "<button style='float: right;'><a href='profile.php'>Votre profil</a></button>";
+    if ($is_connected) {
+        echo "<button style='float: right;'><a href='profile.php'>Votre profil</a></button>";
+    }

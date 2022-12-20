@@ -1,7 +1,7 @@
 <?php
     include("php/function.php");
     Connexion();
-    global $nom_du_site, $is_connected, $is_admin, $_SESSION;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION, $patterns;
     $page_name = $nom_du_site . " - Contact";
     $nav = "contact";
 ?>
@@ -36,33 +36,35 @@
         <?php
             if (isset($_POST['message']) and isset($_POST['envoyer'])) {
                 $subject = ($is_connected) ? "Avis de ".$_SESSION['username'] : "Avis d'un utilisateur";
+                $message = nl2br($_POST['message']);
                 $reply = "From: mir.nathan42@gmail.com"."\r\n"."Reply-to: ".$_POST['mail'];
-                $back = mail('p0ub3ll3m4n@gmail.com', $subject, $_POST['message'], $reply);// Vérifier comment ça marche
+                $back = mail('p0ub3ll3m4n@gmail.com', $subject, $message, $reply);  // ! Vérifier comment ça marche
                 if ($back) { echo "<h3>Votre avis a bien été envoyé.</h3>"; }
             }
         ?>
 
-        <div>
-            <nav content="Message" class="formulaire">
+        <div class="formulaire" style="text-align: left; width: 305px;">
+            <nav content="Message">
                 <form action="" method="post">
-                    <label for="speudo">Pseudonyme :
-                        <?php $pseudo = ($is_connected) ? $_SESSION['username'] : "Votre pseudonyme"; ?>
-                        <input type="varchar" name="speudo" placeholder="<?php echo $pseudo; ?>"
-                         pattern="[a-zA-Z0-9_- ]{3,99}" required>
+                    <label>
+                        Pseudonyme :
+                        <?php $pseudo = ($is_connected) ? "value='".$_SESSION['username']."' readonly" :
+                            "placeholder='Votre pseudonyme'"; ?>
+                        <input type="varchar" name="speudo" <?= $pseudo; ?>
+                            pattern="<?= $patterns['username']; ?>" required>
+                        <br><br>
+                        Adresse mail :
+                        <?php $mail = ($is_connected and isset($_SESSION['mail']) and !empty($_SESSION['mail'])) ?
+                            "value='".$_SESSION['mail']."' readonly" : "placeholder='adresse@mail.com'"; ?>
+                        <input type="mail" name="mail" <?= $mail; ?>
+                            pattern="<?= $patterns['password']; ?>" required>
+                        <br><br>
+                        Message : <br>
+                        <textarea name="message" placeholder="Au moins 20 caractères"
+                            pattern="<?= $patterns['message']; ?>" required></textarea>
+                        <br><br>
                     </label>
-                    <br><br>
-                    <label for="mail">Adresse mail :
-                        <?php $mail = ($is_connected and isset($_SESSION['mail'])) ?
-                                      $_SESSION['mail'] : "adresse@mail.com"; ?>
-                        <input type="mail" name="mail" placeholder="<?php echo $mail; ?>"
-                            pattern="[a-zA-Z0-9_-.]{3,99}@[a-zA-Z].[a-zA-Z]" required>
-                    </label>
-                    <br><br>
-                    <label for="message">Message :
-                        <input type="text" name="message" placeholder="Au moins 20 caractères"
-                            pattern="[a-zA-Z0-9_-.!?+-/ ]{20,999}" required>
-                    </label>
-                    <br><br>
+
                     <input type="submit" name="envoyer" value="Envoyer">
                 </form>
             </nav>

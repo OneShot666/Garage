@@ -11,9 +11,9 @@
         if (!empty($_POST['username']) and !empty($_POST['password'])) {
             $username = htmlspecialchars($_POST["username"]);                   // htmlspecialchars : Empêche user d'entrer code html
             $username = strip_tags($username);                                  // strip_tags : Supprime balises html
-            $password = htmlspecialchars($_POST["password"]);                   // htmlspecialchars : Sécure contre failles
+            $password = htmlspecialchars($_POST["password"]);
             $password = strip_tags($password);
-            $password = sha1($_POST['password']);                               // sha1 : Pas très sécurisé today
+            $password = sha1($password);                                        // sha1 : Pas très sécurisé today
 
             $checkAdminExist = $database->prepare("SELECT * FROM garage.admin WHERE username = ? AND password = ?");
             // $checkAdminExist->setFetchMode(PDO::FETCH_ASSOC);                // Database en tableau associatif
@@ -26,7 +26,7 @@
                     $is_connected = False;
                     echo "Désolé, nous n'avons pas d'utilsateur à ce nom.<br>";
                     echo "Veuillez utiliser le <a href='login.php'>formulaire
-                          d'inscription</a> pour pouvoir vous enregistrer.";
+                        d'inscription</a> pour pouvoir vous enregistrer.";
                 } else if ($checkUserExist->rowCount() == 1) {                  // Si user existe
                     $dataUser = $checkUserExist->fetch();
                     $_SESSION['id'] = $dataUser['id'];                          // Get user id
@@ -41,11 +41,18 @@
                     $_SESSION['favoris'] = $dataUser['favoris'];
                     $_SESSION['panier'] = $dataUser['panier'];
                     $_SESSION['comments'] = $dataUser['comments'];
-                    $is_connected = True;
-                    $is_admin = False;
-
-                    echo "<h1>Bon retour <strong style='color: orange;'>" .
-                    $_SESSION['username'] . "</strong> !</h1>";
+                    $_SESSION['banned'] = $dataUser['banned'];
+                    if ($_SESSION['banned'] == 1) {
+                        $is_connected = False;
+                        $is_admin = False;
+                        echo "<h1>Votre compte a été suspendu !</h1>";
+                        echo "<h3>Contactez un administrateur pour plus d'explications.</h3>";
+                    } else {
+                        $is_connected = True;
+                        $is_admin = False;
+                        echo "<h1>Bon retour <strong style='color: orange;'>" .
+                        $_SESSION['username'] . "</strong> !</h1>";
+                    }
                 } else {                                                        // Si plusieurs admins
                     $is_connected = False;
                     echo "<h1>Attention ! Plusieurs utilisateurs avec ce speudonyme existent.</h1><br>";
@@ -60,7 +67,6 @@
                 $_SESSION['has_rights'] = $dataAdmin['has_rights'];
                 $is_connected = True;
                 $is_admin = True;                                               // A les droits admin
-
                 echo "<h1>Bon retour administrateur/trice <strong style='color: orange;'>" .
                     $_SESSION['username'] . "</strong> !</h1>";
             } else {                                                            // Si plusieurs admins
@@ -69,9 +75,12 @@
                 echo "<h2>Veuillez patientez le temps que nous règlons cet imprévu.<h2>";
             }
         } else {
+            $is_connected = False;
             echo "<h2>Attention ! Veuillez vérifier que tous les champs soient bien
                 remplies avant d'envoyer le formulaire de connection.<h2>";
         }
     }
     echo "<br><button style='float: right;'><a href='index.php'>Retour à l'accueil</a></button>";
-    echo "<button style='float: right;'><a href='profile.php'>Votre profil</a></button>";
+    if ($is_connected) {
+        echo "<button style='float: right;'><a href='profile.php'>Votre profil</a></button>";
+    }

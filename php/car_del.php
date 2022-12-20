@@ -31,7 +31,7 @@
         }
     ?>
 
-    <div class="search_bar">
+    <div>
         <form action="" method="post">
             <label>
                 Marque :
@@ -45,7 +45,7 @@
                 </select>
                 <br><br>
                 Modèle :
-                <select type="text" name="model" placeholder="Modèle" required>
+                <select type="text" name="model" placeholder="Modèle">
                     <?php                                                       // ! Ajouter afficher en fonction de 'brand' (js)
                         $models = get_database_options("car", "model");
                         foreach ($models as $key => $model) {
@@ -64,7 +64,7 @@
                 </select>
                 <br><br>
                 Numéro d'immatriculation :
-                <select type="int" name="numberplate" pattern="[0-9]{4}" required>
+                <select type="int" name="numberplate" required>
                     <?php
                         $numberplates = get_database_options("car", "numberplate");
                         foreach ($numberplates as $key => $numberplate) {

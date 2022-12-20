@@ -1,5 +1,5 @@
 <?php
-    global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars, $patterns;
     if (!isset($_SESSION['rights'])) {
         if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
         strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
@@ -37,7 +37,7 @@
         }
     ?>
 
-    <div class="search_bar">
+    <div>
         <form action="" method="post">
             <label>
                 Marque :
@@ -60,11 +60,11 @@
                 </select>
                 <br><br>
                 Prix (en euro) :
-                <input type="int" name="price" placeholder="Prix" pattern="[0-9]{3, 8}" required>
+                <input type="int" name="price" placeholder="Prix" pattern="<?= $patterns['price']; ?>" required>
                 &#8364;
                 <br><br>
                 Couleur :
-                <select type="varchar" name="color" pattern="[a-zA-Z ]">
+                <select type="varchar" name="color" pattern="<?= $patterns['color']; ?>">
                 <?php
                     sort($colors);
                     foreach ($colors as $key => $value) {
@@ -83,7 +83,7 @@
                 <br><br>
                 Numéro d'immatriculation :
                 <input type="int" name="numberplate" placeholder="ex : 1234"
-                    pattern="[0-9]{4}" required>
+                    pattern="<?= $patterns['numerplate']; ?>" required>
                 fr
                 <br><br>
                 Age (en année) :
@@ -101,9 +101,9 @@
                 <input type="date" name="inscription_date" value="<?php echo date('Y-m-d'); ?>"
                     placeholder="Date d'entrée au garage">
                 <br><br>
-                Description :
-                <input type="text" name="description" placeholder="Description de la voiture"
-                 pattern="[a-zA-Z0-9_-]{20, 999}">
+                Description : <br>
+                <textarea name="description" placeholder="Description de la voiture"
+                    pattern="<?= $patterns['description']; ?>"></textarea>
                 <br><br>
             </label>
 

@@ -31,11 +31,11 @@
         }
     ?>
 
-    <div class="search_bar">
+    <div>
         <form action="" method="post">
             <label>
                 Marque :
-                <select type="varchar" name="brand" placeholder="Marque" pattern="{1, 255}" required>
+                <select type="varchar" name="brand" placeholder="Marque" required>
                     <?php
                         $brands = get_database_options("brand", "brand");
                         foreach ($brands as $key => $brand) {
@@ -44,7 +44,7 @@
                 </select>
                 <br><br>
                 Modèles :
-                <select type="varchar" name="model" placeholder="Modèles" pattern="{1, 2000}" required>
+                <select type="varchar" name="model" placeholder="Modèles" required>
                     <?php
                         $models_list = get_database_options("brand", "model");
                         $models = array();

@@ -1,5 +1,5 @@
 <?php
-    global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars, $patterns;
     if (!isset($_SESSION['rights'])) {
         if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
         strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
@@ -25,24 +25,26 @@
             } else {
                 UserPart("modify", array($_POST['name'], $_POST['nickname'], $_POST['age'],
                 $_POST['phone'], $_POST['mail'], $_POST['username'], $_POST['password'],
-                $_POST['inscription_date'], $_POST['favoris'], $_POST['panier'], $_POST['comments']),
-                "username=".$_POST['username']." and password=".$_POST['password']);
+                $_POST['inscription_date'], $_POST['favoris'], $_POST['panier'], $_POST['comments'],
+                $_POST['banned']), "username='".$_POST['username']."'");
             }
             echo "</strong></p>";
         }
     ?>
 
-    <div class="search_bar">
+    <div>
         <form action="" method="post">
             <label>
                 Nom :
-                <input type="varchar" name="name" placeholder="Nom" pattern="[a-zA-Z]{3, 255}" required>
+                <input type="varchar" name="name" placeholder="Nom"
+                    pattern="<?= $patterns['name']; ?>" required>
                 <br><br>
                 Prénom :
-                <input type="varchar" name="nickname" placeholder="Prénom" pattern="[a-zA-Z]{3, 255}" required>
+                <input type="varchar" name="nickname" placeholder="Prénom"
+                    pattern="<?= $patterns['nickname']; ?>" required>
                 <br><br>
                 Age :
-                <select type="int" name="age" pattern="[0-9]{2, 12}" required>
+                <select type="int" name="age" pattern="<?= $patterns['age']; ?>" required>
                     <?php
                         for ($i=18; $i <= 100; $i++) {
                             echo "<option value='$i' >$i</option>";
@@ -51,13 +53,15 @@
                 ans
                 <br><br>
                 Téléphone : +687
-                <input type="tel" name="phone" placeholder="Numéro de téléphone" pattern="[0-9]{6}">
+                <input type="tel" name="phone" placeholder="Numéro de téléphone"
+                    pattern="<?= $patterns['phone']; ?>">
                 <br><br>
                 Adresse mail
-                <input type="mail" name="mail" placeholder="adresse@gmail.com" pattern="[a-zA-Z0-9_-]@gmail.com">
+                <input type="mail" name="mail" placeholder="adresse@gmail.com"
+                    pattern="<?= $patterns['mail']; ?>">
                 <br><br>
-                Speudonyme :
-                <select type="varchar" name="username" pattern="{3, 255}" required>
+                Pseudonyme :
+                <select type="varchar" name="username" required>
                     <?php
                         $usernames = get_database_options("user", "username");
                         foreach ($usernames as $key => $username) {
@@ -66,19 +70,28 @@
                 </select>
                 <br><br>
                 Mot de passe :
-                <input type="varchar" name="password" placeholder="Mot de passe" pattern="{3, 999}" required>
+                <input type="varchar" name="password" placeholder="Mot de passe"
+                    pattern="<?= $patterns['password']; ?>" required>
                 <br><br>
                 Date d'inscrition au site :
                 <input type="date" name="inscription_date" value="<?php echo date('Y-m-d'); ?>">
                 <br><br>
                 Ses favoris :
-                <input type="varchar" name="favoris" placeholder="Index des produits seulement">
+                <input type="varchar" name="favoris" placeholder="Index des produits seulement"
+                    pattern="<?= $patterns['favoris']; ?>">
                 <br><br>
                 Son panier :
-                <input type="varchar" name="panier" placeholder="Index des produits seulement">
+                <input type="varchar" name="panier" placeholder="Index des produits seulement"
+                    pattern="<?= $patterns['panier']; ?>">
                 <br><br>
-                Ses commentaires :
-                <input type="text" name="comments" placeholder="Super site !">
+                Ses commentaires : <br>
+                <textarea name="comments" placeholder="Super site !"></textarea>
+                <br><br>
+                Banni(e) ?
+                <select type="tinyint" name="banned">
+                    <option value="0" selected>0</option>
+                    <option value="1">1</option>
+                </select>
                 <br><br>
             </label>
 

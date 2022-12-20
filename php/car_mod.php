@@ -1,5 +1,5 @@
 <?php
-    global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars, $colors;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars, $colors, $patterns;
     if (!isset($_SESSION['rights'])) {
         if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
         strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
@@ -39,7 +39,7 @@
         }
     ?>
 
-    <div class="search_bar">
+    <div>
         <form action="" method="post">
             <label>
                 Marque :
@@ -62,11 +62,11 @@
                 </select>
                 <br><br>
                 Prix (en euro) :
-                <input type="int" name="price" placeholder="Prix" pattern="[0-9]{3, 8}" required>
+                <input type="int" name="price" placeholder="Prix" pattern="<?= $patterns['price']; ?>" required>
                 &#8364;
                 <br><br>
                 Couleur :
-                <select type="varchar" name="color" pattern="[a-zA-Z ]">
+                <select type="varchar" name="color" pattern="<?= $patterns['color']; ?>">
                 <?php
                     sort($colors);
                     foreach ($colors as $key => $value) {
@@ -78,13 +78,13 @@
                 <select type="int" name="horsepower" required>
                     <?php
                         for ($i=0; $i <= 2000; $i+=10) {
-                            echo "<option value='$i' >$i</option>";
+                            echo "<option value='$i'>$i</option>";
                         } ?>
                 </select>
                 ch
                 <br><br>
                 Numéro d'immatriculation :
-                <select type="int" name="numberplate" pattern="[0-9]{4}" required>
+                <select type="int" name="numberplate" pattern="<?= $patterns['numberplate']; ?>" required>
                     <?php
                         $numberplates = get_database_options("car", "numberplate");
                         foreach ($numberplates as $key => $numberplate) {
@@ -109,9 +109,9 @@
                 <input type="date" name="inscription_date" value="<?php echo date('Y-m-d'); ?>"
                     placeholder="Date d'entrée au garage">
                 <br><br>
-                Description :
-                <input type="text" name="description" placeholder="Description de la voiture"
-                    pattern="[a-zA-Z0-9_-]{20, 999}">
+                Description : <br>
+                <textarea name="description" placeholder="Description de la voiture"
+                    pattern="<?= $patterns['description']; ?>"></textarea>
                 <br><br>
             </label>
 

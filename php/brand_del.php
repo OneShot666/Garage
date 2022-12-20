@@ -26,11 +26,11 @@
         }
     ?>
 
-    <div class="search_bar">
+    <div>
         <form action="" method="post">
             <label>
                 Marque :
-                <select type="varchar" name="brand" placeholder="Marque" pattern="{1, 255}" required>
+                <select type="varchar" name="brand" placeholder="Marque" required>
                     <?php
                         $brands = get_database_options("brand", "brand");
                         foreach ($brands as $key => $brand) {

@@ -1,5 +1,5 @@
 <?php
-    global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars, $patterns;
     if (!isset($_SESSION['rights'])) {
         if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
         strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
@@ -31,14 +31,16 @@
         }
     ?>
 
-    <div class="search_bar">
+    <div>
         <form action="" method="post">
             <label>
                 Marque :
-                <input type="varchar" name="brand" placeholder="Marque" pattern="[a-zA-Z0-9_-]{1, 255}" required>
+                <input type="varchar" name="brand" placeholder="Marque"
+                    pattern="<?= $patterns['brand']; ?>" required>
                 <br><br>
                 Modèles :
-                <input type="varchar" name="model" placeholder="Modèle1 Modèle2" pattern="[a-zA-Z0-9_- ]{1, 2000}" required>
+                <input type="varchar" name="model" placeholder="Modèle1 Modèle2 ..."
+                    pattern="<?= $patterns['model']; ?>" required>
                 <br><br>
             </label>
 

@@ -32,25 +32,21 @@
 		<h1>
 			Nos produits
 		</h1>
-
-		<h3>
-			Nos meilleurs modèles !
-		</h3>
         <br>
 
         <div>
-            <span>
-                Les voitures :
-            </span>
+            <h3>
+                Nos voitures :
+            </h3>
 
             <form>
                 <label>
                     <input type="submit" name="on_car" value="On"
-                           onclick="<?php if (isset($_GET["on_car"])) { $tab_car = True; } ?>">
+                        onclick="<?php if (isset($_GET["on_car"])) $tab_car = True; ?>">
                 </label>
                 <label>
                     <input type="submit" name="off_car" value="Off"
-                           onclick="<?php if (isset($_GET["off_car"])) { $tab_car = False; } ?>">
+                        onclick="<?php if (isset($_GET["off_car"])) $tab_car = False; ?>">
                 </label>
             </form>
         </div>
@@ -93,18 +89,18 @@
         <br>
 
         <div>
-            <span>
-                Les marques :
-            </span>
+            <h3>
+                Nos marques :
+            </h3>
 
             <form>
                 <label>
                     <input type="submit" name="on_brand" value="On"
-                           onclick="<?php if (isset($_GET["on_brand"])) { $tab_brand = True; } ?>">
+                        onclick="<?php if (isset($_GET["on_brand"])) $tab_brand = True; ?>">
                 </label>
                 <label>
                     <input type="submit" name="off_brand" value="Off"
-                           onclick="<?php if (isset($_GET["off_brand"])) { $tab_brand = False; } ?>">
+                        onclick="<?php if (isset($_GET["off_brand"])) $tab_brand = False; ?>">
                 </label>
             </form>
         </div>
@@ -144,18 +140,18 @@
         <br>
 
         <div>
-            <span>
-                Les utilisateurs :
-            </span>
+            <h3>
+                Nos utilisateurs :
+            </h3>
 
             <form>
                 <label>
                     <input type="submit" name="on_user" value="On"
-                           onclick="<?php if (isset($_GET["on_user"])) { $tab_user = True; } ?>">
+                        onclick="<?php if (isset($_GET["on_user"])) $tab_user = True; ?>">
                 </label>
                 <label>
                     <input type="submit" name="off_user" value="Off"
-                           onclick="<?php if (isset($_GET["off_user"])) { $tab_user = False; } ?>">
+                        onclick="<?php if (isset($_GET["off_user"])) $tab_user = False; ?>">
                 </label>
             </form>
         </div>
@@ -183,8 +179,8 @@
                                     echo "<tr>";
                                     foreach ($colonne as $annexe=>$ligne) {
                                         echo "<td>";
-                                        echo ($annexe == "phone") ? "+687 ".get_form_phone($ligne) :
-                                            $ligne;
+                                        echo ($annexe == "phone" and $ligne != "") ? 
+                                            "+687 ".get_form_phone($ligne) : $ligne;
                                         if ($annexe == "age") { echo " ans"; }
                                         echo "</td>";
                                     }
