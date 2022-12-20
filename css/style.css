@@ -128,8 +128,13 @@ input:focus {
 	outline: 3px solid transparent;
 }
 
+<<<<<<< HEAD
 input[type='text'], input[type='varchar'], input[type='int'], input[type='tel'],
 input[type='mail'], input[type="date"], select, input[type='password'] {
+=======
+input[type='text'], input[type='varchar'], input[type='int'], input[type="date"],
+select, input[type='password'] {
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
 	box-shadow: 1px 2px 0 0 rgba(200, 200, 200, 0.5);
 	border-radius: 5px;
 	padding-left: 15px;
@@ -332,6 +337,7 @@ th {
 	margin-left: 15px;
 }
 
+<<<<<<< HEAD
 .all_comments > p {
 	background: rgba(255, 255, 255, 0.3);
 	font-size: 20px;
@@ -347,6 +353,8 @@ th {
 	overflow-y: auto;
 }
 
+=======
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
 .search_bar {
 	box-sizing: border-box;
 	color: black;
@@ -370,6 +378,7 @@ th {
 	color: auto;
 }
 
+<<<<<<< HEAD
 /* 									Profil 										*/
 .profile_image {
 	text-align: center;
@@ -395,6 +404,8 @@ th {
 }
 
 /* 									Car image 									*/
+=======
+>>>>>>> 24f993ba1f7d6129c3500cf5c1ee4d685e0d56c3
 .logo {
 	border-radius: 30%;
 	box-sizing: border-box;

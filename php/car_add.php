@@ -64,18 +64,30 @@
                 &#8364;
                 <br><br>
                 Couleur :
+<<<<<<< HEAD
                 <select type="varchar" name="color" pattern="<?= $patterns['color']; ?>">
+=======
+<<<<<<< HEAD
+                <select type="varchar" name="color" pattern="[a-zA-Z ]">
+>>>>>>> 24f993ba1f7d6129c3500cf5c1ee4d685e0d56c3
                 <?php
                     sort($colors);
                     foreach ($colors as $key => $value) {
                         echo "<option value='$value' >".ucfirst($value)."</option>";
                     } ?>
                 </select>
+=======
+                <input type="varchar" name="color" placeholder="Couleur" pattern="[a-zA-Z]">
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
                 <br><br>
                 Chevaux moteur :
                 <select type="int" name="horsepower" required>
                     <?php
+<<<<<<< HEAD
                         for ($i=0; $i <= 2000; $i+=10) {
+=======
+                        for ($i=10; $i <= 2000; $i+=10) {
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
                             echo "<option value='$i' >$i</option>";
                         } ?>
                 </select>
@@ -103,7 +115,11 @@
                 <br><br>
                 Description : <br>
                 <textarea name="description" placeholder="Description de la voiture"
+<<<<<<< HEAD
                     pattern="<?= $patterns['description']; ?>"></textarea>
+=======
+                    pattern="[a-zA-Z0-9_-]{20, 999}"></textarea>
+>>>>>>> 24f993ba1f7d6129c3500cf5c1ee4d685e0d56c3
                 <br><br>
             </label>
 

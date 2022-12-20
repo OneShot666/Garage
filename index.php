@@ -8,19 +8,48 @@
 
 <!-- (css) Faire des banderoles (use all width of pages) pour meilleure présentation ? -->
 <!-- (css) Améliorer le css : header, footer, search, profile, products (tabs), about -->
+<<<<<<< HEAD
 <!-- (css) Ajouter commentaires derière voiture : en faire des cartes -->
+<<<<<<< HEAD
 <!-- (css) Ajouter boutons pour afficher un seul form x3 dans admin -->
 <!-- (css) Mettre les produits affichés (ds index) sous barre de recherche -->
 
+=======
+<!-- (css) Ajouter boutons dans afficher un seul form x3 dans admin -->
+<!-- (css) Mettre les produits affichés (ds index) sous barre de recherche -->
+
+<!-- (php) Améliorer pattern dans forms -->
+<!-- (php) Ajouter personnaliser compte user (photo, modifier password, etc) -->
+>>>>>>> 24f993ba1f7d6129c3500cf5c1ee4d685e0d56c3
 <!-- (php) Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
 <!-- (php) Ajouter vérification et nettoyage de la base de données (doublons, format, ids panier, etc) -->
 <!-- (php) Qd finitions site, nettoyer code (répétitions, mess en EN, guillemets,
            supprimer code/fichiers inutiles, etc) -->
 
 <!-- (sql) Adapter le code à data/garage.sql ou à data/garage/* -->
+<<<<<<< HEAD
 <!-- (js) Ajouter photo pour compte (onclick) -->
 <!-- (js) Ajouter oeil pour voir password dans forms -->
 <!-- (js) Use js pour formulaires (afficher et vérif data) et défilmt auto -->
+=======
+<<<<<<< HEAD
+<!-- (js) Use js pour formulaires (afficher et vérif data) et défilmt auto -->
+=======
+=======
+<!-- (sql) Adapter le code à data/garage.sql ou à data/garage/* -->
+
+<!-- (php) Ajouter personnaliser compte user (photo, modifier password, etc) -->
+<!-- (php) Ajouter afficher cars selon recherche (fusionner search & product ?) -->
+<!-- (css) Ajouter boutons dans afficher un seul form x3 dans admin -->
+<!-- (css) Ajouter commentaires derière voiture : en faire des cartes -->
+<!-- (php) Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
+
+<!-- Redéfinir les erreurs systèmes -->
+<!-- (php) Ajouter vérification et nettoyage de la base de données (doublons, format, etc) -->
+>>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
+<!-- (js) Use pour formulaires (afficher et vérif data) et défilmt auto -->
+>>>>>>> 73efe1e518605350820b74d46952fcad8e7eb7e9
+>>>>>>> 24f993ba1f7d6129c3500cf5c1ee4d685e0d56c3
 <!-- (js) Pour form car, add jointure ? (lien marque-modèle) -->
 
 <!DOCTYPE html>
