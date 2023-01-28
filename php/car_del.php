@@ -18,64 +18,60 @@
     <br>
 
     <?php
-        if (isset($_POST['delete_car']) AND $_POST['delete_car'] == "Supprimer") {
+        // Vérifie données entrées
+        if (isset($_POST['delete']) AND $_POST['delete'] == "Supprimer") {
             echo "<strong>Formulaire envoyé !<br><p style='color:red;'>";
-            if (isset($_POST['numberplate']) AND $_POST['numberplate'] < 0) {
-                echo "Veuillez donner un numéro d'immatriculation correct !";
+            if (isset($_POST['price']) AND $_POST['price'] < 0) {
+                echo "Veuillez donner un prix positif !";
+            } else if (isset($_POST['horsepower']) AND $_POST['horsepower'] < 0) {
+                echo "Veuillez donner une puissance en chevaux positive !";
+            } else if (isset($_POST['numberplate']) AND $_POST['numberplate'] < 0) {
+                echo "Veuillez donner un numéro d'immatriculation positif !";
             } else {
-                CarPart("delete", "0", "brand='".$_POST['brand']."' and model='".
-                $_POST['model']."' and color='".$_POST['color']."' and numberplate='".
-                $_POST['numberplate']."'");
+                CarPart("delete", "0", "brand='".$_POST['brand']."' and model='"
+                .$_POST['model']."' and numberplate='".$_POST['numberplate']."'");
             }
             echo "</strong></p>";
         }
     ?>
 
-    <div>
+    <div class="search_bar">
         <form action="" method="post">
             <label>
                 Marque :
                 <select type="text" name="brand" placeholder="Marque" required>
                     <?php
-                        $brands = get_database_options("car", "brand");
-                        foreach ($brands as $key => $brand) {
-                            echo ($brand=="Citroen") ? "<option value='$brand'
-                                selected>$brand</option>" : "<option value='$brand' >$brand</option>";
+                        foreach ($array_cars as $key => $brand) {
+                            echo ($key=="Citroen") ? "<option value='$key' selected>$key</option>" :
+                            "<option value='$key' >$key</option>";
                         } ?>
                 </select>
                 <br><br>
                 Modèle :
-                <select type="text" name="model" placeholder="Modèle">
-                    <?php                                                       // ! Ajouter afficher en fonction de 'brand' (js)
-                        $models = get_database_options("car", "model");
-                        foreach ($models as $key => $model) {
-                            echo ($model=="C4") ? "<option value='$model'
-                                selected>$model</option>" : "<option value='$model' >$model</option>";
+                <select type="text" name="model" placeholder="Modèle" required>
+                    <?php                                                   // ! Ajouter afficher en fonction de 'brand'
+                        foreach ($array_cars as $key => $brand) {
+                            foreach ($brand as $key2 => $model) {
+                              echo ($model=="C4") ? "<option value='$model' selected>$model</option>" :
+                              "<option value='$model' >$model</option>";
+                            }
                         } ?>
                 </select>
+                <br><br>
+                Prix (en euro) :
+                <input type="int" name="price" placeholder="Prix" pattern="[0-9]{3,8}" required>
+                &#8364;
                 <br><br>
                 Couleur :
-                <select type="varchar" name="color">
-                    <?php
-                        $colors = get_database_options("car", "color");
-                        foreach ($colors as $key => $color) {
-                            echo "<option value='$color' >$color</option>";
-                        } ?>
-                </select>
+                <input type="varchar" name="color" placeholder="Couleur" pattern="[a-zA-Z]" required>
                 <br><br>
-                Numéro d'immatriculation :
-                <select type="int" name="numberplate" required>
-                    <?php
-                        $numberplates = get_database_options("car", "numberplate");
-                        foreach ($numberplates as $key => $numberplate) {
-                            echo "<option value='$numberplate' >$numberplate</option>";
-                        } ?>
-                </select>
-                fr
+                Numéro d'immatriculation : fr
+                <input type="int" name="numberplate" placeholder="ex : 1234"
+                 pattern="[0-9]{4}" required>
                 <br><br>
             </label>
 
-            <input type="submit" name="delete_car" value="Supprimer">
+            <input type="submit" name="delete" value="Supprimer">
         </form>
     </div>
 </div>

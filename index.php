@@ -1,62 +1,32 @@
 <?php
     include("php/function.php");
     Connexion();
-    global $nom_du_site, $is_connected, $is_admin, $_SESSION;
+    global $nom_du_site;
     $page_name = $nom_du_site . " - Accueil";
     $nav = "accueil";
 ?>
 
-<!-- (css) Faire des banderoles (use all width of pages) pour meilleure présentation ? -->
-<!-- (css) Améliorer le css : header, footer, search, profile, products (tabs), about -->
-<<<<<<< HEAD
-<!-- (css) Ajouter commentaires derière voiture : en faire des cartes -->
-<<<<<<< HEAD
-<!-- (css) Ajouter boutons pour afficher un seul form x3 dans admin -->
-<!-- (css) Mettre les produits affichés (ds index) sous barre de recherche -->
-
-=======
-<!-- (css) Ajouter boutons dans afficher un seul form x3 dans admin -->
-<!-- (css) Mettre les produits affichés (ds index) sous barre de recherche -->
-
-<!-- (php) Améliorer pattern dans forms -->
-<!-- (php) Ajouter personnaliser compte user (photo, modifier password, etc) -->
->>>>>>> 24f993ba1f7d6129c3500cf5c1ee4d685e0d56c3
-<!-- (php) Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
-<!-- (php) Ajouter vérification et nettoyage de la base de données (doublons, format, ids panier, etc) -->
-<!-- (php) Qd finitions site, nettoyer code (répétitions, mess en EN, guillemets,
-           supprimer code/fichiers inutiles, etc) -->
-
-<!-- (sql) Adapter le code à data/garage.sql ou à data/garage/* -->
-<<<<<<< HEAD
-<!-- (js) Ajouter photo pour compte (onclick) -->
-<!-- (js) Ajouter oeil pour voir password dans forms -->
-<!-- (js) Use js pour formulaires (afficher et vérif data) et défilmt auto -->
-=======
-<<<<<<< HEAD
-<!-- (js) Use js pour formulaires (afficher et vérif data) et défilmt auto -->
-=======
-=======
-<!-- (sql) Adapter le code à data/garage.sql ou à data/garage/* -->
-
-<!-- (php) Ajouter personnaliser compte user (photo, modifier password, etc) -->
-<!-- (php) Ajouter afficher cars selon recherche (fusionner search & product ?) -->
-<!-- (css) Ajouter boutons dans afficher un seul form x3 dans admin -->
-<!-- (css) Ajouter commentaires derière voiture : en faire des cartes -->
-<!-- (php) Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
-
-<!-- Redéfinir les erreurs systèmes -->
-<!-- (php) Ajouter vérification et nettoyage de la base de données (doublons, format, etc) -->
->>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
-<!-- (js) Use pour formulaires (afficher et vérif data) et défilmt auto -->
->>>>>>> 73efe1e518605350820b74d46952fcad8e7eb7e9
->>>>>>> 24f993ba1f7d6129c3500cf5c1ee4d685e0d56c3
-<!-- (js) Pour form car, add jointure ? (lien marque-modèle) -->
+<!-- Faire une fonction (arg -> $nav) pour le php en début de programme ? -->
+<!-- Empêcher de mettre n'importe quoi dans l'url : limiter accès -->
+<!-- Créer document src ? -> mettre tous .php pages dedans ? -->
+<!-- Faire des banderoles (use all width of pages) pour meilleure présentation ? -->
+<!-- Adapter le code à data/garage.sql -->
+<!-- Améliorer le css : footer, search, profile, about -->
+<!-- Mettre logo pour réseaux sociaux -->
+<!-- Ajouter charte + mentions -->
+<!-- Ajouter personnaliser compte (photo, modifier password, etc) -->
+<!-- Redéfinir les erreurs -->
+<!-- Ajouter champ vérif password -->
+<!-- Ajouter dans database table brand avec column model -->
+<!-- Pour form car, add jointure ? -->
+<!-- Ajouter sauvergader/restaurer versions site -->
+<!-- Mettre à jour la documentation (use export/import + command pour git bash) -->
 
 <!DOCTYPE html>
 
 <html lang="fr">
     <head>
-	    <title>
+		    <title>
 		       <?php echo $page_name; ?>
         </title>
 	      <meta charset="utf-8">
@@ -66,32 +36,34 @@
         <meta name="viewport" content="width=device-width">
     </head>
 
-    <body class="accueil">
+	 <body class="accueil">
         <?php require_once "include/header.php" ?>
         <br>
 
         <main>
-            <h1>
+            <h2>
                 Bienvenue dans votre garage préféré !
-            </h1>
+            </h2>
 
-            <h3>
-	            Choisissez la voiture de vos rêves !<br>
-                Nous vous présentons nos meilleurs modèles.
-    		</h3>
-    		<br>
+            <p>
+    			     Choisissez la voiture de vos rêves !
+               <br>
+               Nous vous présentons nos meilleurs modèles.
+        		</p>
+        		<br>
+
+            <?php require_once "include/search.php" ?>
 
             <h1>
                 Nos modèles
             </h1>
-            <br>
 
             <div class="all_products">
-                <?php require_once "include/search.php" ?>
-            </div>
+                <?php require_once "include/product.php" ?>
+        		</div>
         </main>
-		<br>
+    		<br>
 
         <?php require_once "include/footer.php" ?>
-    </body>
+	  </body>
 </html>

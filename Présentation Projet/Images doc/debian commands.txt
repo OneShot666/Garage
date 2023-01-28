@@ -1,0 +1,65 @@
+Debian commands for garage project : 
+
+- Download zip file : 
+sudo wget https://github.com//OneShot666/projet-garage/archive/refs/heads/main.zip
+
+- Unzip file and move into it : 
+sudo unzip main.zip main.zip && cd project-garage-main
+
+- Moving root files into the actual project : 
+sudo mv * ../
+[normally return an error about the directories in the file]
+
+- Delete actual project files in directories : 
+cd ../css/
+sudo rm *
+cd ../data/garage/
+sudo rm *
+cd ../
+sudo rmdir garage
+sudo rm *
+cd ../images/car/
+sudo rm *
+cd ../design/
+sudo rm *
+cd ../footer/
+sudo rm *
+cd ../page/
+sudo rm *
+cd ../user/
+sudo rm *
+cd ../
+sudo rmdir car/
+sudo rmdir design/
+sudo rmdir footer/
+sudo rmdir user/
+cd ../include/
+sudo rm *
+cd ../php/
+sudo rm *
+cd ../Cahier\ des\ charges/
+sudo rm *
+cd ../Présentation\ Projet/
+sudo rmdir Images\ doc/
+sudo rmdir Images\ portfolio/
+sudo rm *
+[normally return an error about the directories in the file]
+cd Images\ doc/
+sudo rm *
+cd ../Images\ portfolio/
+sudo rm *
+cd ../../projet-garage-main/
+
+- Continue moving files into the project : 
+sudo mv * ../
+[no error should appear then]
+
+- Delete zip file : 
+sudo rm main.zip
+
+- Moving file into trash : 
+sudo mv project-garage-main trash/ && cd trash/
+
+- Rename file : 
+sudo mv project-garage-main trash4
+[if file already exist, add one to name]
