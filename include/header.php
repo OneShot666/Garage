@@ -32,11 +32,11 @@
         <ul class="menu_sommaire navbar-nav mr-auto">
             <?php
                 if ($is_connected) {
-                  Nav_item('logout.php', 'Se déconnecter');
-                  Nav_item('profile.php', "Profil");
+                    Nav_item('logout.php', 'Se déconnecter');
+                    Nav_item('profile.php', "Profil");
                 } else {
-                  Nav_item('connect.php', 'Se connecter');
-                  Nav_item('login.php', "S'inscrire");
+                    Nav_item('connect.php', 'Se connecter');
+                    Nav_item('login.php', "S'inscrire");
                 }
                 Nav_item('index.php', 'Accueil', 'float: left; margin-left: -30px;');
                 if ($is_admin) {

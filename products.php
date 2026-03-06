@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
     include("php/function.php");
     global $nom_du_site, $is_connected, $is_admin, $_SESSION;
@@ -198,36 +197,6 @@
         <?php require_once "include/footer.php" ?>
 	</body>
 </html>
-=======
-<?php
-    include("php/function.php");
-    global $nom_du_site, $is_connected, $is_admin, $_SESSION;
-    Redirection("a");
-    $page_name = $nom_du_site . " - Produits";
-    $nav = "products";
-    $tab_car = 0;
-    $tab_brand = 0;
-    $tab_user = 0;
-?>
-
-<!-- Qd JS, conserver valeur bool ($tab_...) qd refresh page -->
-
-<!DOCTYPE html>
-
-<html lang="fr">
-	<head>
-		<title>
-            <?php echo $page_name; ?>
-		</title>
-		<meta charset="utf-8">
-        <link rel="icon" type="image/png" href="img/car/icon.svg"><!--https://ionic.io/ionicons"-->
-        <!--ion-icon name="car-sport-outline"></ion-icon-->
-		    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <meta name="viewport" content="width=device-width">
-	</head>
-
-	<body class="produits">
-        <?php require_once "include/header.php" ?>
         <br>
 
 		<h1>
@@ -247,11 +216,11 @@
             <form>
                 <label>
                     <input type="submit" name="on_car" value="On"
-                           onclick="<?php if (isset($_GET["on_car"])) { $tab_car = True; } ?>">
+                        onclick="<?php if (isset($_GET["on_car"])) { $tab_car = True; } ?>">
                 </label>
                 <label>
                     <input type="submit" name="off_car" value="Off"
-                           onclick="<?php if (isset($_GET["off_car"])) { $tab_car = False; } ?>">
+                        onclick="<?php if (isset($_GET["off_car"])) { $tab_car = False; } ?>">
                 </label>
             </form>
         </div>
@@ -301,11 +270,11 @@
             <form>
                 <label>
                     <input type="submit" name="on_brand" value="On"
-                           onclick="<?php if (isset($_GET["on_brand"])) { $tab_brand = True; } ?>">
+                        onclick="<?php if (isset($_GET["on_brand"])) { $tab_brand = True; } ?>">
                 </label>
                 <label>
                     <input type="submit" name="off_brand" value="Off"
-                           onclick="<?php if (isset($_GET["off_brand"])) { $tab_brand = False; } ?>">
+                        onclick="<?php if (isset($_GET["off_brand"])) { $tab_brand = False; } ?>">
                 </label>
             </form>
         </div>
@@ -352,11 +321,11 @@
             <form>
                 <label>
                     <input type="submit" name="on_user" value="On"
-                           onclick="<?php if (isset($_GET["on_user"])) { $tab_user = True; } ?>">
+                        onclick="<?php if (isset($_GET["on_user"])) { $tab_user = True; } ?>">
                 </label>
                 <label>
                     <input type="submit" name="off_user" value="Off"
-                           onclick="<?php if (isset($_GET["off_user"])) { $tab_user = False; } ?>">
+                        onclick="<?php if (isset($_GET["off_user"])) { $tab_user = False; } ?>">
                 </label>
             </form>
         </div>
@@ -402,4 +371,3 @@
         <?php require_once "include/footer.php" ?>
 	</body>
 </html>
->>>>>>> de35599262b94eb2251ba41078ff191e9fea0818
