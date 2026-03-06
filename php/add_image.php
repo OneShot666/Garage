@@ -26,7 +26,7 @@
                         $extensionUpload = strtolower(substr(strrchr($_FILES['file']['name'], '.'), 1));
 
                         if (in_array($extensionUpload, $extensionsValides)) {   // Vérifie extension correcte
-                            $dossier = "images/user/";
+                            $dossier = "img/user/";
                             $nom = $_SESSION['id'].".jpg";
                             $image = $dossier.$nom;
 

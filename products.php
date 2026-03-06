@@ -1,11 +1,15 @@
 <?php
     include("php/function.php");
     global $nom_du_site, $is_connected, $is_admin, $_SESSION;
-    if (!$_SESSION['username'] or !$is_admin) { header("Location: error.php"); }
+    Redirection("a");
     $page_name = $nom_du_site . " - Produits";
     $nav = "products";
-    $tab = 0;
+    $tab_car = 0;
+    $tab_brand = 0;
+    $tab_user = 0;
 ?>
+
+<!-- Qd JS, conserver valeur bool ($tab_...) qd refresh page -->
 
 <!DOCTYPE html>
 
@@ -15,7 +19,7 @@
             <?php echo $page_name; ?>
 		</title>
 		<meta charset="utf-8">
-        <link rel="icon" type="image/png" href="images/car/icon.svg"><!--https://ionic.io/ionicons"-->
+        <link rel="icon" type="image/png" href="img/car/icon.svg"><!--https://ionic.io/ionicons"-->
         <!--ion-icon name="car-sport-outline"></ion-icon-->
 		    <link rel="stylesheet" type="text/css" href="css/style.css">
     <meta name="viewport" content="width=device-width">
@@ -23,50 +27,43 @@
 
 	<body class="produits">
         <?php require_once "include/header.php" ?>
-
         <br>
 
 		<h1>
 			Nos produits
 		</h1>
-
-		<p>
-			Nos meilleurs modèles !
-		</p>
-
         <br>
 
         <div>
-            <span>
-                Base de données :
-            </span>
+            <h3>
+                Nos voitures :
+            </h3>
 
             <form>
                 <label>
-                    <input type="submit" name="on" value="On"
-                           onclick="<?php if (isset($_GET["on"])) { $tab = True; } ?>">
+                    <input type="submit" name="on_car" value="On"
+                        onclick="<?php if (isset($_GET["on_car"])) $tab_car = True; ?>">
                 </label>
                 <label>
-                    <input type="submit" name="off" value="Off"
-                           onclick="<?php if (isset($_GET["off"])) { $tab = False; } ?>">
+                    <input type="submit" name="off_car" value="Off"
+                        onclick="<?php if (isset($_GET["off_car"])) $tab_car = False; ?>">
                 </label>
             </form>
         </div>
+        <br>
 
-        <br><br><br>
-
-        <?php if ($tab) { ?>
-            <div id="#tab">
+        <?php if ($tab_car) { ?>
+            <div id="#tab_car">
                 <table>
                     <thead>
                         <?php
-                            $resultat = Database();
+                            $resultat = Database("car");
                             $database = $resultat[0];
 
                             $titre = $database[0];
                             foreach ($titre as $name=>$value) {
-                                echo "<th>" . $name . "</th>";
-                        }
+                                echo "<th>".$name."</th>";
+                            }
                         ?>
                     </thead>
 
@@ -77,15 +74,9 @@
                                     echo "<tr>";
                                     foreach ($colonne as $annexe=>$ligne) {
                                         echo "<td>".$ligne;
-                                        if ($annexe == "prix") {
-                                            echo " &#8364;</td>";
-                                        }
-                                        else if ($annexe == "nb chevaux") {
-                                            echo " CH</td>";
-                                        }
-                                        else {
-                                            echo "</td>";
-                                        }
+                                        if ($annexe == "price") { echo " &#8364;"; }
+                                        else if ($annexe == "horsepower") { echo " CH"; }
+                                        echo "</td>";
                                     }
                                     echo "</tr>";
                                 }
@@ -95,7 +86,286 @@
                 </table>
             </div>
         <?php } ?>
+        <br>
 
+        <div>
+            <h3>
+                Nos marques :
+            </h3>
+
+            <form>
+                <label>
+                    <input type="submit" name="on_brand" value="On"
+                        onclick="<?php if (isset($_GET["on_brand"])) $tab_brand = True; ?>">
+                </label>
+                <label>
+                    <input type="submit" name="off_brand" value="Off"
+                        onclick="<?php if (isset($_GET["off_brand"])) $tab_brand = False; ?>">
+                </label>
+            </form>
+        </div>
+        <br>
+
+        <?php if ($tab_brand) { ?>
+            <div id="#tab_brand">
+                <table>
+                    <thead>
+                        <?php
+                            $resultat = Database("brand");
+                            $database = $resultat[0];
+
+                            $titre = $database[0];
+                            foreach ($titre as $name=>$value) {
+                                echo "<th>".$name."</th>";
+                            }
+                        ?>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                            foreach ($resultat as $database) {
+                                foreach ($database as $colonne) {
+                                    echo "<tr>";
+                                    foreach ($colonne as $annexe=>$ligne) {
+                                        echo "<td>".$ligne."</td>";
+                                    }
+                                    echo "</tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php } ?>
+        <br>
+
+        <div>
+            <h3>
+                Nos utilisateurs :
+            </h3>
+
+            <form>
+                <label>
+                    <input type="submit" name="on_user" value="On"
+                        onclick="<?php if (isset($_GET["on_user"])) $tab_user = True; ?>">
+                </label>
+                <label>
+                    <input type="submit" name="off_user" value="Off"
+                        onclick="<?php if (isset($_GET["off_user"])) $tab_user = False; ?>">
+                </label>
+            </form>
+        </div>
+        <br>
+
+        <?php if ($tab_user) { ?>
+            <div id="#tab_user">
+                <table>
+                    <thead>
+                        <?php
+                            $resultat = Database("user");
+                            $database = $resultat[0];
+
+                            $titre = $database[0];
+                            foreach ($titre as $name=>$value) {
+                                echo "<th>".$name."</th>";
+                            }
+                        ?>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                            foreach ($resultat as $database) {
+                                foreach ($database as $colonne) {
+                                    echo "<tr>";
+                                    foreach ($colonne as $annexe=>$ligne) {
+                                        echo "<td>";
+                                        echo ($annexe == "phone" and $ligne != "") ? 
+                                            "+687 ".get_form_phone($ligne) : $ligne;
+                                        if ($annexe == "age") { echo " ans"; }
+                                        echo "</td>";
+                                    }
+                                    echo "</tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php } ?>
+        <br>
+
+        <?php require_once "include/footer.php" ?>
+	</body>
+</html>
+        <br>
+
+		<h1>
+			Nos produits
+		</h1>
+
+		<h3>
+			Nos meilleurs modèles !
+		</h3>
+        <br>
+
+        <div>
+            <span>
+                Les voitures :
+            </span>
+
+            <form>
+                <label>
+                    <input type="submit" name="on_car" value="On"
+                        onclick="<?php if (isset($_GET["on_car"])) { $tab_car = True; } ?>">
+                </label>
+                <label>
+                    <input type="submit" name="off_car" value="Off"
+                        onclick="<?php if (isset($_GET["off_car"])) { $tab_car = False; } ?>">
+                </label>
+            </form>
+        </div>
+        <br>
+
+        <?php if ($tab_car) { ?>
+            <div id="#tab_car">
+                <table>
+                    <thead>
+                        <?php
+                            $resultat = Database("car");
+                            $database = $resultat[0];
+
+                            $titre = $database[0];
+                            foreach ($titre as $name=>$value) {
+                                echo "<th>".$name."</th>";
+                            }
+                        ?>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                            foreach ($resultat as $database) {
+                                foreach ($database as $colonne) {
+                                    echo "<tr>";
+                                    foreach ($colonne as $annexe=>$ligne) {
+                                        echo "<td>".$ligne;
+                                        if ($annexe == "price") { echo " &#8364;"; }
+                                        else if ($annexe == "horsepower") { echo " CH"; }
+                                        echo "</td>";
+                                    }
+                                    echo "</tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php } ?>
+        <br>
+
+        <div>
+            <span>
+                Les marques :
+            </span>
+
+            <form>
+                <label>
+                    <input type="submit" name="on_brand" value="On"
+                        onclick="<?php if (isset($_GET["on_brand"])) { $tab_brand = True; } ?>">
+                </label>
+                <label>
+                    <input type="submit" name="off_brand" value="Off"
+                        onclick="<?php if (isset($_GET["off_brand"])) { $tab_brand = False; } ?>">
+                </label>
+            </form>
+        </div>
+        <br>
+
+        <?php if ($tab_brand) { ?>
+            <div id="#tab_brand">
+                <table>
+                    <thead>
+                        <?php
+                            $resultat = Database("brand");
+                            $database = $resultat[0];
+
+                            $titre = $database[0];
+                            foreach ($titre as $name=>$value) {
+                                echo "<th>".$name."</th>";
+                            }
+                        ?>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                            foreach ($resultat as $database) {
+                                foreach ($database as $colonne) {
+                                    echo "<tr>";
+                                    foreach ($colonne as $annexe=>$ligne) {
+                                        echo "<td>".$ligne."</td>";
+                                    }
+                                    echo "</tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php } ?>
+        <br>
+
+        <div>
+            <span>
+                Les utilisateurs :
+            </span>
+
+            <form>
+                <label>
+                    <input type="submit" name="on_user" value="On"
+                        onclick="<?php if (isset($_GET["on_user"])) { $tab_user = True; } ?>">
+                </label>
+                <label>
+                    <input type="submit" name="off_user" value="Off"
+                        onclick="<?php if (isset($_GET["off_user"])) { $tab_user = False; } ?>">
+                </label>
+            </form>
+        </div>
+        <br>
+
+        <?php if ($tab_user) { ?>
+            <div id="#tab_user">
+                <table>
+                    <thead>
+                        <?php
+                            $resultat = Database("user");
+                            $database = $resultat[0];
+
+                            $titre = $database[0];
+                            foreach ($titre as $name=>$value) {
+                                echo "<th>".$name."</th>";
+                            }
+                        ?>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                            foreach ($resultat as $database) {
+                                foreach ($database as $colonne) {
+                                    echo "<tr>";
+                                    foreach ($colonne as $annexe=>$ligne) {
+                                        echo "<td>";
+                                        echo ($annexe == "phone") ? "+687 ".get_form_phone($ligne) :
+                                            $ligne;
+                                        if ($annexe == "age") { echo " ans"; }
+                                        echo "</td>";
+                                    }
+                                    echo "</tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php } ?>
         <br>
 
         <?php require_once "include/footer.php" ?>

@@ -1,9 +1,9 @@
 <?php
-if (!isset($_SESSION['rights'])) {
-    if (strpos($_SERVER['PHP_SELF'], '/include') or strpos($_SERVER['PHP_SELF'], '/php')) {
-        header("Location: ../index.php");
+    if (!isset($_SESSION['rights'])) {
+        if (strpos($_SERVER['PHP_SELF'], '/include') or strpos($_SERVER['PHP_SELF'], '/php')) {
+            header("Location: ../index.php");
+        }
     }
-}
 ?>
 
 <div>
@@ -33,25 +33,25 @@ if (!isset($_SESSION['rights'])) {
                 <li>
                     <a href="https://www.facebook.com" target="_blank">
                         <img class="logo" style="background-color: lightblue;"
-                        alt="Facebook" src="images/footer/facebook_logo.png">
+                        alt="Facebook" src="img/footer/facebook_logo.png">
                     </a>
                 </li>
                 <li>
                     <a href="https://www.instagram.com" target="_blank">
                         <img class="logo" style="background-color: lightpink;"
-                        alt="Instagram" src="images/footer/instagram_logo.png">
+                        alt="Instagram" src="img/footer/instagram_logo.png">
                     </a>
                 </li>
                 <li>
                     <a href="https://www.twitter.com" target="_blank">
                         <img class="logo" style="background-color: powderblue;"
-                        alt="Twitter" src="images/footer/twitter_logo.png">
+                        alt="Twitter" src="img/footer/twitter_logo.png">
                     </a>
                 </li>
                 <li>
                     <a href="https://www.linkedin.com" target="_blank">
                         <img class="logo" style="background-color: lightskyblue;"
-                        alt="LinkedIn" src="images/footer/linkedin_logo.png">
+                        alt="LinkedIn" src="img/footer/linkedin_logo.png">
                     </a>
                 </li>
             </ul>
@@ -59,6 +59,7 @@ if (!isset($_SESSION['rights'])) {
     </footer>
 
     <p class="copyright">
-        &copy; Copyright - <a href="#">Charte de confidentialité</a> - <a href="#">Mentions légales</a>
+        &copy; Copyright - <a href="notice.php#notice">Charte de confidentialité</a> -
+        <a href="notice.php#charter">Mentions légales</a>
     </p>
 </div>

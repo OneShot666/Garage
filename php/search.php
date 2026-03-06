@@ -6,11 +6,11 @@
     if (isset($envoyer) && !empty(trim($recherche))) {
         $words = explode(" ", trim($recherche));  // Accepte plusieurs mots
         for ($i=0; $i < count($words); $i++) {
-            $word[$i] = "model LIKE '%".$words[$i]."%'";
+            $word[$i] = "modèle LIKE '%".$words[$i]."%'";
         }
         $connexion = Connexion();
         // "OR" : pour mots sans liens; "AND" : pour mots à la suite
-        $results = $connexion->prepare("SELECT * FROM garage.car WHERE ".implode(" OR ", $word));
+        $results = $connexion->prepare("SELECT modèle FROM garage.voiture WHERE ".implode(" OR ", $word));
         $results->setFetchMode(PDO::FETCH_ASSOC);  // Database en tableau associatif
         $results->execute();
         @$tableau = $results->fetchAll();
@@ -36,8 +36,8 @@
             <ol>
                 <?php
                     for ($i=0; $i < count(@$tableau); $i++) {
-                      echo "<li>" . @$tableau[$i]['brand'] . " " . @$tableau[$i]["model"] .
-                      " : " . @$tableau[$i]["price"] . " &euro;</li>";
+                        echo "<li>".@$tableau[$i]['modèle'].", ".@$tableau[$i]["marque"]." : ".
+                             @$tableau[$i]["prix"]." &euro;</li>";
                     }
                 ?>
             </ol>

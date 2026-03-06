@@ -2,7 +2,7 @@
     global $nom_du_site, $is_connected, $is_admin, $_SESSION;
     if (!isset($_SESSION['rights'])) {
         if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
-        strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
+        strpos($_SERVER['PHP_SELF'], '/img') or strpos($_SERVER['PHP_SELF'], '/include') or
         strpos($_SERVER['PHP_SELF'], '/php')) {
             header("Location: ../index.php");
         }
@@ -32,11 +32,11 @@
         <ul class="menu_sommaire navbar-nav mr-auto">
             <?php
                 if ($is_connected) {
-                  Nav_item('logout.php', 'Se déconnecter');
-                  Nav_item('profile.php', "Profil");
+                    Nav_item('logout.php', 'Se déconnecter');
+                    Nav_item('profile.php', "Profil");
                 } else {
-                  Nav_item('connect.php', 'Se connecter');
-                  Nav_item('login.php', "S'inscrire");
+                    Nav_item('connect.php', 'Se connecter');
+                    Nav_item('login.php', "S'inscrire");
                 }
                 Nav_item('index.php', 'Accueil', 'float: left; margin-left: -30px;');
                 if ($is_admin) {

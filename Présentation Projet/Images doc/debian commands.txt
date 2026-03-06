@@ -18,7 +18,7 @@ sudo rm *
 cd ../
 sudo rmdir garage
 sudo rm *
-cd ../images/car/
+cd ../img/car/
 sudo rm *
 cd ../design/
 sudo rm *

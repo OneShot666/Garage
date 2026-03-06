@@ -1,8 +1,8 @@
 <?php
-    global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars;
+    global $nom_du_site, $is_connected, $is_admin, $_SESSION, $array_cars, $patterns;
     if (!isset($_SESSION['rights'])) {
         if (strpos($_SERVER['PHP_SELF'], '/css') or strpos($_SERVER['PHP_SELF'], '/data') or
-        strpos($_SERVER['PHP_SELF'], '/images') or strpos($_SERVER['PHP_SELF'], '/include') or
+        strpos($_SERVER['PHP_SELF'], '/img') or strpos($_SERVER['PHP_SELF'], '/include') or
         strpos($_SERVER['PHP_SELF'], '/php')) {
             header("Location: ../index.php");
         }
@@ -18,17 +18,14 @@
     <br>
 
     <?php
-        // ! Vérifier type donnée entrée
-        // ! Ajouter vérifier taille prix (4-6) & numberplate (4) & créer description auto
-        // Vérifie données entrées
-        if (isset($_POST['add']) AND $_POST['add'] == "Ajouter") {
+        if (isset($_POST['add_car']) AND $_POST['add_car'] == "Ajouter") {
             echo "<strong>Formulaire envoyé !<br><p style='color:red;'>";
             if (isset($_POST['price']) AND $_POST['price'] < 0) {
                 echo "Veuillez donner un prix positif !";
             } else if (isset($_POST['horsepower']) AND $_POST['horsepower'] < 0) {
                 echo "Veuillez donner une puissance en chevaux positive !";
             } else if (isset($_POST['numberplate']) AND $_POST['numberplate'] < 0) {
-                echo "Veuillez donner un numéro d'immatriculation positif !";
+                echo "Veuillez donner un numéro d'immatriculation correct !";
             } else if (isset($_POST['age']) AND $_POST['age'] < 0) {
                 echo "Veuillez donner un age positif !";
             } else {
@@ -40,11 +37,11 @@
         }
     ?>
 
-    <div class="search_bar">
+    <div>
         <form action="" method="post">
             <label>
                 Marque :
-                <select type="text" name="brand" placeholder="Marque" required>
+                <select type="text" name="brand" required>
                     <?php
                         foreach ($array_cars as $key => $brand) {
                             echo ($key=="Citroen") ? "<option value='$key' selected>$key</option>" :
@@ -53,27 +50,32 @@
                 </select>
                 <br><br>
                 Modèle :
-                <select type="text" name="model" placeholder="Modèle" required>
+                <select type="text" name="model" required>
                     <?php
-                        foreach ($array_cars as $key => $brand) {
-                            foreach ($brand as $key2 => $model) {
-                              echo ($model=="C4") ? "<option value='$model' selected>$model</option>" :
-                              "<option value='$model' >$model</option>";
-                            }
+                        $models = get_dictionnary_options($array_cars);
+                        foreach ($models as $key => $model) {
+                            echo ($model=="C4") ? "<option value='$model' selected>$model</option>" :
+                            "<option value='$model' >$model</option>";
                         } ?>
                 </select>
                 <br><br>
                 Prix (en euro) :
-                <input type="int" name="price" placeholder="Prix" pattern="[0-9]{3,8}" required>
+                <input type="int" name="price" placeholder="Prix" pattern="<?= $patterns['price']; ?>" required>
                 &#8364;
                 <br><br>
                 Couleur :
-                <input type="varchar" name="color" placeholder="Couleur" pattern="[a-zA-Z]">
+                <select type="varchar" name="color" pattern="<?= $patterns['color']; ?>">
+                <?php
+                    sort($colors);
+                    foreach ($colors as $key => $value) {
+                        echo "<option value='$value' >".ucfirst($value)."</option>";
+                    } ?>
+                </select>
                 <br><br>
                 Chevaux moteur :
                 <select type="int" name="horsepower" required>
                     <?php
-                        for ($i=10; $i <= 2000; $i+=10) {
+                        for ($i=0; $i <= 2000; $i+=10) {
                             echo "<option value='$i' >$i</option>";
                         } ?>
                 </select>
@@ -81,7 +83,7 @@
                 <br><br>
                 Numéro d'immatriculation :
                 <input type="int" name="numberplate" placeholder="ex : 1234"
-                 pattern="[0-9]{4}" required>
+                    pattern="<?= $patterns['numerplate']; ?>" required>
                 fr
                 <br><br>
                 Age (en année) :
@@ -97,15 +99,15 @@
                 <br><br>
                 Date d'arrivée dans notre garage :
                 <input type="date" name="inscription_date" value="<?php echo date('Y-m-d'); ?>"
-                       placeholder="Date d'entrée au garage">
+                    placeholder="Date d'entrée au garage">
                 <br><br>
-                Description :
-                <input type="text" name="description" placeholder="Description de la voiture"
-                 pattern="[a-zA-Z0-9_-]{20,999}">
+                Description : <br>
+                <textarea name="description" placeholder="Description de la voiture"
+                    pattern="<?= $patterns['description']; ?>"></textarea>
                 <br><br>
             </label>
 
-            <input type="submit" name="add" value="Ajouter">
+            <input type="submit" name="add_car" value="Ajouter">
         </form>
     </div>
 </div>
