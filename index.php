@@ -21,7 +21,7 @@
 <!-- (php) Rendre le site personnalisable si je suis connecté (refresh, admin, ...) -->
 <!-- (php) Ajouter vérification et nettoyage de la base de données (doublons, format, ids panier, etc) -->
 <!-- (php) Qd finitions site, nettoyer code (répétitions, mess en EN, guillemets,
-           supprimer code/fichiers inutiles, etc) -->
+            supprimer code/fichiers inutiles, etc) -->
 <!-- (php) Ajouter personnaliser compte user (photo, modifier password, etc) -->
 <!-- (php) Ajouter afficher cars selon recherche (fusionner search & product ?) -->
 <!-- (php) Ajouter vérification et nettoyage de la base de données (doublons, format, etc) -->
